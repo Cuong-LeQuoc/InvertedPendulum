@@ -31,7 +31,16 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "FreeRTOS.h"
+#include "task.h"
+#include "arm_math.h"
 
+#include "printf.h"
+
+#include "usart.h"
+
+#include "Estimator.h"
+#include "Computer.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

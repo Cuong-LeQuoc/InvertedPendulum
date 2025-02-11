@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "usart.h": "c",
+        "cstdint": "c",
+        "main.h": "c"
+    }
+}

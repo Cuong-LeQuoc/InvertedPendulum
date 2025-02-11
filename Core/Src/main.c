@@ -21,11 +21,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "FreeRTOS.h"
-#include "task.h"
-#include "arm_math.h"
-
-#include "printf.h"
 
 /* USER CODE END Includes */
 
@@ -56,8 +51,11 @@ UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
-float32_t testSin = 0;
-char buffer[20];
+static struct Computer computer;
+static struct Active * computer_AO = &computer.super;
+
+static struct Estimator estimator;
+static struct Active * estimator_AO = &estimator.super;
 
 /* USER CODE END PV */
 
@@ -72,25 +70,12 @@ static void MX_TIM7_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_ADC1_Init(void);
 /* USER CODE BEGIN PFP */
-void SendBuffer(UART_HandleTypeDef *huart, char* buffer) {
-  uint64_t length = strlen(buffer);
-  HAL_UART_Transmit_IT(huart, (uint8_t*) buffer, length);
-}
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void mainTask(void * pvParameters) {
 
-  for(;;) {
-    HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
-
-    sprintf(buffer, "Test code: %0.4f\n", 1.0);
-    SendBuffer(&huart3, buffer);
-
-    vTaskDelay(pdMS_TO_TICKS(1000));
-  }
-}
 /* USER CODE END 0 */
 
 /**
@@ -131,9 +116,11 @@ int main(void)
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
 
-  testSin = arm_sin_f32(PI/2);
-  
-  xTaskCreate(mainTask, NULL, 130, NULL, 1, NULL);
+  Computer.new(&computer);
+  computer.super.start(computer_AO, 1, 15, 1000);
+
+  Estimator.new(&estimator);
+  estimator.super.start(estimator_AO, 2, 20, 3000);
 
   vTaskStartScheduler();
 
@@ -143,7 +130,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

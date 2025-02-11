@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -27,7 +27,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
   24              		.thumb
   25              		.thumb_func
   27              	HAL_MspInit:
-  28              	.LFB239:
+  28              	.LFB288:
    1:Core/Src/stm32f4xx_hal_msp.c **** /* USER CODE BEGIN Header */
    2:Core/Src/stm32f4xx_hal_msp.c **** /**
    3:Core/Src/stm32f4xx_hal_msp.c ****   ******************************************************************************
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
   28:Core/Src/stm32f4xx_hal_msp.c **** /* USER CODE BEGIN TD */
   29:Core/Src/stm32f4xx_hal_msp.c **** 
   30:Core/Src/stm32f4xx_hal_msp.c **** /* USER CODE END TD */
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 2
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 2
 
 
   31:Core/Src/stm32f4xx_hal_msp.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
   43 0006 0B4B     		ldr	r3, .L3
   44 0008 5A6C     		ldr	r2, [r3, #68]
   45 000a 42F48042 		orr	r2, r2, #16384
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 3
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 3
 
 
   46 000e 5A64     		str	r2, [r3, #68]
@@ -165,7 +165,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
   79              	.L3:
   80 0034 00380240 		.word	1073887232
   81              		.cfi_endproc
-  82              	.LFE239:
+  82              	.LFE288:
   84              		.section	.text.HAL_ADC_MspInit,"ax",%progbits
   85              		.align	1
   86              		.global	HAL_ADC_MspInit
@@ -174,11 +174,11 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
   89              		.thumb_func
   91              	HAL_ADC_MspInit:
   92              	.LVL0:
-  93              	.LFB240:
+  93              	.LFB289:
   79:Core/Src/stm32f4xx_hal_msp.c **** 
   80:Core/Src/stm32f4xx_hal_msp.c **** /**
   81:Core/Src/stm32f4xx_hal_msp.c **** * @brief ADC MSP Initialization
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 4
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 4
 
 
   82:Core/Src/stm32f4xx_hal_msp.c **** * This function configures the hardware resources used in this example
@@ -237,8 +237,8 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  104:Core/Src/stm32f4xx_hal_msp.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
  105:Core/Src/stm32f4xx_hal_msp.c **** 
  106:Core/Src/stm32f4xx_hal_msp.c ****     /* ADC1 interrupt Init */
- 107:Core/Src/stm32f4xx_hal_msp.c ****     HAL_NVIC_SetPriority(ADC_IRQn, 0, 0);
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 5
+ 107:Core/Src/stm32f4xx_hal_msp.c ****     HAL_NVIC_SetPriority(ADC_IRQn, 8, 0);
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 5
 
 
  108:Core/Src/stm32f4xx_hal_msp.c ****     HAL_NVIC_EnableIRQ(ADC_IRQn);
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
   97:Core/Src/stm32f4xx_hal_msp.c ****     /**ADC1 GPIO Configuration
  162              		.loc 1 97 5 view .LVU31
  163 0046 1B6B     		ldr	r3, [r3, #48]
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 6
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 6
 
 
  164 0048 03F00103 		and	r3, r3, #1
@@ -335,7 +335,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  107:Core/Src/stm32f4xx_hal_msp.c ****     HAL_NVIC_EnableIRQ(ADC_IRQn);
  186              		.loc 1 107 5 is_stmt 1 view .LVU41
  187 0060 2246     		mov	r2, r4
- 188 0062 2146     		mov	r1, r4
+ 188 0062 0821     		movs	r1, #8
  189 0064 1220     		movs	r0, #18
  190 0066 FFF7FEFF 		bl	HAL_NVIC_SetPriority
  191              	.LVL5:
@@ -351,19 +351,19 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  200              	.L9:
  201 0074 00000240 		.word	1073872896
  202              		.cfi_endproc
- 203              	.LFE240:
+ 203              	.LFE289:
  205              		.section	.text.HAL_ADC_MspDeInit,"ax",%progbits
  206              		.align	1
  207              		.global	HAL_ADC_MspDeInit
  208              		.syntax unified
  209              		.thumb
  210              		.thumb_func
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 7
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 7
 
 
  212              	HAL_ADC_MspDeInit:
  213              	.LVL7:
- 214              	.LFB241:
+ 214              	.LFB290:
  116:Core/Src/stm32f4xx_hal_msp.c **** 
  117:Core/Src/stm32f4xx_hal_msp.c **** /**
  118:Core/Src/stm32f4xx_hal_msp.c **** * @brief ADC MSP De-Initialization
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  236              	.LVL9:
  237              	.L14:
  131:Core/Src/stm32f4xx_hal_msp.c **** 
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 8
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 8
 
 
  238              		.loc 1 131 5 is_stmt 1 view .LVU50
@@ -449,7 +449,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  260 002c 00380240 		.word	1073887232
  261 0030 00000240 		.word	1073872896
  262              		.cfi_endproc
- 263              	.LFE241:
+ 263              	.LFE290:
  265              		.section	.text.HAL_TIM_Encoder_MspInit,"ax",%progbits
  266              		.align	1
  267              		.global	HAL_TIM_Encoder_MspInit
@@ -458,7 +458,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  270              		.thumb_func
  272              	HAL_TIM_Encoder_MspInit:
  273              	.LVL13:
- 274              	.LFB242:
+ 274              	.LFB291:
  146:Core/Src/stm32f4xx_hal_msp.c **** 
  147:Core/Src/stm32f4xx_hal_msp.c **** /**
  148:Core/Src/stm32f4xx_hal_msp.c **** * @brief TIM_Encoder MSP Initialization
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  282              		.cfi_def_cfa_offset 8
  283              		.cfi_offset 4, -8
  284              		.cfi_offset 14, -4
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 9
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 9
 
 
  285 0002 8AB0     		sub	sp, sp, #40
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  185:Core/Src/stm32f4xx_hal_msp.c ****   /* USER CODE BEGIN TIM3_MspInit 0 */
  186:Core/Src/stm32f4xx_hal_msp.c **** 
  187:Core/Src/stm32f4xx_hal_msp.c ****   /* USER CODE END TIM3_MspInit 0 */
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 10
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 10
 
 
  188:Core/Src/stm32f4xx_hal_msp.c ****     /* Peripheral clock enable */
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  334              		.loc 1 162 5 view .LVU69
  335 003a 019A     		ldr	r2, [sp, #4]
  336              	.LBE6:
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 11
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 11
 
 
  162:Core/Src/stm32f4xx_hal_msp.c **** 
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  374              	.LVL17:
  177:Core/Src/stm32f4xx_hal_msp.c ****     HAL_NVIC_EnableIRQ(TIM2_IRQn);
  375              		.loc 1 177 5 is_stmt 1 view .LVU87
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 12
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 12
 
 
  376 0064 2246     		mov	r2, r4
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  418              		.loc 1 191 5 view .LVU99
  419 00a0 049B     		ldr	r3, [sp, #16]
  420              	.LBE9:
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 13
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 13
 
 
  191:Core/Src/stm32f4xx_hal_msp.c ****     /**TIM3 GPIO Configuration
@@ -774,11 +774,11 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  458 00cc 00000240 		.word	1073872896
  459 00d0 00380240 		.word	1073887232
  460              		.cfi_endproc
- 461              	.LFE242:
+ 461              	.LFE291:
  463              		.section	.text.HAL_TIM_Base_MspInit,"ax",%progbits
  464              		.align	1
  465              		.global	HAL_TIM_Base_MspInit
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 14
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 14
 
 
  466              		.syntax unified
@@ -786,7 +786,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  468              		.thumb_func
  470              	HAL_TIM_Base_MspInit:
  471              	.LVL25:
- 472              	.LFB243:
+ 472              	.LFB292:
  212:Core/Src/stm32f4xx_hal_msp.c **** 
  213:Core/Src/stm32f4xx_hal_msp.c **** /**
  214:Core/Src/stm32f4xx_hal_msp.c **** * @brief TIM_Base MSP Initialization
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  497              	.LVL26:
  498              	.L25:
  236:Core/Src/stm32f4xx_hal_msp.c ****   {
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 15
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 15
 
 
  237:Core/Src/stm32f4xx_hal_msp.c ****   /* USER CODE BEGIN TIM7_MspInit 0 */
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  229:Core/Src/stm32f4xx_hal_msp.c ****     HAL_NVIC_EnableIRQ(TIM6_DAC_IRQn);
  532              		.loc 1 229 5 is_stmt 0 view .LVU129
  533 0034 FFF7FEFF 		bl	HAL_NVIC_SetPriority
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 16
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 16
 
 
  534              	.LVL29:
@@ -957,8 +957,8 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  577 006c 00140040 		.word	1073746944
  578 0070 00380240 		.word	1073887232
  579              		.cfi_endproc
- 580              	.LFE243:
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 17
+ 580              	.LFE292:
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 17
 
 
  582              		.section	.text.HAL_TIM_Encoder_MspDeInit,"ax",%progbits
@@ -969,7 +969,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  587              		.thumb_func
  589              	HAL_TIM_Encoder_MspDeInit:
  590              	.LVL35:
- 591              	.LFB244:
+ 591              	.LFB293:
  251:Core/Src/stm32f4xx_hal_msp.c **** 
  252:Core/Src/stm32f4xx_hal_msp.c **** /**
  253:Core/Src/stm32f4xx_hal_msp.c **** * @brief TIM_Encoder MSP De-Initialization
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  280:Core/Src/stm32f4xx_hal_msp.c ****   else if(htim_encoder->Instance==TIM3)
  608              		.loc 1 280 8 is_stmt 1 view .LVU146
  609              		.loc 1 280 10 is_stmt 0 view .LVU147
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 18
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 18
 
 
  610 000a 0F4A     		ldr	r2, .L39
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  638              		.loc 1 286 5 view .LVU153
  639 002c 02F50D32 		add	r2, r2, #144384
  640 0030 136C     		ldr	r3, [r2, #64]
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 19
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 19
 
 
  641 0032 23F00203 		bic	r3, r3, #2
@@ -1106,7 +1106,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  660 004c 00380240 		.word	1073887232
  661 0050 00000240 		.word	1073872896
  662              		.cfi_endproc
- 663              	.LFE244:
+ 663              	.LFE293:
  665              		.section	.text.HAL_TIM_Base_MspDeInit,"ax",%progbits
  666              		.align	1
  667              		.global	HAL_TIM_Base_MspDeInit
@@ -1115,7 +1115,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  670              		.thumb_func
  672              	HAL_TIM_Base_MspDeInit:
  673              	.LVL45:
- 674              	.LFB245:
+ 674              	.LFB294:
  302:Core/Src/stm32f4xx_hal_msp.c **** 
  303:Core/Src/stm32f4xx_hal_msp.c **** /**
  304:Core/Src/stm32f4xx_hal_msp.c **** * @brief TIM_Base MSP De-Initialization
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  311:Core/Src/stm32f4xx_hal_msp.c ****   if(htim_base->Instance==TIM6)
  685              		.loc 1 311 3 is_stmt 1 view .LVU160
  686              		.loc 1 311 15 is_stmt 0 view .LVU161
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 20
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 20
 
 
  687 0002 0368     		ldr	r3, [r0]
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  710              	.LVL48:
  320:Core/Src/stm32f4xx_hal_msp.c ****   /* USER CODE BEGIN TIM6_MspDeInit 1 */
  711              		.loc 1 320 5 is_stmt 0 view .LVU168
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 21
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 21
 
 
  712 0020 FFF7FEFF 		bl	HAL_NVIC_DisableIRQ
@@ -1228,7 +1228,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  733 003c 00100040 		.word	1073745920
  734 0040 00140040 		.word	1073746944
  735              		.cfi_endproc
- 736              	.LFE245:
+ 736              	.LFE294:
  738              		.section	.text.HAL_UART_MspInit,"ax",%progbits
  739              		.align	1
  740              		.global	HAL_UART_MspInit
@@ -1237,7 +1237,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  743              		.thumb_func
  745              	HAL_UART_MspInit:
  746              	.LVL53:
- 747              	.LFB246:
+ 747              	.LFB295:
  341:Core/Src/stm32f4xx_hal_msp.c **** 
  342:Core/Src/stm32f4xx_hal_msp.c **** /**
  343:Core/Src/stm32f4xx_hal_msp.c **** * @brief UART MSP Initialization
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  756              		.cfi_offset 4, -8
  757              		.cfi_offset 14, -4
  758 0002 8AB0     		sub	sp, sp, #40
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 22
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 22
 
 
  759              	.LCFI18:
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  380:Core/Src/stm32f4xx_hal_msp.c ****   /* USER CODE BEGIN USART3_MspInit 0 */
  381:Core/Src/stm32f4xx_hal_msp.c **** 
  382:Core/Src/stm32f4xx_hal_msp.c ****   /* USER CODE END USART3_MspInit 0 */
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 23
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 23
 
 
  383:Core/Src/stm32f4xx_hal_msp.c ****     /* Peripheral clock enable */
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  808              		.loc 1 357 5 view .LVU187
  809 0038 019A     		ldr	r2, [sp, #4]
  810              	.LBE12:
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 24
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 24
 
 
  357:Core/Src/stm32f4xx_hal_msp.c **** 
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  848              	.LVL56:
  369:Core/Src/stm32f4xx_hal_msp.c **** 
  849              		.loc 1 369 5 is_stmt 0 view .LVU205
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 25
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 25
 
 
  850 0062 FFF7FEFF 		bl	HAL_GPIO_Init
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  892 009a 1B6B     		ldr	r3, [r3, #48]
  893 009c 03F00203 		and	r3, r3, #2
  894 00a0 0493     		str	r3, [sp, #16]
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 26
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 26
 
 
  386:Core/Src/stm32f4xx_hal_msp.c ****     /**USART3 GPIO Configuration
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  934 00ce A6E7     		b	.L49
  935              	.L56:
  936              		.align	2
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 27
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 27
 
 
  937              	.L55:
@@ -1568,7 +1568,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  941 00dc 00000240 		.word	1073872896
  942 00e0 00040240 		.word	1073873920
  943              		.cfi_endproc
- 944              	.LFE246:
+ 944              	.LFE295:
  946              		.section	.text.HAL_UART_MspDeInit,"ax",%progbits
  947              		.align	1
  948              		.global	HAL_UART_MspDeInit
@@ -1577,7 +1577,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  951              		.thumb_func
  953              	HAL_UART_MspDeInit:
  954              	.LVL65:
- 955              	.LFB247:
+ 955              	.LFB296:
  407:Core/Src/stm32f4xx_hal_msp.c **** 
  408:Core/Src/stm32f4xx_hal_msp.c **** /**
  409:Core/Src/stm32f4xx_hal_msp.c **** * @brief UART MSP De-Initialization
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  427:Core/Src/stm32f4xx_hal_msp.c ****     */
  428:Core/Src/stm32f4xx_hal_msp.c ****     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_2|GPIO_PIN_3);
  429:Core/Src/stm32f4xx_hal_msp.c **** 
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 28
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 28
 
 
  430:Core/Src/stm32f4xx_hal_msp.c ****     /* USART2 interrupt DeInit */
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  431:Core/Src/stm32f4xx_hal_msp.c ****   /* USER CODE BEGIN USART2_MspDeInit 1 */
  996              		.loc 1 431 5 is_stmt 1 view .LVU245
  997 0026 2620     		movs	r0, #38
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 29
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 29
 
 
  998 0028 FFF7FEFF 		bl	HAL_NVIC_DisableIRQ
@@ -1716,7 +1716,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  1026 0054 00000240 		.word	1073872896
  1027 0058 00040240 		.word	1073873920
  1028              		.cfi_endproc
- 1029              	.LFE247:
+ 1029              	.LFE296:
  1031              		.text
  1032              	.Letext0:
  1033              		.file 2 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
@@ -1730,38 +1730,38 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 1
  1041              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
  1042              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
  1043              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h"
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s 			page 30
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s 			page 30
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f4xx_hal_msp.c
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:21     .text.HAL_MspInit:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:27     .text.HAL_MspInit:00000000 HAL_MspInit
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:80     .text.HAL_MspInit:00000034 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:85     .text.HAL_ADC_MspInit:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:91     .text.HAL_ADC_MspInit:00000000 HAL_ADC_MspInit
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:201    .text.HAL_ADC_MspInit:00000074 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:206    .text.HAL_ADC_MspDeInit:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:212    .text.HAL_ADC_MspDeInit:00000000 HAL_ADC_MspDeInit
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:259    .text.HAL_ADC_MspDeInit:00000028 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:266    .text.HAL_TIM_Encoder_MspInit:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:272    .text.HAL_TIM_Encoder_MspInit:00000000 HAL_TIM_Encoder_MspInit
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:457    .text.HAL_TIM_Encoder_MspInit:000000c8 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:464    .text.HAL_TIM_Base_MspInit:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:470    .text.HAL_TIM_Base_MspInit:00000000 HAL_TIM_Base_MspInit
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:576    .text.HAL_TIM_Base_MspInit:00000068 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:583    .text.HAL_TIM_Encoder_MspDeInit:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:589    .text.HAL_TIM_Encoder_MspDeInit:00000000 HAL_TIM_Encoder_MspDeInit
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:659    .text.HAL_TIM_Encoder_MspDeInit:00000048 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:666    .text.HAL_TIM_Base_MspDeInit:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:672    .text.HAL_TIM_Base_MspDeInit:00000000 HAL_TIM_Base_MspDeInit
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:733    .text.HAL_TIM_Base_MspDeInit:0000003c $d
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:739    .text.HAL_UART_MspInit:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:745    .text.HAL_UART_MspInit:00000000 HAL_UART_MspInit
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:938    .text.HAL_UART_MspInit:000000d0 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:947    .text.HAL_UART_MspDeInit:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:953    .text.HAL_UART_MspDeInit:00000000 HAL_UART_MspDeInit
-C:\Users\CuongLe\AppData\Local\Temp\ccnBgI7Q.s:1024   .text.HAL_UART_MspDeInit:0000004c $d
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:21     .text.HAL_MspInit:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:27     .text.HAL_MspInit:00000000 HAL_MspInit
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:80     .text.HAL_MspInit:00000034 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:85     .text.HAL_ADC_MspInit:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:91     .text.HAL_ADC_MspInit:00000000 HAL_ADC_MspInit
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:201    .text.HAL_ADC_MspInit:00000074 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:206    .text.HAL_ADC_MspDeInit:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:212    .text.HAL_ADC_MspDeInit:00000000 HAL_ADC_MspDeInit
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:259    .text.HAL_ADC_MspDeInit:00000028 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:266    .text.HAL_TIM_Encoder_MspInit:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:272    .text.HAL_TIM_Encoder_MspInit:00000000 HAL_TIM_Encoder_MspInit
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:457    .text.HAL_TIM_Encoder_MspInit:000000c8 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:464    .text.HAL_TIM_Base_MspInit:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:470    .text.HAL_TIM_Base_MspInit:00000000 HAL_TIM_Base_MspInit
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:576    .text.HAL_TIM_Base_MspInit:00000068 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:583    .text.HAL_TIM_Encoder_MspDeInit:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:589    .text.HAL_TIM_Encoder_MspDeInit:00000000 HAL_TIM_Encoder_MspDeInit
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:659    .text.HAL_TIM_Encoder_MspDeInit:00000048 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:666    .text.HAL_TIM_Base_MspDeInit:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:672    .text.HAL_TIM_Base_MspDeInit:00000000 HAL_TIM_Base_MspDeInit
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:733    .text.HAL_TIM_Base_MspDeInit:0000003c $d
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:739    .text.HAL_UART_MspInit:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:745    .text.HAL_UART_MspInit:00000000 HAL_UART_MspInit
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:938    .text.HAL_UART_MspInit:000000d0 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:947    .text.HAL_UART_MspDeInit:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:953    .text.HAL_UART_MspDeInit:00000000 HAL_UART_MspDeInit
+C:\Users\CuongLe\AppData\Local\Temp\ccx9wSKI.s:1024   .text.HAL_UART_MspDeInit:0000004c $d
 
 UNDEFINED SYMBOLS
 HAL_GPIO_Init

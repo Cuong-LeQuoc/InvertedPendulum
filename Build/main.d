@@ -38,7 +38,16 @@ Build/main.o: Core/Src/main.c Core/Inc/main.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/task.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/list.h \
  Middlewares/ST/ARM/DSP/Inc/arm_math.h \
- Drivers/CMSIS/Include/cmsis_compiler.h Core/Inc/printf.h
+ Drivers/CMSIS/Include/cmsis_compiler.h Core/Inc/printf.h \
+ Core/Src/Drivers/Inc/usart.h \
+ Middlewares/Third_Party/ARM/FreeRTOS/include/queue.h \
+ Middlewares/Third_Party/ARM/FreeRTOS/include/task.h \
+ Core/Src/Application/Inc/computer.h \
+ Core/Src/Application/Inc/ActiveObject.h Core/Src/Application/Inc/Topic.h \
+ Core/Src/Application/Inc/Estimator.h Core/Src/Common/Inc/dsp.h \
+ Core/Src/Application/Inc/Topic.h Core/Src/Common/Inc/Butter_Worth.h \
+ Core/Src/Application/Inc/computer.h Core/Inc/printf.h \
+ Core/Src/Application/Inc/Estimator.h Core/Src/Application/Inc/Computer.h
 Core/Inc/main.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 Core/Inc/stm32f4xx_hal_conf.h:
@@ -83,3 +92,17 @@ Middlewares/Third_Party/ARM/FreeRTOS/include/list.h:
 Middlewares/ST/ARM/DSP/Inc/arm_math.h:
 Drivers/CMSIS/Include/cmsis_compiler.h:
 Core/Inc/printf.h:
+Core/Src/Drivers/Inc/usart.h:
+Middlewares/Third_Party/ARM/FreeRTOS/include/queue.h:
+Middlewares/Third_Party/ARM/FreeRTOS/include/task.h:
+Core/Src/Application/Inc/computer.h:
+Core/Src/Application/Inc/ActiveObject.h:
+Core/Src/Application/Inc/Topic.h:
+Core/Src/Application/Inc/Estimator.h:
+Core/Src/Common/Inc/dsp.h:
+Core/Src/Application/Inc/Topic.h:
+Core/Src/Common/Inc/Butter_Worth.h:
+Core/Src/Application/Inc/computer.h:
+Core/Inc/printf.h:
+Core/Src/Application/Inc/Estimator.h:
+Core/Src/Application/Inc/Computer.h:
