@@ -4,8 +4,8 @@
 #include "arm_math.h"
 
 typedef struct {
-  int16_t PendulumCnt;
-  int32_t MotorCnt;
+  int16_t pendulumCnt;
+  int32_t motorCnt;
 } Encoder;
 
 typedef struct {

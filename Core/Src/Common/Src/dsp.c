@@ -1,7 +1,9 @@
 #include "dsp.h"
 
+
 extern float32_t MotorCoefficients[MOTOR_FILTER_STAGES_NUM * COEFFICIENT_NUMBER];
 extern float32_t PendulumCoefficients[MOTOR_FILTER_STAGES_NUM * COEFFICIENT_NUMBER];
+
 
 static void Differentiator_apply(Differentiator * const self, float32_t * input, float32_t * output, float32_t * rawOutput) {
     float32_t diff_x;
@@ -22,10 +24,8 @@ static void Differentiator_apply(Differentiator * const self, float32_t * input,
     *rawOutput = diff_x;
 }
 
-/**
- * 
- */
-void Differentiator_new(Differentiator * const self, float32_t SampleTime, uint8_t num_states, float32_t * filter_coeffs) {
+
+static void Differentiator_new(Differentiator * const self, float32_t SampleTime, uint8_t num_states, float32_t * filter_coeffs) {
     self->apply = &Differentiator_apply;
 
     self->Ts = SampleTime;
@@ -37,11 +37,11 @@ void Differentiator_new(Differentiator * const self, float32_t SampleTime, uint8
 
 
 static void ConvertAngle (DSP * const self, Encoder const * const encoder_topic) {
-    self->motor_angle       = self->motor_resolution * encoder_topic->MotorCnt;
-    self->pendulum_angle    = self->pendulum_resolution * encoder_topic->PendulumCnt;
+    self->motor_angle       = self->motor_resolution * encoder_topic->motorCnt;
+    self->pendulum_angle    = self->pendulum_resolution * encoder_topic->pendulumCnt;
 }
 
-void filter (DSP * const self) {
+static void filter (DSP * const self) {
     self->motor_differentiator->apply(
         self->motor_differentiator,
         &self->motor_angle,
@@ -57,7 +57,7 @@ void filter (DSP * const self) {
     );
 }
 
-void estimate (DSP * const self) {
+static void estimate (DSP * const self) {
     self->motor_state.position  = self->motor_angle;
     self->motor_state.velocity  = self->motor_velocity;
     self->motor_state.rawVel    = self->raw_motor_velocity;
@@ -70,12 +70,12 @@ void estimate (DSP * const self) {
     self->cart_state.velocity = self->motor_velocity * self->gear_ratio;
 }
 
-void procesNewData (DSP * const self, Encoder const * const encoder_topic, State * const state_topic) {
-    self->ConvertAngle(self, encoder_topic);
+static void procesNewData (DSP * const self, Encoder const * const encoder_topic, State * const state_topic) {
+    ConvertAngle(self, encoder_topic);
 
-    self->filter(self);
+    filter(self);
 
-    self->estimate(self);
+    estimate(self);
 
     state_topic->Motor      = self->motor_state;
     state_topic->Cart       = self->cart_state;
@@ -107,8 +107,8 @@ void dsp_new (DSP * const self) {
     self->raw_pendulum_velocity = 0.0f; self->pendulum_velocity = 0.0f;
 
     /* Assign function pointer */
-    self->ConvertAngle  = &ConvertAngle;
-    self->filter        = &filter;
-    self->estimate      = &estimate;
+    // self->ConvertAngle  = &ConvertAngle;
+    // self->filter        = &filter;
+    // self->estimate      = &estimate;
     self->procesNewData = &procesNewData;
 }

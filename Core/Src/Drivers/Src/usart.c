@@ -1,6 +1,7 @@
 #include "usart.h"
 
 extern struct Active * AO_Computer;
+extern struct Active * AO_Motor;
 
 /**
   * @brief  Tx Transfer completed callbacks.
@@ -10,10 +11,10 @@ extern struct Active * AO_Computer;
   */
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-  // if(huart->Instance == USART2) {
-
-  // }
-  if(huart->Instance == USART3) {
+  if(huart->Instance == USART2) {
+    static const Event motor_sended_event = {.signal = COMMAND_SENDED_SIG};
+    AO_Motor->postFromISR(AO_Motor, &motor_sended_event, &xHigherPriorityTaskWoken);
+  } else if(huart->Instance == USART3) {
     static const Event sensor_event = {.signal = SENSOR_SENDED_SIG};
     AO_Computer->postFromISR(AO_Computer, &sensor_event, &xHigherPriorityTaskWoken);
   }

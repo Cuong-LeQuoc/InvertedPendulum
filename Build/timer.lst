@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccwK8UsV.s 			page 1
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -32,191 +32,340 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccwK8UsV.s 			page 1
    1:Core/Src/Drivers/Src/timer.c **** #include "timer.h"
    2:Core/Src/Drivers/Src/timer.c **** 
    3:Core/Src/Drivers/Src/timer.c **** extern struct Active * AO_Estimator;
-   4:Core/Src/Drivers/Src/timer.c **** 
-   5:Core/Src/Drivers/Src/timer.c **** /**
-   6:Core/Src/Drivers/Src/timer.c ****   * @brief  Input Capture callback in non-blocking mode
-   7:Core/Src/Drivers/Src/timer.c ****   * @param  htim TIM IC handle
-   8:Core/Src/Drivers/Src/timer.c ****   * @retval None
-   9:Core/Src/Drivers/Src/timer.c ****   */
-  10:Core/Src/Drivers/Src/timer.c ****  void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
-  30              		.loc 1 10 59 view -0
+   4:Core/Src/Drivers/Src/timer.c **** extern struct Estimator * estimator;
+   5:Core/Src/Drivers/Src/timer.c **** 
+   6:Core/Src/Drivers/Src/timer.c **** extern struct Active * AO_Motor;
+   7:Core/Src/Drivers/Src/timer.c **** extern struct Motor * motor;
+   8:Core/Src/Drivers/Src/timer.c **** 
+   9:Core/Src/Drivers/Src/timer.c **** /**
+  10:Core/Src/Drivers/Src/timer.c ****   * @brief  Input Capture callback in non-blocking mode
+  11:Core/Src/Drivers/Src/timer.c ****   * @param  htim TIM IC handle
+  12:Core/Src/Drivers/Src/timer.c ****   * @retval None
+  13:Core/Src/Drivers/Src/timer.c ****   */
+  14:Core/Src/Drivers/Src/timer.c ****  void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
+  30              		.loc 1 14 59 view -0
   31              		.cfi_startproc
-  32              		@ args = 0, pretend = 0, frame = 0
+  32              		@ args = 0, pretend = 0, frame = 16
   33              		@ frame_needed = 0, uses_anonymous_args = 0
-  34              		@ link register save eliminated.
-  11:Core/Src/Drivers/Src/timer.c ****     if(htim->Instance == TIM2) {
-  35              		.loc 1 11 5 view .LVU1
-  12:Core/Src/Drivers/Src/timer.c ****   
-  13:Core/Src/Drivers/Src/timer.c ****     }
-  14:Core/Src/Drivers/Src/timer.c ****   
-  15:Core/Src/Drivers/Src/timer.c ****     else if(htim->Instance == TIM3) {
-  36              		.loc 1 15 10 view .LVU2
-  16:Core/Src/Drivers/Src/timer.c ****       
-  17:Core/Src/Drivers/Src/timer.c ****     }
-  37              		.loc 1 17 5 view .LVU3
-  18:Core/Src/Drivers/Src/timer.c ****   }
-  38              		.loc 1 18 3 is_stmt 0 view .LVU4
-  39 0000 7047     		bx	lr
-  40              		.cfi_endproc
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccwK8UsV.s 			page 2
+  34              		.loc 1 14 59 is_stmt 0 view .LVU1
+  35 0000 10B5     		push	{r4, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 4, -8
+  39              		.cfi_offset 14, -4
+  40 0002 84B0     		sub	sp, sp, #16
+  41              	.LCFI1:
+  42              		.cfi_def_cfa_offset 24
+  15:Core/Src/Drivers/Src/timer.c ****   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+  43              		.loc 1 15 3 is_stmt 1 view .LVU2
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s 			page 2
 
 
-  41              	.LFE288:
-  43              		.section	.text.HAL_TIM_PeriodElapsedCallback,"ax",%progbits
-  44              		.align	1
-  45              		.global	HAL_TIM_PeriodElapsedCallback
-  46              		.syntax unified
-  47              		.thumb
-  48              		.thumb_func
-  50              	HAL_TIM_PeriodElapsedCallback:
-  51              	.LVL1:
-  52              	.LFB289:
-  19:Core/Src/Drivers/Src/timer.c ****   
-  20:Core/Src/Drivers/Src/timer.c **** /**
-  21:Core/Src/Drivers/Src/timer.c **** * @brief  Period elapsed callback in non-blocking mode
-  22:Core/Src/Drivers/Src/timer.c **** * @param  htim TIM handle
-  23:Core/Src/Drivers/Src/timer.c **** * @retval None
-  24:Core/Src/Drivers/Src/timer.c **** */
-  25:Core/Src/Drivers/Src/timer.c **** void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-  53              		.loc 1 25 61 is_stmt 1 view -0
-  54              		.cfi_startproc
-  55              		@ args = 0, pretend = 0, frame = 8
-  56              		@ frame_needed = 0, uses_anonymous_args = 0
-  57              		.loc 1 25 61 is_stmt 0 view .LVU6
-  58 0000 00B5     		push	{lr}
-  59              	.LCFI0:
-  60              		.cfi_def_cfa_offset 4
-  61              		.cfi_offset 14, -4
-  62 0002 83B0     		sub	sp, sp, #12
-  63              	.LCFI1:
-  64              		.cfi_def_cfa_offset 16
-  26:Core/Src/Drivers/Src/timer.c **** 
-  27:Core/Src/Drivers/Src/timer.c ****   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-  65              		.loc 1 27 3 is_stmt 1 view .LVU7
-  66              		.loc 1 27 14 is_stmt 0 view .LVU8
-  67 0004 0023     		movs	r3, #0
-  68 0006 0193     		str	r3, [sp, #4]
-  28:Core/Src/Drivers/Src/timer.c **** 
-  29:Core/Src/Drivers/Src/timer.c ****   // if(htim->Instance == TIM6) {
-  30:Core/Src/Drivers/Src/timer.c **** 
-  31:Core/Src/Drivers/Src/timer.c ****   // }
-  32:Core/Src/Drivers/Src/timer.c **** 
-  33:Core/Src/Drivers/Src/timer.c ****   if(htim->Instance == TIM7) {
-  69              		.loc 1 33 3 is_stmt 1 view .LVU9
-  70              		.loc 1 33 10 is_stmt 0 view .LVU10
-  71 0008 0268     		ldr	r2, [r0]
-  72              		.loc 1 33 5 view .LVU11
-  73 000a 0D4B     		ldr	r3, .L7
-  74 000c 9A42     		cmp	r2, r3
-  75 000e 0ED0     		beq	.L6
-  76              	.LVL2:
-  77              	.L3:
-  34:Core/Src/Drivers/Src/timer.c ****     static const Event time_evt = {.signal = TIMEOUT_1kHz_SIG};
-  35:Core/Src/Drivers/Src/timer.c ****     AO_Estimator->postFromISR(AO_Estimator, &time_evt, &xHigherPriorityTaskWoken);
-  36:Core/Src/Drivers/Src/timer.c ****   }
+  44              		.loc 1 15 14 is_stmt 0 view .LVU3
+  45 0004 0023     		movs	r3, #0
+  46 0006 0393     		str	r3, [sp, #12]
+  16:Core/Src/Drivers/Src/timer.c **** 
+  17:Core/Src/Drivers/Src/timer.c ****   if(htim->Instance == TIM2) {
+  47              		.loc 1 17 3 is_stmt 1 view .LVU4
+  48              		.loc 1 17 10 is_stmt 0 view .LVU5
+  49 0008 0368     		ldr	r3, [r0]
+  50              		.loc 1 17 5 view .LVU6
+  51 000a B3F1804F 		cmp	r3, #1073741824
+  52 000e 0DD0     		beq	.L5
+  53              	.LVL1:
+  54              	.L2:
+  18:Core/Src/Drivers/Src/timer.c ****     Encoder encoderTopic;
+  19:Core/Src/Drivers/Src/timer.c **** 
+  20:Core/Src/Drivers/Src/timer.c ****     encoderTopic.motorCnt = (int32_t)((uint32_t)__HAL_TIM_GET_COUNTER(htim));
+  21:Core/Src/Drivers/Src/timer.c ****     estimator->publicFromISR(estimator->encoderSubsriber, &encoderTopic, &xHigherPriorityTaskWoken)
+  22:Core/Src/Drivers/Src/timer.c ****   }
+  23:Core/Src/Drivers/Src/timer.c **** 
+  24:Core/Src/Drivers/Src/timer.c ****   // else if(htim->Instance == TIM3) {
+  25:Core/Src/Drivers/Src/timer.c ****     
+  26:Core/Src/Drivers/Src/timer.c ****   // }
+  27:Core/Src/Drivers/Src/timer.c **** 
+  28:Core/Src/Drivers/Src/timer.c ****   portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
+  55              		.loc 1 28 3 is_stmt 1 view .LVU7
+  56              		.loc 1 28 3 view .LVU8
+  57 0010 039B     		ldr	r3, [sp, #12]
+  58 0012 4BB1     		cbz	r3, .L1
+  59              		.loc 1 28 3 discriminator 1 view .LVU9
+  60 0014 4FF0E023 		mov	r3, #-536813568
+  61 0018 4FF08052 		mov	r2, #268435456
+  62 001c C3F8042D 		str	r2, [r3, #3332]
+  63              		.loc 1 28 3 view .LVU10
+  64              		.loc 1 28 3 is_stmt 0 discriminator 1 view .LVU11
+  65              		.syntax unified
+  66              	@ 28 "Core/Src/Drivers/Src/timer.c" 1
+  67 0020 BFF34F8F 		dsb
+  68              	@ 0 "" 2
+  69              		.loc 1 28 3 is_stmt 1 view .LVU12
+  70              		.loc 1 28 3 is_stmt 0 discriminator 1 view .LVU13
+  71              	@ 28 "Core/Src/Drivers/Src/timer.c" 1
+  72 0024 BFF36F8F 		isb
+  73              	@ 0 "" 2
+  74              		.loc 1 28 3 is_stmt 1 discriminator 3 view .LVU14
+  75              		.loc 1 28 3 discriminator 3 view .LVU15
+  76              		.thumb
+  77              		.syntax unified
+  78              	.L1:
+  29:Core/Src/Drivers/Src/timer.c **** }
+  79              		.loc 1 29 1 is_stmt 0 view .LVU16
+  80 0028 04B0     		add	sp, sp, #16
+  81              	.LCFI2:
+  82              		.cfi_remember_state
+  83              		.cfi_def_cfa_offset 8
+  84              		@ sp needed
+  85 002a 10BD     		pop	{r4, pc}
+  86              	.LVL2:
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s 			page 3
+
+
+  87              	.L5:
+  88              	.LCFI3:
+  89              		.cfi_restore_state
+  90              	.LBB2:
+  18:Core/Src/Drivers/Src/timer.c ****     Encoder encoderTopic;
+  91              		.loc 1 18 5 is_stmt 1 view .LVU17
+  20:Core/Src/Drivers/Src/timer.c ****     estimator->publicFromISR(estimator->encoderSubsriber, &encoderTopic, &xHigherPriorityTaskWoken)
+  92              		.loc 1 20 5 view .LVU18
+  20:Core/Src/Drivers/Src/timer.c ****     estimator->publicFromISR(estimator->encoderSubsriber, &encoderTopic, &xHigherPriorityTaskWoken)
+  93              		.loc 1 20 49 is_stmt 0 view .LVU19
+  94 002c 5B6A     		ldr	r3, [r3, #36]
+  20:Core/Src/Drivers/Src/timer.c ****     estimator->publicFromISR(estimator->encoderSubsriber, &encoderTopic, &xHigherPriorityTaskWoken)
+  95              		.loc 1 20 27 view .LVU20
+  96 002e 0293     		str	r3, [sp, #8]
+  21:Core/Src/Drivers/Src/timer.c ****   }
+  97              		.loc 1 21 5 is_stmt 1 view .LVU21
+  21:Core/Src/Drivers/Src/timer.c ****   }
+  98              		.loc 1 21 14 is_stmt 0 view .LVU22
+  99 0030 044B     		ldr	r3, .L6
+ 100 0032 1B68     		ldr	r3, [r3]
+ 101 0034 D3F8E440 		ldr	r4, [r3, #228]
+  21:Core/Src/Drivers/Src/timer.c ****   }
+ 102              		.loc 1 21 5 view .LVU23
+ 103 0038 03AA     		add	r2, sp, #12
+ 104 003a 01A9     		add	r1, sp, #4
+ 105 003c D3F8D000 		ldr	r0, [r3, #208]
+ 106              	.LVL3:
+  21:Core/Src/Drivers/Src/timer.c ****   }
+ 107              		.loc 1 21 5 view .LVU24
+ 108 0040 A047     		blx	r4
+ 109              	.LVL4:
+ 110 0042 E5E7     		b	.L2
+ 111              	.L7:
+ 112              		.align	2
+ 113              	.L6:
+ 114 0044 00000000 		.word	estimator
+ 115              	.LBE2:
+ 116              		.cfi_endproc
+ 117              	.LFE288:
+ 119              		.section	.text.HAL_TIM_PeriodElapsedCallback,"ax",%progbits
+ 120              		.align	1
+ 121              		.global	HAL_TIM_PeriodElapsedCallback
+ 122              		.syntax unified
+ 123              		.thumb
+ 124              		.thumb_func
+ 126              	HAL_TIM_PeriodElapsedCallback:
+ 127              	.LVL5:
+ 128              	.LFB289:
+  30:Core/Src/Drivers/Src/timer.c ****   
+  31:Core/Src/Drivers/Src/timer.c **** /**
+  32:Core/Src/Drivers/Src/timer.c **** * @brief  Period elapsed callback in non-blocking mode
+  33:Core/Src/Drivers/Src/timer.c **** * @param  htim TIM handle
+  34:Core/Src/Drivers/Src/timer.c **** * @retval None
+  35:Core/Src/Drivers/Src/timer.c **** */
+  36:Core/Src/Drivers/Src/timer.c **** void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+ 129              		.loc 1 36 61 is_stmt 1 view -0
+ 130              		.cfi_startproc
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s 			page 4
+
+
+ 131              		@ args = 0, pretend = 0, frame = 8
+ 132              		@ frame_needed = 0, uses_anonymous_args = 0
+ 133              		.loc 1 36 61 is_stmt 0 view .LVU26
+ 134 0000 10B5     		push	{r4, lr}
+ 135              	.LCFI4:
+ 136              		.cfi_def_cfa_offset 8
+ 137              		.cfi_offset 4, -8
+ 138              		.cfi_offset 14, -4
+ 139 0002 82B0     		sub	sp, sp, #8
+ 140              	.LCFI5:
+ 141              		.cfi_def_cfa_offset 16
+ 142 0004 0446     		mov	r4, r0
   37:Core/Src/Drivers/Src/timer.c **** 
-  38:Core/Src/Drivers/Src/timer.c ****   portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
-  78              		.loc 1 38 3 is_stmt 1 view .LVU12
-  79              		.loc 1 38 3 view .LVU13
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccwK8UsV.s 			page 3
+  38:Core/Src/Drivers/Src/timer.c ****   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+ 143              		.loc 1 38 3 is_stmt 1 view .LVU27
+ 144              		.loc 1 38 14 is_stmt 0 view .LVU28
+ 145 0006 0023     		movs	r3, #0
+ 146 0008 0193     		str	r3, [sp, #4]
+  39:Core/Src/Drivers/Src/timer.c **** 
+  40:Core/Src/Drivers/Src/timer.c ****   if(htim->Instance == TIM6) {
+ 147              		.loc 1 40 3 is_stmt 1 view .LVU29
+ 148              		.loc 1 40 10 is_stmt 0 view .LVU30
+ 149 000a 0268     		ldr	r2, [r0]
+ 150              		.loc 1 40 5 view .LVU31
+ 151 000c 124B     		ldr	r3, .L15
+ 152 000e 9A42     		cmp	r2, r3
+ 153 0010 11D0     		beq	.L13
+ 154              	.LVL6:
+ 155              	.L9:
+  41:Core/Src/Drivers/Src/timer.c ****     static const Event time_evt = {.signal = TIMEOUT_100Hz_SIG};
+  42:Core/Src/Drivers/Src/timer.c ****     AO_Motor->postFromISR(AO_Motor, &time_evt, &xHigherPriorityTaskWoken);
+  43:Core/Src/Drivers/Src/timer.c ****   }
+  44:Core/Src/Drivers/Src/timer.c **** 
+  45:Core/Src/Drivers/Src/timer.c ****   if(htim->Instance == TIM7) {
+ 156              		.loc 1 45 3 is_stmt 1 view .LVU32
+ 157              		.loc 1 45 10 is_stmt 0 view .LVU33
+ 158 0012 2268     		ldr	r2, [r4]
+ 159              		.loc 1 45 5 view .LVU34
+ 160 0014 114B     		ldr	r3, .L15+4
+ 161 0016 9A42     		cmp	r2, r3
+ 162 0018 15D0     		beq	.L14
+ 163              	.L10:
+  46:Core/Src/Drivers/Src/timer.c ****     static const Event time_evt = {.signal = TIMEOUT_1kHz_SIG};
+  47:Core/Src/Drivers/Src/timer.c ****     AO_Estimator->postFromISR(AO_Estimator, &time_evt, &xHigherPriorityTaskWoken);
+  48:Core/Src/Drivers/Src/timer.c ****   }
+  49:Core/Src/Drivers/Src/timer.c **** 
+  50:Core/Src/Drivers/Src/timer.c ****   portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
+ 164              		.loc 1 50 3 is_stmt 1 view .LVU35
+ 165              		.loc 1 50 3 view .LVU36
+ 166 001a 019B     		ldr	r3, [sp, #4]
+ 167 001c 4BB1     		cbz	r3, .L8
+ 168              		.loc 1 50 3 discriminator 1 view .LVU37
+ 169 001e 4FF0E023 		mov	r3, #-536813568
+ 170 0022 4FF08052 		mov	r2, #268435456
+ 171 0026 C3F8042D 		str	r2, [r3, #3332]
+ 172              		.loc 1 50 3 view .LVU38
+ 173              		.loc 1 50 3 is_stmt 0 discriminator 1 view .LVU39
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s 			page 5
 
 
-  80 0010 019B     		ldr	r3, [sp, #4]
-  81 0012 4BB1     		cbz	r3, .L2
-  82              		.loc 1 38 3 discriminator 1 view .LVU14
-  83 0014 4FF0E023 		mov	r3, #-536813568
-  84 0018 4FF08052 		mov	r2, #268435456
-  85 001c C3F8042D 		str	r2, [r3, #3332]
-  86              		.loc 1 38 3 view .LVU15
-  87              		.loc 1 38 3 is_stmt 0 discriminator 1 view .LVU16
-  88              		.syntax unified
-  89              	@ 38 "Core/Src/Drivers/Src/timer.c" 1
-  90 0020 BFF34F8F 		dsb
-  91              	@ 0 "" 2
-  92              		.loc 1 38 3 is_stmt 1 view .LVU17
-  93              		.loc 1 38 3 is_stmt 0 discriminator 1 view .LVU18
-  94              	@ 38 "Core/Src/Drivers/Src/timer.c" 1
-  95 0024 BFF36F8F 		isb
-  96              	@ 0 "" 2
-  97              		.loc 1 38 3 is_stmt 1 discriminator 3 view .LVU19
-  98              		.loc 1 38 3 discriminator 3 view .LVU20
-  99              		.thumb
- 100              		.syntax unified
- 101              	.L2:
-  39:Core/Src/Drivers/Src/timer.c **** }...
- 102              		.loc 1 39 1 is_stmt 0 view .LVU21
- 103 0028 03B0     		add	sp, sp, #12
- 104              	.LCFI2:
- 105              		.cfi_remember_state
- 106              		.cfi_def_cfa_offset 4
- 107              		@ sp needed
- 108 002a 5DF804FB 		ldr	pc, [sp], #4
- 109              	.LVL3:
- 110              	.L6:
- 111              	.LCFI3:
- 112              		.cfi_restore_state
- 113              	.LBB2:
-  34:Core/Src/Drivers/Src/timer.c ****     static const Event time_evt = {.signal = TIMEOUT_1kHz_SIG};
- 114              		.loc 1 34 5 is_stmt 1 view .LVU22
-  35:Core/Src/Drivers/Src/timer.c ****     AO_Estimator->postFromISR(AO_Estimator, &time_evt, &xHigherPriorityTaskWoken);
- 115              		.loc 1 35 5 view .LVU23
-  35:Core/Src/Drivers/Src/timer.c ****     AO_Estimator->postFromISR(AO_Estimator, &time_evt, &xHigherPriorityTaskWoken);
- 116              		.loc 1 35 17 is_stmt 0 view .LVU24
- 117 002e 054B     		ldr	r3, .L7+4
- 118 0030 1868     		ldr	r0, [r3]
- 119              	.LVL4:
-  35:Core/Src/Drivers/Src/timer.c ****     AO_Estimator->postFromISR(AO_Estimator, &time_evt, &xHigherPriorityTaskWoken);
- 120              		.loc 1 35 17 view .LVU25
- 121 0032 D0F8C830 		ldr	r3, [r0, #200]
-  35:Core/Src/Drivers/Src/timer.c ****     AO_Estimator->postFromISR(AO_Estimator, &time_evt, &xHigherPriorityTaskWoken);
- 122              		.loc 1 35 5 view .LVU26
- 123 0036 01AA     		add	r2, sp, #4
- 124 0038 0349     		ldr	r1, .L7+8
- 125 003a 9847     		blx	r3
- 126              	.LVL5:
- 127 003c E8E7     		b	.L3
- 128              	.L8:
- 129 003e 00BF     		.align	2
- 130              	.L7:
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccwK8UsV.s 			page 4
+ 174              		.syntax unified
+ 175              	@ 50 "Core/Src/Drivers/Src/timer.c" 1
+ 176 002a BFF34F8F 		dsb
+ 177              	@ 0 "" 2
+ 178              		.loc 1 50 3 is_stmt 1 view .LVU40
+ 179              		.loc 1 50 3 is_stmt 0 discriminator 1 view .LVU41
+ 180              	@ 50 "Core/Src/Drivers/Src/timer.c" 1
+ 181 002e BFF36F8F 		isb
+ 182              	@ 0 "" 2
+ 183              		.loc 1 50 3 is_stmt 1 discriminator 3 view .LVU42
+ 184              		.loc 1 50 3 discriminator 3 view .LVU43
+ 185              		.thumb
+ 186              		.syntax unified
+ 187              	.L8:
+  51:Core/Src/Drivers/Src/timer.c **** }...
+ 188              		.loc 1 51 1 is_stmt 0 view .LVU44
+ 189 0032 02B0     		add	sp, sp, #8
+ 190              	.LCFI6:
+ 191              		.cfi_remember_state
+ 192              		.cfi_def_cfa_offset 8
+ 193              		@ sp needed
+ 194 0034 10BD     		pop	{r4, pc}
+ 195              	.LVL7:
+ 196              	.L13:
+ 197              	.LCFI7:
+ 198              		.cfi_restore_state
+ 199              	.LBB3:
+  41:Core/Src/Drivers/Src/timer.c ****     static const Event time_evt = {.signal = TIMEOUT_100Hz_SIG};
+ 200              		.loc 1 41 5 is_stmt 1 view .LVU45
+  42:Core/Src/Drivers/Src/timer.c ****     AO_Motor->postFromISR(AO_Motor, &time_evt, &xHigherPriorityTaskWoken);
+ 201              		.loc 1 42 5 view .LVU46
+  42:Core/Src/Drivers/Src/timer.c ****     AO_Motor->postFromISR(AO_Motor, &time_evt, &xHigherPriorityTaskWoken);
+ 202              		.loc 1 42 13 is_stmt 0 view .LVU47
+ 203 0036 0A4B     		ldr	r3, .L15+8
+ 204 0038 1868     		ldr	r0, [r3]
+ 205              	.LVL8:
+  42:Core/Src/Drivers/Src/timer.c ****     AO_Motor->postFromISR(AO_Motor, &time_evt, &xHigherPriorityTaskWoken);
+ 206              		.loc 1 42 13 view .LVU48
+ 207 003a D0F8C830 		ldr	r3, [r0, #200]
+  42:Core/Src/Drivers/Src/timer.c ****     AO_Motor->postFromISR(AO_Motor, &time_evt, &xHigherPriorityTaskWoken);
+ 208              		.loc 1 42 5 view .LVU49
+ 209 003e 01AA     		add	r2, sp, #4
+ 210 0040 0849     		ldr	r1, .L15+12
+ 211 0042 9847     		blx	r3
+ 212              	.LVL9:
+ 213 0044 E5E7     		b	.L9
+ 214              	.L14:
+  42:Core/Src/Drivers/Src/timer.c ****     AO_Motor->postFromISR(AO_Motor, &time_evt, &xHigherPriorityTaskWoken);
+ 215              		.loc 1 42 5 view .LVU50
+ 216              	.LBE3:
+ 217              	.LBB4:
+  46:Core/Src/Drivers/Src/timer.c ****     static const Event time_evt = {.signal = TIMEOUT_1kHz_SIG};
+ 218              		.loc 1 46 5 is_stmt 1 view .LVU51
+  47:Core/Src/Drivers/Src/timer.c ****     AO_Estimator->postFromISR(AO_Estimator, &time_evt, &xHigherPriorityTaskWoken);
+ 219              		.loc 1 47 5 view .LVU52
+  47:Core/Src/Drivers/Src/timer.c ****     AO_Estimator->postFromISR(AO_Estimator, &time_evt, &xHigherPriorityTaskWoken);
+ 220              		.loc 1 47 17 is_stmt 0 view .LVU53
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s 			page 6
 
 
- 131 0040 00140040 		.word	1073746944
- 132 0044 00000000 		.word	AO_Estimator
- 133 0048 00000000 		.word	time_evt.0
- 134              	.LBE2:
- 135              		.cfi_endproc
- 136              	.LFE289:
- 138              		.section	.rodata.time_evt.0,"a"
- 139              		.align	2
- 142              	time_evt.0:
- 143 0000 0300     		.short	3
- 144              		.text
- 145              	.Letext0:
- 146              		.file 2 "D:/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/machine/_default_types.h"
- 147              		.file 3 "D:/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/sys/_stdint.h"
- 148              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
- 149              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 150              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 151              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
- 152              		.file 8 "Middlewares/Third_Party/ARM/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h"
- 153              		.file 9 "Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h"
- 154              		.file 10 "Middlewares/Third_Party/ARM/FreeRTOS/include/task.h"
- 155              		.file 11 "Middlewares/Third_Party/ARM/FreeRTOS/include/queue.h"
- 156              		.file 12 "Core/Src/Application/Inc/ActiveObject.h"
- 157              		.file 13 "Core/Src/Application/Inc/Estimator.h"
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccwK8UsV.s 			page 5
+ 221 0046 084B     		ldr	r3, .L15+16
+ 222 0048 1868     		ldr	r0, [r3]
+ 223 004a D0F8C830 		ldr	r3, [r0, #200]
+  47:Core/Src/Drivers/Src/timer.c ****     AO_Estimator->postFromISR(AO_Estimator, &time_evt, &xHigherPriorityTaskWoken);
+ 224              		.loc 1 47 5 view .LVU54
+ 225 004e 01AA     		add	r2, sp, #4
+ 226 0050 0649     		ldr	r1, .L15+20
+ 227 0052 9847     		blx	r3
+ 228              	.LVL10:
+ 229 0054 E1E7     		b	.L10
+ 230              	.L16:
+ 231 0056 00BF     		.align	2
+ 232              	.L15:
+ 233 0058 00100040 		.word	1073745920
+ 234 005c 00140040 		.word	1073746944
+ 235 0060 00000000 		.word	AO_Motor
+ 236 0064 00000000 		.word	time_evt.1
+ 237 0068 00000000 		.word	AO_Estimator
+ 238 006c 00000000 		.word	time_evt.0
+ 239              	.LBE4:
+ 240              		.cfi_endproc
+ 241              	.LFE289:
+ 243              		.section	.rodata.time_evt.0,"a"
+ 244              		.align	2
+ 247              	time_evt.0:
+ 248 0000 0300     		.short	3
+ 249              		.section	.rodata.time_evt.1,"a"
+ 250              		.align	2
+ 253              	time_evt.1:
+ 254 0000 0300     		.short	3
+ 255              		.text
+ 256              	.Letext0:
+ 257              		.file 2 "D:/DATN/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/machine/_default_type
+ 258              		.file 3 "D:/DATN/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/sys/_stdint.h"
+ 259              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
+ 260              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 261              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 262              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 263              		.file 8 "Middlewares/Third_Party/ARM/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h"
+ 264              		.file 9 "Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h"
+ 265              		.file 10 "Middlewares/Third_Party/ARM/FreeRTOS/include/task.h"
+ 266              		.file 11 "Middlewares/Third_Party/ARM/FreeRTOS/include/queue.h"
+ 267              		.file 12 "Middlewares/ST/ARM/DSP/Inc/arm_math.h"
+ 268              		.file 13 "Core/Src/Application/Inc/Topic.h"
+ 269              		.file 14 "Core/Src/Application/Inc/ActiveObject.h"
+ 270              		.file 15 "Core/Src/Common/Inc/dsp.h"
+ 271              		.file 16 "Core/Src/Application/Inc/Motor.h"
+ 272              		.file 17 "Core/Src/Application/Inc/Estimator.h"
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s 			page 7
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 timer.c
-C:\Users\CuongLe\AppData\Local\Temp\ccwK8UsV.s:21     .text.HAL_TIM_IC_CaptureCallback:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccwK8UsV.s:27     .text.HAL_TIM_IC_CaptureCallback:00000000 HAL_TIM_IC_CaptureCallback
-C:\Users\CuongLe\AppData\Local\Temp\ccwK8UsV.s:44     .text.HAL_TIM_PeriodElapsedCallback:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccwK8UsV.s:50     .text.HAL_TIM_PeriodElapsedCallback:00000000 HAL_TIM_PeriodElapsedCallback
-C:\Users\CuongLe\AppData\Local\Temp\ccwK8UsV.s:131    .text.HAL_TIM_PeriodElapsedCallback:00000040 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccwK8UsV.s:142    .rodata.time_evt.0:00000000 time_evt.0
-C:\Users\CuongLe\AppData\Local\Temp\ccwK8UsV.s:139    .rodata.time_evt.0:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s:21     .text.HAL_TIM_IC_CaptureCallback:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s:27     .text.HAL_TIM_IC_CaptureCallback:00000000 HAL_TIM_IC_CaptureCallback
+C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s:114    .text.HAL_TIM_IC_CaptureCallback:00000044 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s:120    .text.HAL_TIM_PeriodElapsedCallback:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s:126    .text.HAL_TIM_PeriodElapsedCallback:00000000 HAL_TIM_PeriodElapsedCallback
+C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s:233    .text.HAL_TIM_PeriodElapsedCallback:00000058 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s:253    .rodata.time_evt.1:00000000 time_evt.1
+C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s:247    .rodata.time_evt.0:00000000 time_evt.0
+C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s:244    .rodata.time_evt.0:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccgIHc0o.s:250    .rodata.time_evt.1:00000000 $d
 
 UNDEFINED SYMBOLS
+estimator
+AO_Motor
 AO_Estimator

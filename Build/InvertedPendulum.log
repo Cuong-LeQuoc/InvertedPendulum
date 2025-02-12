@@ -1,7 +1,7 @@
 set log_output to "Build/InvertedPendulum.log"
 Info : clock speed 2000 kHz
 Info : STLINK V2J45S7 (API v2) VID:PID 0483:3748
-Info : Target voltage: 3.124645
+Info : Target voltage: 3.126662
 Info : [stm32f4x.cpu] Cortex-M4 r0p1 processor detected
 Info : [stm32f4x.cpu] target has 6 breakpoints, 4 watchpoints
 Info : [stm32f4x.cpu] Examination succeed
@@ -10,13 +10,13 @@ Info : Listening on port 3333 for gdb connections
 Info : Unable to match requested speed 2000 kHz, using 1800 kHz
 Info : Unable to match requested speed 2000 kHz, using 1800 kHz
 [stm32f4x.cpu] halted due to debug-request, current mode: Thread 
-xPSR: 0x01000000 pc: 0x08006284 msp: 0x20020000
+xPSR: 0x01000000 pc: 0x080063fc msp: 0x20020000
 Info : Unable to match requested speed 8000 kHz, using 4000 kHz
 Info : Unable to match requested speed 8000 kHz, using 4000 kHz
 Info : Unable to match requested speed 2000 kHz, using 1800 kHz
 Info : Unable to match requested speed 2000 kHz, using 1800 kHz
 [stm32f4x.cpu] halted due to debug-request, current mode: Thread 
-xPSR: 0x01000000 pc: 0x08006284 msp: 0x20020000
+xPSR: 0x01000000 pc: 0x080063fc msp: 0x20020000
 Info : Unable to match requested speed 8000 kHz, using 4000 kHz
 Info : Unable to match requested speed 8000 kHz, using 4000 kHz
 ** Programming Started **

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 1
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -30,35 +30,35 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 1
   28              	.LFB157:
    1:Core/Src/Common/Src/dsp.c **** #include "dsp.h"
    2:Core/Src/Common/Src/dsp.c **** 
-   3:Core/Src/Common/Src/dsp.c **** extern float32_t MotorCoefficients[MOTOR_FILTER_STAGES_NUM * COEFFICIENT_NUMBER];
-   4:Core/Src/Common/Src/dsp.c **** extern float32_t PendulumCoefficients[MOTOR_FILTER_STAGES_NUM * COEFFICIENT_NUMBER];
-   5:Core/Src/Common/Src/dsp.c **** 
-   6:Core/Src/Common/Src/dsp.c **** static void Differentiator_apply(Differentiator * const self, float32_t * input, float32_t * output
-   7:Core/Src/Common/Src/dsp.c ****     float32_t diff_x;
-   8:Core/Src/Common/Src/dsp.c ****     float32_t filtered_diff_x;
-   9:Core/Src/Common/Src/dsp.c ****     float32_t x = *input;
-  10:Core/Src/Common/Src/dsp.c **** 
-  11:Core/Src/Common/Src/dsp.c ****     /*Estimate first derivative*/
-  12:Core/Src/Common/Src/dsp.c ****     diff_x = (3.0f*x - 4.0f*self->preState[0] + 1.0f*self->preState[1]) / (2.0f * self->Ts);
-  13:Core/Src/Common/Src/dsp.c **** 
-  14:Core/Src/Common/Src/dsp.c ****     self->preState[1] = self->preState[0]; self->preState[0] = x;
-  15:Core/Src/Common/Src/dsp.c ****     
-  16:Core/Src/Common/Src/dsp.c ****     /*Filter estimated first derivative*/
-  17:Core/Src/Common/Src/dsp.c ****     self->filter.numStages = 1;
-  18:Core/Src/Common/Src/dsp.c ****     arm_biquad_cascade_df2T_f32(&self->filter, &diff_x, &filtered_diff_x, 1);
-  19:Core/Src/Common/Src/dsp.c **** 
-  20:Core/Src/Common/Src/dsp.c ****     /*Return output value*/
-  21:Core/Src/Common/Src/dsp.c ****     *output = filtered_diff_x;
-  22:Core/Src/Common/Src/dsp.c ****     *rawOutput = diff_x;
-  23:Core/Src/Common/Src/dsp.c **** }
-  24:Core/Src/Common/Src/dsp.c **** 
-  25:Core/Src/Common/Src/dsp.c **** /**
-  26:Core/Src/Common/Src/dsp.c ****  * 
-  27:Core/Src/Common/Src/dsp.c ****  */
-  28:Core/Src/Common/Src/dsp.c **** void Differentiator_new(Differentiator * const self, float32_t SampleTime, uint8_t num_states, floa
+   3:Core/Src/Common/Src/dsp.c **** 
+   4:Core/Src/Common/Src/dsp.c **** extern float32_t MotorCoefficients[MOTOR_FILTER_STAGES_NUM * COEFFICIENT_NUMBER];
+   5:Core/Src/Common/Src/dsp.c **** extern float32_t PendulumCoefficients[MOTOR_FILTER_STAGES_NUM * COEFFICIENT_NUMBER];
+   6:Core/Src/Common/Src/dsp.c **** 
+   7:Core/Src/Common/Src/dsp.c **** 
+   8:Core/Src/Common/Src/dsp.c **** static void Differentiator_apply(Differentiator * const self, float32_t * input, float32_t * output
+   9:Core/Src/Common/Src/dsp.c ****     float32_t diff_x;
+  10:Core/Src/Common/Src/dsp.c ****     float32_t filtered_diff_x;
+  11:Core/Src/Common/Src/dsp.c ****     float32_t x = *input;
+  12:Core/Src/Common/Src/dsp.c **** 
+  13:Core/Src/Common/Src/dsp.c ****     /*Estimate first derivative*/
+  14:Core/Src/Common/Src/dsp.c ****     diff_x = (3.0f*x - 4.0f*self->preState[0] + 1.0f*self->preState[1]) / (2.0f * self->Ts);
+  15:Core/Src/Common/Src/dsp.c **** 
+  16:Core/Src/Common/Src/dsp.c ****     self->preState[1] = self->preState[0]; self->preState[0] = x;
+  17:Core/Src/Common/Src/dsp.c ****     
+  18:Core/Src/Common/Src/dsp.c ****     /*Filter estimated first derivative*/
+  19:Core/Src/Common/Src/dsp.c ****     self->filter.numStages = 1;
+  20:Core/Src/Common/Src/dsp.c ****     arm_biquad_cascade_df2T_f32(&self->filter, &diff_x, &filtered_diff_x, 1);
+  21:Core/Src/Common/Src/dsp.c **** 
+  22:Core/Src/Common/Src/dsp.c ****     /*Return output value*/
+  23:Core/Src/Common/Src/dsp.c ****     *output = filtered_diff_x;
+  24:Core/Src/Common/Src/dsp.c ****     *rawOutput = diff_x;
+  25:Core/Src/Common/Src/dsp.c **** }
+  26:Core/Src/Common/Src/dsp.c **** 
+  27:Core/Src/Common/Src/dsp.c **** 
+  28:Core/Src/Common/Src/dsp.c **** static void Differentiator_new(Differentiator * const self, float32_t SampleTime, uint8_t num_state
   29:Core/Src/Common/Src/dsp.c ****     self->apply = &Differentiator_apply;
   30:Core/Src/Common/Src/dsp.c **** 
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 2
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s 			page 2
 
 
   31:Core/Src/Common/Src/dsp.c ****     self->Ts = SampleTime;
@@ -75,7 +75,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 1
   31              		@ args = 0, pretend = 0, frame = 0
   32              		@ frame_needed = 0, uses_anonymous_args = 0
   33              		@ link register save eliminated.
-  40:Core/Src/Common/Src/dsp.c ****     self->motor_angle       = self->motor_resolution * encoder_topic->MotorCnt;
+  40:Core/Src/Common/Src/dsp.c ****     self->motor_angle       = self->motor_resolution * encoder_topic->motorCnt;
   34              		.loc 1 40 5 view .LVU1
   35              		.loc 1 40 35 is_stmt 0 view .LVU2
   36 0000 90ED017A 		vldr.32	s14, [r0, #4]
@@ -85,7 +85,7 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 1
   40 000c 67EE877A 		vmul.f32	s15, s15, s14
   41              		.loc 1 40 29 view .LVU4
   42 0010 C0ED037A 		vstr.32	s15, [r0, #12]
-  41:Core/Src/Common/Src/dsp.c ****     self->pendulum_angle    = self->pendulum_resolution * encoder_topic->PendulumCnt;
+  41:Core/Src/Common/Src/dsp.c ****     self->pendulum_angle    = self->pendulum_resolution * encoder_topic->pendulumCnt;
   43              		.loc 1 41 5 is_stmt 1 view .LVU5
   44              		.loc 1 41 35 is_stmt 0 view .LVU6
   45 0014 90ED027A 		vldr.32	s14, [r0, #8]
@@ -104,44 +104,43 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 1
   57              	.LFE157:
   59              		.section	.text.filter,"ax",%progbits
   60              		.align	1
-  61              		.global	filter
-  62              		.syntax unified
-  63              		.thumb
-  64              		.thumb_func
-  66              	filter:
-  67              	.LVL1:
-  68              	.LFB158:
+  61              		.syntax unified
+  62              		.thumb
+  63              		.thumb_func
+  65              	filter:
+  66              	.LVL1:
+  67              	.LFB158:
   43:Core/Src/Common/Src/dsp.c **** 
-  44:Core/Src/Common/Src/dsp.c **** void filter (DSP * const self) {
-  69              		.loc 1 44 32 is_stmt 1 view -0
-  70              		.cfi_startproc
-  71              		@ args = 0, pretend = 0, frame = 0
-  72              		@ frame_needed = 0, uses_anonymous_args = 0
-  73              		.loc 1 44 32 is_stmt 0 view .LVU12
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 3
+  44:Core/Src/Common/Src/dsp.c **** static void filter (DSP * const self) {
+  68              		.loc 1 44 39 is_stmt 1 view -0
+  69              		.cfi_startproc
+  70              		@ args = 0, pretend = 0, frame = 0
+  71              		@ frame_needed = 0, uses_anonymous_args = 0
+  72              		.loc 1 44 39 is_stmt 0 view .LVU12
+  73 0000 38B5     		push	{r3, r4, r5, lr}
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s 			page 3
 
 
-  74 0000 38B5     		push	{r3, r4, r5, lr}
-  75              	.LCFI0:
-  76              		.cfi_def_cfa_offset 16
-  77              		.cfi_offset 3, -16
-  78              		.cfi_offset 4, -12
-  79              		.cfi_offset 5, -8
-  80              		.cfi_offset 14, -4
-  81 0002 0446     		mov	r4, r0
+  74              	.LCFI0:
+  75              		.cfi_def_cfa_offset 16
+  76              		.cfi_offset 3, -16
+  77              		.cfi_offset 4, -12
+  78              		.cfi_offset 5, -8
+  79              		.cfi_offset 14, -4
+  80 0002 0446     		mov	r4, r0
   45:Core/Src/Common/Src/dsp.c ****     self->motor_differentiator->apply(
-  82              		.loc 1 45 5 is_stmt 1 view .LVU13
-  83              		.loc 1 45 9 is_stmt 0 view .LVU14
-  84 0004 C06E     		ldr	r0, [r0, #108]
-  85              	.LVL2:
-  86              		.loc 1 45 31 view .LVU15
-  87 0006 856A     		ldr	r5, [r0, #40]
-  88              		.loc 1 45 5 view .LVU16
-  89 0008 04F11403 		add	r3, r4, #20
-  90 000c 04F11C02 		add	r2, r4, #28
-  91 0010 04F10C01 		add	r1, r4, #12
-  92 0014 A847     		blx	r5
-  93              	.LVL3:
+  81              		.loc 1 45 5 is_stmt 1 view .LVU13
+  82              		.loc 1 45 9 is_stmt 0 view .LVU14
+  83 0004 C06E     		ldr	r0, [r0, #108]
+  84              	.LVL2:
+  85              		.loc 1 45 31 view .LVU15
+  86 0006 856A     		ldr	r5, [r0, #40]
+  87              		.loc 1 45 5 view .LVU16
+  88 0008 04F11403 		add	r3, r4, #20
+  89 000c 04F11C02 		add	r2, r4, #28
+  90 0010 04F10C01 		add	r1, r4, #12
+  91 0014 A847     		blx	r5
+  92              	.LVL3:
   46:Core/Src/Common/Src/dsp.c ****         self->motor_differentiator,
   47:Core/Src/Common/Src/dsp.c ****         &self->motor_angle,
   48:Core/Src/Common/Src/dsp.c ****         &self->motor_velocity,
@@ -149,633 +148,599 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 1
   50:Core/Src/Common/Src/dsp.c ****     );
   51:Core/Src/Common/Src/dsp.c **** 
   52:Core/Src/Common/Src/dsp.c ****     self->pendulum_differentiator->apply(
-  94              		.loc 1 52 5 is_stmt 1 view .LVU17
-  95              		.loc 1 52 9 is_stmt 0 view .LVU18
-  96 0016 206F     		ldr	r0, [r4, #112]
-  97              		.loc 1 52 34 view .LVU19
-  98 0018 856A     		ldr	r5, [r0, #40]
-  99              		.loc 1 52 5 view .LVU20
- 100 001a 04F11803 		add	r3, r4, #24
- 101 001e 04F12002 		add	r2, r4, #32
- 102 0022 04F11001 		add	r1, r4, #16
- 103 0026 A847     		blx	r5
- 104              	.LVL4:
+  93              		.loc 1 52 5 is_stmt 1 view .LVU17
+  94              		.loc 1 52 9 is_stmt 0 view .LVU18
+  95 0016 206F     		ldr	r0, [r4, #112]
+  96              		.loc 1 52 34 view .LVU19
+  97 0018 856A     		ldr	r5, [r0, #40]
+  98              		.loc 1 52 5 view .LVU20
+  99 001a 04F11803 		add	r3, r4, #24
+ 100 001e 04F12002 		add	r2, r4, #32
+ 101 0022 04F11001 		add	r1, r4, #16
+ 102 0026 A847     		blx	r5
+ 103              	.LVL4:
   53:Core/Src/Common/Src/dsp.c ****         self->pendulum_differentiator,
   54:Core/Src/Common/Src/dsp.c ****         &self->pendulum_angle,
   55:Core/Src/Common/Src/dsp.c ****         &self->pendulum_velocity,
   56:Core/Src/Common/Src/dsp.c ****         &self->raw_pendulum_velocity
   57:Core/Src/Common/Src/dsp.c ****     );
   58:Core/Src/Common/Src/dsp.c **** }
- 105              		.loc 1 58 1 view .LVU21
- 106 0028 38BD     		pop	{r3, r4, r5, pc}
- 107              		.loc 1 58 1 view .LVU22
- 108              		.cfi_endproc
- 109              	.LFE158:
- 111              		.section	.text.estimate,"ax",%progbits
- 112              		.align	1
- 113              		.global	estimate
- 114              		.syntax unified
- 115              		.thumb
- 116              		.thumb_func
- 118              	estimate:
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 4
+ 104              		.loc 1 58 1 view .LVU21
+ 105 0028 38BD     		pop	{r3, r4, r5, pc}
+ 106              		.loc 1 58 1 view .LVU22
+ 107              		.cfi_endproc
+ 108              	.LFE158:
+ 110              		.section	.text.estimate,"ax",%progbits
+ 111              		.align	1
+ 112              		.syntax unified
+ 113              		.thumb
+ 114              		.thumb_func
+ 116              	estimate:
+ 117              	.LVL5:
+ 118              	.LFB159:
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s 			page 4
 
 
- 119              	.LVL5:
- 120              	.LFB159:
   59:Core/Src/Common/Src/dsp.c **** 
-  60:Core/Src/Common/Src/dsp.c **** void estimate (DSP * const self) {
- 121              		.loc 1 60 34 is_stmt 1 view -0
- 122              		.cfi_startproc
- 123              		@ args = 0, pretend = 0, frame = 0
- 124              		@ frame_needed = 0, uses_anonymous_args = 0
- 125              		@ link register save eliminated.
+  60:Core/Src/Common/Src/dsp.c **** static void estimate (DSP * const self) {
+ 119              		.loc 1 60 41 is_stmt 1 view -0
+ 120              		.cfi_startproc
+ 121              		@ args = 0, pretend = 0, frame = 0
+ 122              		@ frame_needed = 0, uses_anonymous_args = 0
+ 123              		@ link register save eliminated.
   61:Core/Src/Common/Src/dsp.c ****     self->motor_state.position  = self->motor_angle;
- 126              		.loc 1 61 5 view .LVU24
- 127              		.loc 1 61 39 is_stmt 0 view .LVU25
- 128 0000 90ED037A 		vldr.32	s14, [r0, #12]
- 129              		.loc 1 61 33 view .LVU26
- 130 0004 80ED0C7A 		vstr.32	s14, [r0, #48]
+ 124              		.loc 1 61 5 view .LVU24
+ 125              		.loc 1 61 39 is_stmt 0 view .LVU25
+ 126 0000 90ED037A 		vldr.32	s14, [r0, #12]
+ 127              		.loc 1 61 33 view .LVU26
+ 128 0004 80ED0C7A 		vstr.32	s14, [r0, #48]
   62:Core/Src/Common/Src/dsp.c ****     self->motor_state.velocity  = self->motor_velocity;
- 131              		.loc 1 62 5 is_stmt 1 view .LVU27
- 132              		.loc 1 62 39 is_stmt 0 view .LVU28
- 133 0008 D0ED077A 		vldr.32	s15, [r0, #28]
- 134              		.loc 1 62 33 view .LVU29
- 135 000c C0ED0D7A 		vstr.32	s15, [r0, #52]
+ 129              		.loc 1 62 5 is_stmt 1 view .LVU27
+ 130              		.loc 1 62 39 is_stmt 0 view .LVU28
+ 131 0008 D0ED077A 		vldr.32	s15, [r0, #28]
+ 132              		.loc 1 62 33 view .LVU29
+ 133 000c C0ED0D7A 		vstr.32	s15, [r0, #52]
   63:Core/Src/Common/Src/dsp.c ****     self->motor_state.rawVel    = self->raw_motor_velocity;
- 136              		.loc 1 63 5 is_stmt 1 view .LVU30
- 137              		.loc 1 63 39 is_stmt 0 view .LVU31
- 138 0010 4369     		ldr	r3, [r0, #20]	@ float
- 139              		.loc 1 63 33 view .LVU32
- 140 0012 8362     		str	r3, [r0, #40]	@ float
+ 134              		.loc 1 63 5 is_stmt 1 view .LVU30
+ 135              		.loc 1 63 39 is_stmt 0 view .LVU31
+ 136 0010 4369     		ldr	r3, [r0, #20]	@ float
+ 137              		.loc 1 63 33 view .LVU32
+ 138 0012 8362     		str	r3, [r0, #40]	@ float
   64:Core/Src/Common/Src/dsp.c **** 
   65:Core/Src/Common/Src/dsp.c ****     self->pendulum_state.position   = self->pendulum_angle;
- 141              		.loc 1 65 5 is_stmt 1 view .LVU33
- 142              		.loc 1 65 43 is_stmt 0 view .LVU34
- 143 0014 0369     		ldr	r3, [r0, #16]	@ float
- 144              		.loc 1 65 37 view .LVU35
- 145 0016 0366     		str	r3, [r0, #96]	@ float
+ 139              		.loc 1 65 5 is_stmt 1 view .LVU33
+ 140              		.loc 1 65 43 is_stmt 0 view .LVU34
+ 141 0014 0369     		ldr	r3, [r0, #16]	@ float
+ 142              		.loc 1 65 37 view .LVU35
+ 143 0016 0366     		str	r3, [r0, #96]	@ float
   66:Core/Src/Common/Src/dsp.c ****     self->pendulum_state.velocity   = self->pendulum_velocity;
- 146              		.loc 1 66 5 is_stmt 1 view .LVU36
- 147              		.loc 1 66 43 is_stmt 0 view .LVU37
- 148 0018 036A     		ldr	r3, [r0, #32]	@ float
- 149              		.loc 1 66 37 view .LVU38
- 150 001a 4366     		str	r3, [r0, #100]	@ float
+ 144              		.loc 1 66 5 is_stmt 1 view .LVU36
+ 145              		.loc 1 66 43 is_stmt 0 view .LVU37
+ 146 0018 036A     		ldr	r3, [r0, #32]	@ float
+ 147              		.loc 1 66 37 view .LVU38
+ 148 001a 4366     		str	r3, [r0, #100]	@ float
   67:Core/Src/Common/Src/dsp.c ****     self->pendulum_state.rawVel     = self->raw_pendulum_velocity;
- 151              		.loc 1 67 5 is_stmt 1 view .LVU39
- 152              		.loc 1 67 43 is_stmt 0 view .LVU40
- 153 001c 8369     		ldr	r3, [r0, #24]	@ float
- 154              		.loc 1 67 37 view .LVU41
- 155 001e 8365     		str	r3, [r0, #88]	@ float
+ 149              		.loc 1 67 5 is_stmt 1 view .LVU39
+ 150              		.loc 1 67 43 is_stmt 0 view .LVU40
+ 151 001c 8369     		ldr	r3, [r0, #24]	@ float
+ 152              		.loc 1 67 37 view .LVU41
+ 153 001e 8365     		str	r3, [r0, #88]	@ float
   68:Core/Src/Common/Src/dsp.c **** 
   69:Core/Src/Common/Src/dsp.c ****     self->cart_state.position = self->motor_angle * self->gear_ratio;
- 156              		.loc 1 69 5 is_stmt 1 view .LVU42
- 157              		.loc 1 69 57 is_stmt 0 view .LVU43
- 158 0020 D0ED006A 		vldr.32	s13, [r0]
- 159              		.loc 1 69 51 view .LVU44
- 160 0024 27EE267A 		vmul.f32	s14, s14, s13
- 161              		.loc 1 69 31 view .LVU45
- 162 0028 80ED127A 		vstr.32	s14, [r0, #72]
+ 154              		.loc 1 69 5 is_stmt 1 view .LVU42
+ 155              		.loc 1 69 57 is_stmt 0 view .LVU43
+ 156 0020 D0ED006A 		vldr.32	s13, [r0]
+ 157              		.loc 1 69 51 view .LVU44
+ 158 0024 27EE267A 		vmul.f32	s14, s14, s13
+ 159              		.loc 1 69 31 view .LVU45
+ 160 0028 80ED127A 		vstr.32	s14, [r0, #72]
   70:Core/Src/Common/Src/dsp.c ****     self->cart_state.velocity = self->motor_velocity * self->gear_ratio;
- 163              		.loc 1 70 5 is_stmt 1 view .LVU46
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 5
+ 161              		.loc 1 70 5 is_stmt 1 view .LVU46
+ 162              		.loc 1 70 54 is_stmt 0 view .LVU47
+ 163 002c 67EEA67A 		vmul.f32	s15, s15, s13
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s 			page 5
 
 
- 164              		.loc 1 70 54 is_stmt 0 view .LVU47
- 165 002c 67EEA67A 		vmul.f32	s15, s15, s13
- 166              		.loc 1 70 31 view .LVU48
- 167 0030 C0ED137A 		vstr.32	s15, [r0, #76]
+ 164              		.loc 1 70 31 view .LVU48
+ 165 0030 C0ED137A 		vstr.32	s15, [r0, #76]
   71:Core/Src/Common/Src/dsp.c **** }
- 168              		.loc 1 71 1 view .LVU49
- 169 0034 7047     		bx	lr
- 170              		.cfi_endproc
- 171              	.LFE159:
- 173              		.section	.text.procesNewData,"ax",%progbits
- 174              		.align	1
- 175              		.global	procesNewData
- 176              		.syntax unified
- 177              		.thumb
- 178              		.thumb_func
- 180              	procesNewData:
- 181              	.LVL6:
- 182              	.LFB160:
+ 166              		.loc 1 71 1 view .LVU49
+ 167 0034 7047     		bx	lr
+ 168              		.cfi_endproc
+ 169              	.LFE159:
+ 171              		.section	.text.procesNewData,"ax",%progbits
+ 172              		.align	1
+ 173              		.syntax unified
+ 174              		.thumb
+ 175              		.thumb_func
+ 177              	procesNewData:
+ 178              	.LVL6:
+ 179              	.LFB160:
   72:Core/Src/Common/Src/dsp.c **** 
-  73:Core/Src/Common/Src/dsp.c **** void procesNewData (DSP * const self, Encoder const * const encoder_topic, State * const state_topi
- 183              		.loc 1 73 103 is_stmt 1 view -0
- 184              		.cfi_startproc
- 185              		@ args = 0, pretend = 0, frame = 0
- 186              		@ frame_needed = 0, uses_anonymous_args = 0
- 187              		.loc 1 73 103 is_stmt 0 view .LVU51
- 188 0000 38B5     		push	{r3, r4, r5, lr}
- 189              	.LCFI1:
- 190              		.cfi_def_cfa_offset 16
- 191              		.cfi_offset 3, -16
- 192              		.cfi_offset 4, -12
- 193              		.cfi_offset 5, -8
- 194              		.cfi_offset 14, -4
- 195 0002 0446     		mov	r4, r0
- 196 0004 1546     		mov	r5, r2
-  74:Core/Src/Common/Src/dsp.c ****     self->ConvertAngle(self, encoder_topic);
- 197              		.loc 1 74 5 is_stmt 1 view .LVU52
- 198              		.loc 1 74 9 is_stmt 0 view .LVU53
- 199 0006 436F     		ldr	r3, [r0, #116]
- 200              		.loc 1 74 5 view .LVU54
- 201 0008 9847     		blx	r3
- 202              	.LVL7:
+  73:Core/Src/Common/Src/dsp.c **** static void procesNewData (DSP * const self, Encoder const * const encoder_topic, State * const sta
+ 180              		.loc 1 73 110 is_stmt 1 view -0
+ 181              		.cfi_startproc
+ 182              		@ args = 0, pretend = 0, frame = 0
+ 183              		@ frame_needed = 0, uses_anonymous_args = 0
+ 184              		.loc 1 73 110 is_stmt 0 view .LVU51
+ 185 0000 38B5     		push	{r3, r4, r5, lr}
+ 186              	.LCFI1:
+ 187              		.cfi_def_cfa_offset 16
+ 188              		.cfi_offset 3, -16
+ 189              		.cfi_offset 4, -12
+ 190              		.cfi_offset 5, -8
+ 191              		.cfi_offset 14, -4
+ 192 0002 0446     		mov	r4, r0
+ 193 0004 1546     		mov	r5, r2
+  74:Core/Src/Common/Src/dsp.c ****     ConvertAngle(self, encoder_topic);
+ 194              		.loc 1 74 5 is_stmt 1 view .LVU52
+ 195 0006 FFF7FEFF 		bl	ConvertAngle
+ 196              	.LVL7:
   75:Core/Src/Common/Src/dsp.c **** 
-  76:Core/Src/Common/Src/dsp.c ****     self->filter(self);
- 203              		.loc 1 76 5 is_stmt 1 view .LVU55
- 204              		.loc 1 76 9 is_stmt 0 view .LVU56
- 205 000a A36F     		ldr	r3, [r4, #120]
- 206              		.loc 1 76 5 view .LVU57
- 207 000c 2046     		mov	r0, r4
- 208 000e 9847     		blx	r3
- 209              	.LVL8:
+  76:Core/Src/Common/Src/dsp.c ****     filter(self);
+ 197              		.loc 1 76 5 view .LVU53
+ 198 000a 2046     		mov	r0, r4
+ 199 000c FFF7FEFF 		bl	filter
+ 200              	.LVL8:
   77:Core/Src/Common/Src/dsp.c **** 
-  78:Core/Src/Common/Src/dsp.c ****     self->estimate(self);
- 210              		.loc 1 78 5 is_stmt 1 view .LVU58
- 211              		.loc 1 78 9 is_stmt 0 view .LVU59
- 212 0010 E36F     		ldr	r3, [r4, #124]
- 213              		.loc 1 78 5 view .LVU60
- 214 0012 2046     		mov	r0, r4
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 6
-
-
- 215 0014 9847     		blx	r3
- 216              	.LVL9:
+  78:Core/Src/Common/Src/dsp.c ****     estimate(self);
+ 201              		.loc 1 78 5 view .LVU54
+ 202 0010 2046     		mov	r0, r4
+ 203 0012 FFF7FEFF 		bl	estimate
+ 204              	.LVL9:
   79:Core/Src/Common/Src/dsp.c **** 
   80:Core/Src/Common/Src/dsp.c ****     state_topic->Motor      = self->motor_state;
- 217              		.loc 1 80 5 is_stmt 1 view .LVU61
- 218              		.loc 1 80 29 is_stmt 0 view .LVU62
- 219 0016 AC46     		mov	ip, r5
- 220 0018 04F1240E 		add	lr, r4, #36
- 221 001c BEE80F00 		ldmia	lr!, {r0, r1, r2, r3}
- 222 0020 ACE80F00 		stmia	ip!, {r0, r1, r2, r3}
- 223 0024 9EE80300 		ldm	lr, {r0, r1}
- 224 0028 8CE80300 		stm	ip, {r0, r1}
+ 205              		.loc 1 80 5 view .LVU55
+ 206              		.loc 1 80 29 is_stmt 0 view .LVU56
+ 207 0016 AC46     		mov	ip, r5
+ 208 0018 04F1240E 		add	lr, r4, #36
+ 209 001c BEE80F00 		ldmia	lr!, {r0, r1, r2, r3}
+ 210 0020 ACE80F00 		stmia	ip!, {r0, r1, r2, r3}
+ 211 0024 9EE80300 		ldm	lr, {r0, r1}
+ 212 0028 8CE80300 		stm	ip, {r0, r1}
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s 			page 6
+
+
   81:Core/Src/Common/Src/dsp.c ****     state_topic->Cart       = self->cart_state;
- 225              		.loc 1 81 5 is_stmt 1 view .LVU63
- 226              		.loc 1 81 29 is_stmt 0 view .LVU64
- 227 002c 05F1180C 		add	ip, r5, #24
- 228 0030 04F13C0E 		add	lr, r4, #60
- 229 0034 BEE80F00 		ldmia	lr!, {r0, r1, r2, r3}
- 230 0038 ACE80F00 		stmia	ip!, {r0, r1, r2, r3}
- 231 003c 9EE80300 		ldm	lr, {r0, r1}
- 232 0040 8CE80300 		stm	ip, {r0, r1}
+ 213              		.loc 1 81 5 is_stmt 1 view .LVU57
+ 214              		.loc 1 81 29 is_stmt 0 view .LVU58
+ 215 002c 05F1180C 		add	ip, r5, #24
+ 216 0030 04F13C0E 		add	lr, r4, #60
+ 217 0034 BEE80F00 		ldmia	lr!, {r0, r1, r2, r3}
+ 218 0038 ACE80F00 		stmia	ip!, {r0, r1, r2, r3}
+ 219 003c 9EE80300 		ldm	lr, {r0, r1}
+ 220 0040 8CE80300 		stm	ip, {r0, r1}
   82:Core/Src/Common/Src/dsp.c ****     state_topic->Pendulum   = self->pendulum_state;
- 233              		.loc 1 82 5 is_stmt 1 view .LVU65
- 234              		.loc 1 82 29 is_stmt 0 view .LVU66
- 235 0044 05F1300C 		add	ip, r5, #48
- 236 0048 5434     		adds	r4, r4, #84
- 237              	.LVL10:
- 238              		.loc 1 82 29 view .LVU67
- 239 004a 0FCC     		ldmia	r4!, {r0, r1, r2, r3}
- 240              	.LVL11:
- 241              		.loc 1 82 29 view .LVU68
- 242 004c ACE80F00 		stmia	ip!, {r0, r1, r2, r3}
- 243 0050 94E80300 		ldm	r4, {r0, r1}
- 244 0054 8CE80300 		stm	ip, {r0, r1}
+ 221              		.loc 1 82 5 is_stmt 1 view .LVU59
+ 222              		.loc 1 82 29 is_stmt 0 view .LVU60
+ 223 0044 05F1300E 		add	lr, r5, #48
+ 224 0048 04F1540C 		add	ip, r4, #84
+ 225 004c BCE80F00 		ldmia	ip!, {r0, r1, r2, r3}
+ 226 0050 AEE80F00 		stmia	lr!, {r0, r1, r2, r3}
+ 227 0054 9CE80300 		ldm	ip, {r0, r1}
+ 228 0058 8EE80300 		stm	lr, {r0, r1}
   83:Core/Src/Common/Src/dsp.c **** }
- 245              		.loc 1 83 1 view .LVU69
- 246 0058 38BD     		pop	{r3, r4, r5, pc}
- 247              		.loc 1 83 1 view .LVU70
- 248              		.cfi_endproc
- 249              	.LFE160:
- 251              		.section	.text.Differentiator_apply,"ax",%progbits
- 252              		.align	1
- 253              		.syntax unified
- 254              		.thumb
- 255              		.thumb_func
- 257              	Differentiator_apply:
- 258              	.LVL12:
- 259              	.LFB155:
-   6:Core/Src/Common/Src/dsp.c ****     float32_t diff_x;
- 260              		.loc 1 6 125 is_stmt 1 view -0
- 261              		.cfi_startproc
- 262              		@ args = 0, pretend = 0, frame = 8
- 263              		@ frame_needed = 0, uses_anonymous_args = 0
-   6:Core/Src/Common/Src/dsp.c ****     float32_t diff_x;
- 264              		.loc 1 6 125 is_stmt 0 view .LVU72
- 265 0000 30B5     		push	{r4, r5, lr}
- 266              	.LCFI2:
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 7
-
-
- 267              		.cfi_def_cfa_offset 12
- 268              		.cfi_offset 4, -12
- 269              		.cfi_offset 5, -8
- 270              		.cfi_offset 14, -4
- 271 0002 83B0     		sub	sp, sp, #12
- 272              	.LCFI3:
- 273              		.cfi_def_cfa_offset 24
- 274 0004 1546     		mov	r5, r2
- 275 0006 1C46     		mov	r4, r3
-   7:Core/Src/Common/Src/dsp.c ****     float32_t filtered_diff_x;
- 276              		.loc 1 7 5 is_stmt 1 view .LVU73
-   8:Core/Src/Common/Src/dsp.c ****     float32_t x = *input;
- 277              		.loc 1 8 5 view .LVU74
-   9:Core/Src/Common/Src/dsp.c **** 
- 278              		.loc 1 9 5 view .LVU75
-   9:Core/Src/Common/Src/dsp.c **** 
- 279              		.loc 1 9 15 is_stmt 0 view .LVU76
- 280 0008 D1ED006A 		vldr.32	s13, [r1]
- 281              	.LVL13:
-  12:Core/Src/Common/Src/dsp.c **** 
- 282              		.loc 1 12 5 is_stmt 1 view .LVU77
-  12:Core/Src/Common/Src/dsp.c **** 
- 283              		.loc 1 12 19 is_stmt 0 view .LVU78
- 284 000c F0EE087A 		vmov.f32	s15, #3.0e+0
- 285 0010 66EEA77A 		vmul.f32	s15, s13, s15
-  12:Core/Src/Common/Src/dsp.c **** 
- 286              		.loc 1 12 43 view .LVU79
- 287 0014 90ED046A 		vldr.32	s12, [r0, #16]
-  12:Core/Src/Common/Src/dsp.c **** 
- 288              		.loc 1 12 28 view .LVU80
- 289 0018 B1EE007A 		vmov.f32	s14, #4.0e+0
- 290 001c 26EE077A 		vmul.f32	s14, s12, s14
-  12:Core/Src/Common/Src/dsp.c **** 
- 291              		.loc 1 12 22 view .LVU81
- 292 0020 77EEC77A 		vsub.f32	s15, s15, s14
-  12:Core/Src/Common/Src/dsp.c **** 
- 293              		.loc 1 12 68 view .LVU82
- 294 0024 90ED057A 		vldr.32	s14, [r0, #20]
-  12:Core/Src/Common/Src/dsp.c **** 
- 295              		.loc 1 12 47 view .LVU83
- 296 0028 77EE877A 		vadd.f32	s15, s15, s14
-  12:Core/Src/Common/Src/dsp.c **** 
- 297              		.loc 1 12 87 view .LVU84
- 298 002c 90ED007A 		vldr.32	s14, [r0]
-  12:Core/Src/Common/Src/dsp.c **** 
- 299              		.loc 1 12 81 view .LVU85
- 300 0030 37EE077A 		vadd.f32	s14, s14, s14
-  12:Core/Src/Common/Src/dsp.c **** 
- 301              		.loc 1 12 73 view .LVU86
- 302 0034 C7EE875A 		vdiv.f32	s11, s15, s14
-  12:Core/Src/Common/Src/dsp.c **** 
- 303              		.loc 1 12 12 view .LVU87
- 304 0038 CDED015A 		vstr.32	s11, [sp, #4]
-  14:Core/Src/Common/Src/dsp.c ****     
- 305              		.loc 1 14 5 is_stmt 1 view .LVU88
-  14:Core/Src/Common/Src/dsp.c ****     
- 306              		.loc 1 14 23 is_stmt 0 view .LVU89
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 8
-
-
- 307 003c 80ED056A 		vstr.32	s12, [r0, #20]
-  14:Core/Src/Common/Src/dsp.c ****     
- 308              		.loc 1 14 44 is_stmt 1 view .LVU90
-  14:Core/Src/Common/Src/dsp.c ****     
- 309              		.loc 1 14 62 is_stmt 0 view .LVU91
- 310 0040 C0ED046A 		vstr.32	s13, [r0, #16]
-  17:Core/Src/Common/Src/dsp.c ****     arm_biquad_cascade_df2T_f32(&self->filter, &diff_x, &filtered_diff_x, 1);
- 311              		.loc 1 17 5 is_stmt 1 view .LVU92
-  17:Core/Src/Common/Src/dsp.c ****     arm_biquad_cascade_df2T_f32(&self->filter, &diff_x, &filtered_diff_x, 1);
- 312              		.loc 1 17 28 is_stmt 0 view .LVU93
- 313 0044 0123     		movs	r3, #1
- 314              	.LVL14:
-  17:Core/Src/Common/Src/dsp.c ****     arm_biquad_cascade_df2T_f32(&self->filter, &diff_x, &filtered_diff_x, 1);
- 315              		.loc 1 17 28 view .LVU94
- 316 0046 00F8183F 		strb	r3, [r0, #24]!
- 317              	.LVL15:
-  18:Core/Src/Common/Src/dsp.c **** 
- 318              		.loc 1 18 5 is_stmt 1 view .LVU95
- 319 004a 6A46     		mov	r2, sp
- 320              	.LVL16:
-  18:Core/Src/Common/Src/dsp.c **** 
- 321              		.loc 1 18 5 is_stmt 0 view .LVU96
- 322 004c 01A9     		add	r1, sp, #4
- 323              	.LVL17:
-  18:Core/Src/Common/Src/dsp.c **** 
- 324              		.loc 1 18 5 view .LVU97
- 325 004e FFF7FEFF 		bl	arm_biquad_cascade_df2T_f32
- 326              	.LVL18:
-  21:Core/Src/Common/Src/dsp.c ****     *rawOutput = diff_x;
- 327              		.loc 1 21 5 is_stmt 1 view .LVU98
-  21:Core/Src/Common/Src/dsp.c ****     *rawOutput = diff_x;
- 328              		.loc 1 21 13 is_stmt 0 view .LVU99
- 329 0052 009B     		ldr	r3, [sp]	@ float
- 330 0054 2B60     		str	r3, [r5]	@ float
-  22:Core/Src/Common/Src/dsp.c **** }
- 331              		.loc 1 22 5 is_stmt 1 view .LVU100
-  22:Core/Src/Common/Src/dsp.c **** }
- 332              		.loc 1 22 16 is_stmt 0 view .LVU101
- 333 0056 019B     		ldr	r3, [sp, #4]	@ float
- 334 0058 2360     		str	r3, [r4]	@ float
-  23:Core/Src/Common/Src/dsp.c **** 
- 335              		.loc 1 23 1 view .LVU102
- 336 005a 03B0     		add	sp, sp, #12
- 337              	.LCFI4:
- 338              		.cfi_def_cfa_offset 12
- 339              		@ sp needed
- 340 005c 30BD     		pop	{r4, r5, pc}
-  23:Core/Src/Common/Src/dsp.c **** 
- 341              		.loc 1 23 1 view .LVU103
- 342              		.cfi_endproc
- 343              	.LFE155:
- 345              		.section	.text.Differentiator_new,"ax",%progbits
- 346              		.align	1
- 347              		.global	Differentiator_new
- 348              		.syntax unified
- 349              		.thumb
- 350              		.thumb_func
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 9
-
-
- 352              	Differentiator_new:
- 353              	.LVL19:
- 354              	.LFB156:
+ 229              		.loc 1 83 1 view .LVU61
+ 230 005c 38BD     		pop	{r3, r4, r5, pc}
+ 231              		.loc 1 83 1 view .LVU62
+ 232              		.cfi_endproc
+ 233              	.LFE160:
+ 235              		.section	.text.Differentiator_new,"ax",%progbits
+ 236              		.align	1
+ 237              		.syntax unified
+ 238              		.thumb
+ 239              		.thumb_func
+ 241              	Differentiator_new:
+ 242              	.LVL10:
+ 243              	.LFB156:
   28:Core/Src/Common/Src/dsp.c ****     self->apply = &Differentiator_apply;
- 355              		.loc 1 28 123 is_stmt 1 view -0
- 356              		.cfi_startproc
- 357              		@ args = 0, pretend = 0, frame = 0
- 358              		@ frame_needed = 0, uses_anonymous_args = 0
+ 244              		.loc 1 28 130 is_stmt 1 view -0
+ 245              		.cfi_startproc
+ 246              		@ args = 0, pretend = 0, frame = 0
+ 247              		@ frame_needed = 0, uses_anonymous_args = 0
   28:Core/Src/Common/Src/dsp.c ****     self->apply = &Differentiator_apply;
- 359              		.loc 1 28 123 is_stmt 0 view .LVU105
- 360 0000 70B5     		push	{r4, r5, r6, lr}
- 361              	.LCFI5:
- 362              		.cfi_def_cfa_offset 16
- 363              		.cfi_offset 4, -16
- 364              		.cfi_offset 5, -12
- 365              		.cfi_offset 6, -8
- 366              		.cfi_offset 14, -4
- 367 0002 0446     		mov	r4, r0
- 368 0004 0D46     		mov	r5, r1
- 369 0006 1646     		mov	r6, r2
+ 248              		.loc 1 28 130 is_stmt 0 view .LVU64
+ 249 0000 70B5     		push	{r4, r5, r6, lr}
+ 250              	.LCFI2:
+ 251              		.cfi_def_cfa_offset 16
+ 252              		.cfi_offset 4, -16
+ 253              		.cfi_offset 5, -12
+ 254              		.cfi_offset 6, -8
+ 255              		.cfi_offset 14, -4
+ 256 0002 0446     		mov	r4, r0
+ 257 0004 0D46     		mov	r5, r1
+ 258 0006 1646     		mov	r6, r2
   29:Core/Src/Common/Src/dsp.c **** 
- 370              		.loc 1 29 5 is_stmt 1 view .LVU106
+ 259              		.loc 1 29 5 is_stmt 1 view .LVU65
   29:Core/Src/Common/Src/dsp.c **** 
- 371              		.loc 1 29 17 is_stmt 0 view .LVU107
- 372 0008 074B     		ldr	r3, .L11
- 373 000a 8362     		str	r3, [r0, #40]
+ 260              		.loc 1 29 17 is_stmt 0 view .LVU66
+ 261 0008 074B     		ldr	r3, .L9
+ 262 000a 8362     		str	r3, [r0, #40]
   31:Core/Src/Common/Src/dsp.c **** 
- 374              		.loc 1 31 5 is_stmt 1 view .LVU108
+ 263              		.loc 1 31 5 is_stmt 1 view .LVU67
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s 			page 7
+
+
   31:Core/Src/Common/Src/dsp.c **** 
- 375              		.loc 1 31 14 is_stmt 0 view .LVU109
- 376 000c 80ED000A 		vstr.32	s0, [r0]
+ 264              		.loc 1 31 14 is_stmt 0 view .LVU68
+ 265 000c 80ED000A 		vstr.32	s0, [r0]
   33:Core/Src/Common/Src/dsp.c **** 
- 377              		.loc 1 33 5 is_stmt 1 view .LVU110
+ 266              		.loc 1 33 5 is_stmt 1 view .LVU69
   33:Core/Src/Common/Src/dsp.c **** 
- 378              		.loc 1 33 40 is_stmt 0 view .LVU111
- 379 0010 C800     		lsls	r0, r1, #3
- 380              	.LVL20:
+ 267              		.loc 1 33 40 is_stmt 0 view .LVU70
+ 268 0010 C800     		lsls	r0, r1, #3
+ 269              	.LVL11:
   33:Core/Src/Common/Src/dsp.c **** 
- 381              		.loc 1 33 40 view .LVU112
- 382 0012 FFF7FEFF 		bl	pvPortMalloc
- 383              	.LVL21:
+ 270              		.loc 1 33 40 view .LVU71
+ 271 0012 FFF7FEFF 		bl	pvPortMalloc
+ 272              	.LVL12:
   33:Core/Src/Common/Src/dsp.c **** 
- 384              		.loc 1 33 40 view .LVU113
- 385 0016 0346     		mov	r3, r0
+ 273              		.loc 1 33 40 view .LVU72
+ 274 0016 0346     		mov	r3, r0
   33:Core/Src/Common/Src/dsp.c **** 
- 386              		.loc 1 33 24 discriminator 1 view .LVU114
- 387 0018 6062     		str	r0, [r4, #36]
+ 275              		.loc 1 33 24 discriminator 1 view .LVU73
+ 276 0018 6062     		str	r0, [r4, #36]
   35:Core/Src/Common/Src/dsp.c **** }
- 388              		.loc 1 35 5 is_stmt 1 view .LVU115
- 389 001a 3246     		mov	r2, r6
- 390 001c 2946     		mov	r1, r5
- 391 001e 04F11800 		add	r0, r4, #24
- 392 0022 FFF7FEFF 		bl	arm_biquad_cascade_df2T_init_f32
- 393              	.LVL22:
+ 277              		.loc 1 35 5 is_stmt 1 view .LVU74
+ 278 001a 3246     		mov	r2, r6
+ 279 001c 2946     		mov	r1, r5
+ 280 001e 04F11800 		add	r0, r4, #24
+ 281 0022 FFF7FEFF 		bl	arm_biquad_cascade_df2T_init_f32
+ 282              	.LVL13:
   36:Core/Src/Common/Src/dsp.c **** 
- 394              		.loc 1 36 1 is_stmt 0 view .LVU116
- 395 0026 70BD     		pop	{r4, r5, r6, pc}
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 10
+ 283              		.loc 1 36 1 is_stmt 0 view .LVU75
+ 284 0026 70BD     		pop	{r4, r5, r6, pc}
+ 285              	.LVL14:
+ 286              	.L10:
+  36:Core/Src/Common/Src/dsp.c **** 
+ 287              		.loc 1 36 1 view .LVU76
+ 288              		.align	2
+ 289              	.L9:
+ 290 0028 00000000 		.word	Differentiator_apply
+ 291              		.cfi_endproc
+ 292              	.LFE156:
+ 294              		.section	.text.Differentiator_apply,"ax",%progbits
+ 295              		.align	1
+ 296              		.syntax unified
+ 297              		.thumb
+ 298              		.thumb_func
+ 300              	Differentiator_apply:
+ 301              	.LVL15:
+ 302              	.LFB155:
+   8:Core/Src/Common/Src/dsp.c ****     float32_t diff_x;
+ 303              		.loc 1 8 125 is_stmt 1 view -0
+ 304              		.cfi_startproc
+ 305              		@ args = 0, pretend = 0, frame = 8
+ 306              		@ frame_needed = 0, uses_anonymous_args = 0
+   8:Core/Src/Common/Src/dsp.c ****     float32_t diff_x;
+ 307              		.loc 1 8 125 is_stmt 0 view .LVU78
+ 308 0000 30B5     		push	{r4, r5, lr}
+ 309              	.LCFI3:
+ 310              		.cfi_def_cfa_offset 12
+ 311              		.cfi_offset 4, -12
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s 			page 8
 
 
- 396              	.LVL23:
- 397              	.L12:
-  36:Core/Src/Common/Src/dsp.c **** 
- 398              		.loc 1 36 1 view .LVU117
- 399              		.align	2
- 400              	.L11:
- 401 0028 00000000 		.word	Differentiator_apply
- 402              		.cfi_endproc
- 403              	.LFE156:
- 405              		.section	.text.dsp_new,"ax",%progbits
- 406              		.align	1
- 407              		.global	dsp_new
- 408              		.syntax unified
- 409              		.thumb
- 410              		.thumb_func
- 412              	dsp_new:
- 413              	.LVL24:
- 414              	.LFB161:
+ 312              		.cfi_offset 5, -8
+ 313              		.cfi_offset 14, -4
+ 314 0002 83B0     		sub	sp, sp, #12
+ 315              	.LCFI4:
+ 316              		.cfi_def_cfa_offset 24
+ 317 0004 1546     		mov	r5, r2
+ 318 0006 1C46     		mov	r4, r3
+   9:Core/Src/Common/Src/dsp.c ****     float32_t filtered_diff_x;
+ 319              		.loc 1 9 5 is_stmt 1 view .LVU79
+  10:Core/Src/Common/Src/dsp.c ****     float32_t x = *input;
+ 320              		.loc 1 10 5 view .LVU80
+  11:Core/Src/Common/Src/dsp.c **** 
+ 321              		.loc 1 11 5 view .LVU81
+  11:Core/Src/Common/Src/dsp.c **** 
+ 322              		.loc 1 11 15 is_stmt 0 view .LVU82
+ 323 0008 D1ED006A 		vldr.32	s13, [r1]
+ 324              	.LVL16:
+  14:Core/Src/Common/Src/dsp.c **** 
+ 325              		.loc 1 14 5 is_stmt 1 view .LVU83
+  14:Core/Src/Common/Src/dsp.c **** 
+ 326              		.loc 1 14 19 is_stmt 0 view .LVU84
+ 327 000c F0EE087A 		vmov.f32	s15, #3.0e+0
+ 328 0010 66EEA77A 		vmul.f32	s15, s13, s15
+  14:Core/Src/Common/Src/dsp.c **** 
+ 329              		.loc 1 14 43 view .LVU85
+ 330 0014 90ED046A 		vldr.32	s12, [r0, #16]
+  14:Core/Src/Common/Src/dsp.c **** 
+ 331              		.loc 1 14 28 view .LVU86
+ 332 0018 B1EE007A 		vmov.f32	s14, #4.0e+0
+ 333 001c 26EE077A 		vmul.f32	s14, s12, s14
+  14:Core/Src/Common/Src/dsp.c **** 
+ 334              		.loc 1 14 22 view .LVU87
+ 335 0020 77EEC77A 		vsub.f32	s15, s15, s14
+  14:Core/Src/Common/Src/dsp.c **** 
+ 336              		.loc 1 14 68 view .LVU88
+ 337 0024 90ED057A 		vldr.32	s14, [r0, #20]
+  14:Core/Src/Common/Src/dsp.c **** 
+ 338              		.loc 1 14 47 view .LVU89
+ 339 0028 77EE877A 		vadd.f32	s15, s15, s14
+  14:Core/Src/Common/Src/dsp.c **** 
+ 340              		.loc 1 14 87 view .LVU90
+ 341 002c 90ED007A 		vldr.32	s14, [r0]
+  14:Core/Src/Common/Src/dsp.c **** 
+ 342              		.loc 1 14 81 view .LVU91
+ 343 0030 37EE077A 		vadd.f32	s14, s14, s14
+  14:Core/Src/Common/Src/dsp.c **** 
+ 344              		.loc 1 14 73 view .LVU92
+ 345 0034 C7EE875A 		vdiv.f32	s11, s15, s14
+  14:Core/Src/Common/Src/dsp.c **** 
+ 346              		.loc 1 14 12 view .LVU93
+ 347 0038 CDED015A 		vstr.32	s11, [sp, #4]
+  16:Core/Src/Common/Src/dsp.c ****     
+ 348              		.loc 1 16 5 is_stmt 1 view .LVU94
+  16:Core/Src/Common/Src/dsp.c ****     
+ 349              		.loc 1 16 23 is_stmt 0 view .LVU95
+ 350 003c 80ED056A 		vstr.32	s12, [r0, #20]
+  16:Core/Src/Common/Src/dsp.c ****     
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s 			page 9
+
+
+ 351              		.loc 1 16 44 is_stmt 1 view .LVU96
+  16:Core/Src/Common/Src/dsp.c ****     
+ 352              		.loc 1 16 62 is_stmt 0 view .LVU97
+ 353 0040 C0ED046A 		vstr.32	s13, [r0, #16]
+  19:Core/Src/Common/Src/dsp.c ****     arm_biquad_cascade_df2T_f32(&self->filter, &diff_x, &filtered_diff_x, 1);
+ 354              		.loc 1 19 5 is_stmt 1 view .LVU98
+  19:Core/Src/Common/Src/dsp.c ****     arm_biquad_cascade_df2T_f32(&self->filter, &diff_x, &filtered_diff_x, 1);
+ 355              		.loc 1 19 28 is_stmt 0 view .LVU99
+ 356 0044 0123     		movs	r3, #1
+ 357              	.LVL17:
+  19:Core/Src/Common/Src/dsp.c ****     arm_biquad_cascade_df2T_f32(&self->filter, &diff_x, &filtered_diff_x, 1);
+ 358              		.loc 1 19 28 view .LVU100
+ 359 0046 00F8183F 		strb	r3, [r0, #24]!
+ 360              	.LVL18:
+  20:Core/Src/Common/Src/dsp.c **** 
+ 361              		.loc 1 20 5 is_stmt 1 view .LVU101
+ 362 004a 6A46     		mov	r2, sp
+ 363              	.LVL19:
+  20:Core/Src/Common/Src/dsp.c **** 
+ 364              		.loc 1 20 5 is_stmt 0 view .LVU102
+ 365 004c 01A9     		add	r1, sp, #4
+ 366              	.LVL20:
+  20:Core/Src/Common/Src/dsp.c **** 
+ 367              		.loc 1 20 5 view .LVU103
+ 368 004e FFF7FEFF 		bl	arm_biquad_cascade_df2T_f32
+ 369              	.LVL21:
+  23:Core/Src/Common/Src/dsp.c ****     *rawOutput = diff_x;
+ 370              		.loc 1 23 5 is_stmt 1 view .LVU104
+  23:Core/Src/Common/Src/dsp.c ****     *rawOutput = diff_x;
+ 371              		.loc 1 23 13 is_stmt 0 view .LVU105
+ 372 0052 009B     		ldr	r3, [sp]	@ float
+ 373 0054 2B60     		str	r3, [r5]	@ float
+  24:Core/Src/Common/Src/dsp.c **** }
+ 374              		.loc 1 24 5 is_stmt 1 view .LVU106
+  24:Core/Src/Common/Src/dsp.c **** }
+ 375              		.loc 1 24 16 is_stmt 0 view .LVU107
+ 376 0056 019B     		ldr	r3, [sp, #4]	@ float
+ 377 0058 2360     		str	r3, [r4]	@ float
+  25:Core/Src/Common/Src/dsp.c **** 
+ 378              		.loc 1 25 1 view .LVU108
+ 379 005a 03B0     		add	sp, sp, #12
+ 380              	.LCFI5:
+ 381              		.cfi_def_cfa_offset 12
+ 382              		@ sp needed
+ 383 005c 30BD     		pop	{r4, r5, pc}
+  25:Core/Src/Common/Src/dsp.c **** 
+ 384              		.loc 1 25 1 view .LVU109
+ 385              		.cfi_endproc
+ 386              	.LFE155:
+ 388              		.section	.text.dsp_new,"ax",%progbits
+ 389              		.align	1
+ 390              		.global	dsp_new
+ 391              		.syntax unified
+ 392              		.thumb
+ 393              		.thumb_func
+ 395              	dsp_new:
+ 396              	.LVL22:
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s 			page 10
+
+
+ 397              	.LFB161:
   84:Core/Src/Common/Src/dsp.c **** 
   85:Core/Src/Common/Src/dsp.c **** void dsp_new (DSP * const self) {
- 415              		.loc 1 85 33 is_stmt 1 view -0
- 416              		.cfi_startproc
- 417              		@ args = 0, pretend = 0, frame = 0
- 418              		@ frame_needed = 0, uses_anonymous_args = 0
- 419              		.loc 1 85 33 is_stmt 0 view .LVU119
- 420 0000 10B5     		push	{r4, lr}
- 421              	.LCFI6:
- 422              		.cfi_def_cfa_offset 8
- 423              		.cfi_offset 4, -8
- 424              		.cfi_offset 14, -4
- 425 0002 2DED028B 		vpush.64	{d8}
- 426              	.LCFI7:
- 427              		.cfi_def_cfa_offset 16
- 428              		.cfi_offset 80, -16
- 429              		.cfi_offset 81, -12
- 430 0006 0446     		mov	r4, r0
+ 398              		.loc 1 85 33 is_stmt 1 view -0
+ 399              		.cfi_startproc
+ 400              		@ args = 0, pretend = 0, frame = 0
+ 401              		@ frame_needed = 0, uses_anonymous_args = 0
+ 402              		.loc 1 85 33 is_stmt 0 view .LVU111
+ 403 0000 10B5     		push	{r4, lr}
+ 404              	.LCFI6:
+ 405              		.cfi_def_cfa_offset 8
+ 406              		.cfi_offset 4, -8
+ 407              		.cfi_offset 14, -4
+ 408 0002 2DED028B 		vpush.64	{d8}
+ 409              	.LCFI7:
+ 410              		.cfi_def_cfa_offset 16
+ 411              		.cfi_offset 80, -16
+ 412              		.cfi_offset 81, -12
+ 413 0006 0446     		mov	r4, r0
   86:Core/Src/Common/Src/dsp.c ****     self->gear_ratio = (1.0f / 14.0f) * ((14.0f * 1.5f * 0.001f) / 2.0f);
- 431              		.loc 1 86 5 is_stmt 1 view .LVU120
- 432              		.loc 1 86 22 is_stmt 0 view .LVU121
- 433 0008 214B     		ldr	r3, .L15
- 434 000a 0360     		str	r3, [r0]	@ float
+ 414              		.loc 1 86 5 is_stmt 1 view .LVU112
+ 415              		.loc 1 86 22 is_stmt 0 view .LVU113
+ 416 0008 1E4B     		ldr	r3, .L15
+ 417 000a 0360     		str	r3, [r0]	@ float
   87:Core/Src/Common/Src/dsp.c **** 
   88:Core/Src/Common/Src/dsp.c ****     self->motor_resolution = (2.0f * PI) / (4.0f * 500.0f);
- 435              		.loc 1 88 5 is_stmt 1 view .LVU122
- 436              		.loc 1 88 28 is_stmt 0 view .LVU123
- 437 000c 214B     		ldr	r3, .L15+4
- 438 000e 4360     		str	r3, [r0, #4]	@ float
+ 418              		.loc 1 88 5 is_stmt 1 view .LVU114
+ 419              		.loc 1 88 28 is_stmt 0 view .LVU115
+ 420 000c 1E4B     		ldr	r3, .L15+4
+ 421 000e 4360     		str	r3, [r0, #4]	@ float
   89:Core/Src/Common/Src/dsp.c ****     self->pendulum_resolution = (2.0f * PI) / (4.0f * 1000.0f);
- 439              		.loc 1 89 5 is_stmt 1 view .LVU124
- 440              		.loc 1 89 31 is_stmt 0 view .LVU125
- 441 0010 214B     		ldr	r3, .L15+8
- 442 0012 8360     		str	r3, [r0, #8]	@ float
+ 422              		.loc 1 89 5 is_stmt 1 view .LVU116
+ 423              		.loc 1 89 31 is_stmt 0 view .LVU117
+ 424 0010 1E4B     		ldr	r3, .L15+8
+ 425 0012 8360     		str	r3, [r0, #8]	@ float
   90:Core/Src/Common/Src/dsp.c **** 
   91:Core/Src/Common/Src/dsp.c ****     /* Khởi tạo các giá trị ban đầu */
   92:Core/Src/Common/Src/dsp.c ****     self->motor_state       = (StateData){0.0f};
- 443              		.loc 1 92 5 is_stmt 1 view .LVU126
- 444              		.loc 1 92 29 is_stmt 0 view .LVU127
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 11
-
-
- 445 0014 0023     		movs	r3, #0
- 446 0016 4362     		str	r3, [r0, #36]
- 447 0018 8362     		str	r3, [r0, #40]
- 448 001a C362     		str	r3, [r0, #44]
- 449 001c 0363     		str	r3, [r0, #48]
- 450 001e 4363     		str	r3, [r0, #52]
- 451 0020 8363     		str	r3, [r0, #56]
+ 426              		.loc 1 92 5 is_stmt 1 view .LVU118
+ 427              		.loc 1 92 29 is_stmt 0 view .LVU119
+ 428 0014 0023     		movs	r3, #0
+ 429 0016 4362     		str	r3, [r0, #36]
+ 430 0018 8362     		str	r3, [r0, #40]
+ 431 001a C362     		str	r3, [r0, #44]
+ 432 001c 0363     		str	r3, [r0, #48]
+ 433 001e 4363     		str	r3, [r0, #52]
+ 434 0020 8363     		str	r3, [r0, #56]
   93:Core/Src/Common/Src/dsp.c ****     self->cart_state        = (StateData){0.0f};
- 452              		.loc 1 93 5 is_stmt 1 view .LVU128
- 453              		.loc 1 93 29 is_stmt 0 view .LVU129
- 454 0022 C363     		str	r3, [r0, #60]
- 455 0024 0364     		str	r3, [r0, #64]
- 456 0026 4364     		str	r3, [r0, #68]
- 457 0028 8364     		str	r3, [r0, #72]
- 458 002a C364     		str	r3, [r0, #76]
- 459 002c 0365     		str	r3, [r0, #80]
+ 435              		.loc 1 93 5 is_stmt 1 view .LVU120
+ 436              		.loc 1 93 29 is_stmt 0 view .LVU121
+ 437 0022 C363     		str	r3, [r0, #60]
+ 438 0024 0364     		str	r3, [r0, #64]
+ 439 0026 4364     		str	r3, [r0, #68]
+ 440 0028 8364     		str	r3, [r0, #72]
+ 441 002a C364     		str	r3, [r0, #76]
+ 442 002c 0365     		str	r3, [r0, #80]
   94:Core/Src/Common/Src/dsp.c ****     self->pendulum_state    = (StateData){0.0f};
- 460              		.loc 1 94 5 is_stmt 1 view .LVU130
- 461              		.loc 1 94 29 is_stmt 0 view .LVU131
- 462 002e 4365     		str	r3, [r0, #84]
- 463 0030 8365     		str	r3, [r0, #88]
- 464 0032 C365     		str	r3, [r0, #92]
- 465 0034 0366     		str	r3, [r0, #96]
- 466 0036 4366     		str	r3, [r0, #100]
- 467 0038 8366     		str	r3, [r0, #104]
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s 			page 11
+
+
+ 443              		.loc 1 94 5 is_stmt 1 view .LVU122
+ 444              		.loc 1 94 29 is_stmt 0 view .LVU123
+ 445 002e 4365     		str	r3, [r0, #84]
+ 446 0030 8365     		str	r3, [r0, #88]
+ 447 0032 C365     		str	r3, [r0, #92]
+ 448 0034 0366     		str	r3, [r0, #96]
+ 449 0036 4366     		str	r3, [r0, #100]
+ 450 0038 8366     		str	r3, [r0, #104]
   95:Core/Src/Common/Src/dsp.c **** 
   96:Core/Src/Common/Src/dsp.c ****     /*Initialize Differentiators*/
   97:Core/Src/Common/Src/dsp.c ****     self->motor_differentiator = ( Differentiator * ) pvPortMalloc( sizeof(Differentiator) );
- 468              		.loc 1 97 5 is_stmt 1 view .LVU132
- 469              		.loc 1 97 55 is_stmt 0 view .LVU133
- 470 003a 2C20     		movs	r0, #44
- 471              	.LVL25:
- 472              		.loc 1 97 55 view .LVU134
- 473 003c FFF7FEFF 		bl	pvPortMalloc
- 474              	.LVL26:
- 475              		.loc 1 97 32 discriminator 1 view .LVU135
- 476 0040 E066     		str	r0, [r4, #108]
+ 451              		.loc 1 97 5 is_stmt 1 view .LVU124
+ 452              		.loc 1 97 55 is_stmt 0 view .LVU125
+ 453 003a 2C20     		movs	r0, #44
+ 454              	.LVL23:
+ 455              		.loc 1 97 55 view .LVU126
+ 456 003c FFF7FEFF 		bl	pvPortMalloc
+ 457              	.LVL24:
+ 458              		.loc 1 97 32 discriminator 1 view .LVU127
+ 459 0040 E066     		str	r0, [r4, #108]
   98:Core/Src/Common/Src/dsp.c ****     self->pendulum_differentiator = ( Differentiator * ) pvPortMalloc( sizeof(Differentiator) );
- 477              		.loc 1 98 5 is_stmt 1 view .LVU136
- 478              		.loc 1 98 58 is_stmt 0 view .LVU137
- 479 0042 2C20     		movs	r0, #44
- 480 0044 FFF7FEFF 		bl	pvPortMalloc
- 481              	.LVL27:
- 482              		.loc 1 98 35 discriminator 1 view .LVU138
- 483 0048 2067     		str	r0, [r4, #112]
+ 460              		.loc 1 98 5 is_stmt 1 view .LVU128
+ 461              		.loc 1 98 58 is_stmt 0 view .LVU129
+ 462 0042 2C20     		movs	r0, #44
+ 463 0044 FFF7FEFF 		bl	pvPortMalloc
+ 464              	.LVL25:
+ 465              		.loc 1 98 35 discriminator 1 view .LVU130
+ 466 0048 2067     		str	r0, [r4, #112]
   99:Core/Src/Common/Src/dsp.c ****     Differentiator_new(self->motor_differentiator, 1e-3f, MOTOR_FILTER_STAGES_NUM, &MotorCoefficien
- 484              		.loc 1 99 5 is_stmt 1 view .LVU139
- 485 004a 9FED148A 		vldr.32	s16, .L15+12
- 486 004e 144A     		ldr	r2, .L15+16
- 487 0050 0121     		movs	r1, #1
- 488 0052 B0EE480A 		vmov.f32	s0, s16
- 489 0056 E06E     		ldr	r0, [r4, #108]
- 490 0058 FFF7FEFF 		bl	Differentiator_new
- 491              	.LVL28:
+ 467              		.loc 1 99 5 is_stmt 1 view .LVU131
+ 468 004a 9FED118A 		vldr.32	s16, .L15+12
+ 469 004e 114A     		ldr	r2, .L15+16
+ 470 0050 0121     		movs	r1, #1
+ 471 0052 B0EE480A 		vmov.f32	s0, s16
+ 472 0056 E06E     		ldr	r0, [r4, #108]
+ 473 0058 FFF7FEFF 		bl	Differentiator_new
+ 474              	.LVL26:
  100:Core/Src/Common/Src/dsp.c ****     Differentiator_new(self->pendulum_differentiator, 1e-3f, PENDULUM_FILTER_STAGES_NUM, &PendulumC
- 492              		.loc 1 100 5 view .LVU140
- 493 005c 114A     		ldr	r2, .L15+20
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 12
-
-
- 494 005e 0121     		movs	r1, #1
- 495 0060 B0EE480A 		vmov.f32	s0, s16
- 496 0064 206F     		ldr	r0, [r4, #112]
- 497 0066 FFF7FEFF 		bl	Differentiator_new
- 498              	.LVL29:
+ 475              		.loc 1 100 5 view .LVU132
+ 476 005c 0E4A     		ldr	r2, .L15+20
+ 477 005e 0121     		movs	r1, #1
+ 478 0060 B0EE480A 		vmov.f32	s0, s16
+ 479 0064 206F     		ldr	r0, [r4, #112]
+ 480 0066 FFF7FEFF 		bl	Differentiator_new
+ 481              	.LVL27:
  101:Core/Src/Common/Src/dsp.c **** 
  102:Core/Src/Common/Src/dsp.c ****     /*----------*/
  103:Core/Src/Common/Src/dsp.c ****     self->motor_angle = 0.0f;
- 499              		.loc 1 103 5 view .LVU141
- 500              		.loc 1 103 23 is_stmt 0 view .LVU142
- 501 006a 0023     		movs	r3, #0
- 502 006c E360     		str	r3, [r4, #12]	@ float
+ 482              		.loc 1 103 5 view .LVU133
+ 483              		.loc 1 103 23 is_stmt 0 view .LVU134
+ 484 006a 0023     		movs	r3, #0
+ 485 006c E360     		str	r3, [r4, #12]	@ float
  104:Core/Src/Common/Src/dsp.c ****     self->pendulum_angle = 0.0f; 
- 503              		.loc 1 104 5 is_stmt 1 view .LVU143
- 504              		.loc 1 104 26 is_stmt 0 view .LVU144
- 505 006e 2361     		str	r3, [r4, #16]	@ float
+ 486              		.loc 1 104 5 is_stmt 1 view .LVU135
+ 487              		.loc 1 104 26 is_stmt 0 view .LVU136
+ 488 006e 2361     		str	r3, [r4, #16]	@ float
  105:Core/Src/Common/Src/dsp.c **** 
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s 			page 12
+
+
  106:Core/Src/Common/Src/dsp.c ****     self->raw_motor_velocity = 0.0f; self->motor_velocity = 0.0f;
- 506              		.loc 1 106 5 is_stmt 1 view .LVU145
- 507              		.loc 1 106 30 is_stmt 0 view .LVU146
- 508 0070 6361     		str	r3, [r4, #20]	@ float
- 509              		.loc 1 106 38 is_stmt 1 view .LVU147
- 510              		.loc 1 106 59 is_stmt 0 view .LVU148
- 511 0072 E361     		str	r3, [r4, #28]	@ float
+ 489              		.loc 1 106 5 is_stmt 1 view .LVU137
+ 490              		.loc 1 106 30 is_stmt 0 view .LVU138
+ 491 0070 6361     		str	r3, [r4, #20]	@ float
+ 492              		.loc 1 106 38 is_stmt 1 view .LVU139
+ 493              		.loc 1 106 59 is_stmt 0 view .LVU140
+ 494 0072 E361     		str	r3, [r4, #28]	@ float
  107:Core/Src/Common/Src/dsp.c ****     self->raw_pendulum_velocity = 0.0f; self->pendulum_velocity = 0.0f;
- 512              		.loc 1 107 5 is_stmt 1 view .LVU149
- 513              		.loc 1 107 33 is_stmt 0 view .LVU150
- 514 0074 A361     		str	r3, [r4, #24]	@ float
- 515              		.loc 1 107 41 is_stmt 1 view .LVU151
- 516              		.loc 1 107 65 is_stmt 0 view .LVU152
- 517 0076 2362     		str	r3, [r4, #32]	@ float
+ 495              		.loc 1 107 5 is_stmt 1 view .LVU141
+ 496              		.loc 1 107 33 is_stmt 0 view .LVU142
+ 497 0074 A361     		str	r3, [r4, #24]	@ float
+ 498              		.loc 1 107 41 is_stmt 1 view .LVU143
+ 499              		.loc 1 107 65 is_stmt 0 view .LVU144
+ 500 0076 2362     		str	r3, [r4, #32]	@ float
  108:Core/Src/Common/Src/dsp.c **** 
  109:Core/Src/Common/Src/dsp.c ****     /* Assign function pointer */
- 110:Core/Src/Common/Src/dsp.c ****     self->ConvertAngle  = &ConvertAngle;
- 518              		.loc 1 110 5 is_stmt 1 view .LVU153
- 519              		.loc 1 110 25 is_stmt 0 view .LVU154
- 520 0078 0B4B     		ldr	r3, .L15+24
- 521 007a 6367     		str	r3, [r4, #116]
- 111:Core/Src/Common/Src/dsp.c ****     self->filter        = &filter;
- 522              		.loc 1 111 5 is_stmt 1 view .LVU155
- 523              		.loc 1 111 25 is_stmt 0 view .LVU156
- 524 007c 0B4B     		ldr	r3, .L15+28
- 525 007e A367     		str	r3, [r4, #120]
- 112:Core/Src/Common/Src/dsp.c ****     self->estimate      = &estimate;
- 526              		.loc 1 112 5 is_stmt 1 view .LVU157
- 527              		.loc 1 112 25 is_stmt 0 view .LVU158
- 528 0080 0B4B     		ldr	r3, .L15+32
- 529 0082 E367     		str	r3, [r4, #124]
+ 110:Core/Src/Common/Src/dsp.c ****     // self->ConvertAngle  = &ConvertAngle;
+ 111:Core/Src/Common/Src/dsp.c ****     // self->filter        = &filter;
+ 112:Core/Src/Common/Src/dsp.c ****     // self->estimate      = &estimate;
  113:Core/Src/Common/Src/dsp.c ****     self->procesNewData = &procesNewData;
- 530              		.loc 1 113 5 is_stmt 1 view .LVU159
- 531              		.loc 1 113 25 is_stmt 0 view .LVU160
- 532 0084 0B4B     		ldr	r3, .L15+36
- 533 0086 C4F88030 		str	r3, [r4, #128]
+ 501              		.loc 1 113 5 is_stmt 1 view .LVU145
+ 502              		.loc 1 113 25 is_stmt 0 view .LVU146
+ 503 0078 084B     		ldr	r3, .L15+24
+ 504 007a 6367     		str	r3, [r4, #116]
  114:Core/Src/Common/Src/dsp.c **** }...
- 534              		.loc 1 114 1 view .LVU161
- 535 008a BDEC028B 		vldm	sp!, {d8}
- 536              	.LCFI8:
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 13
-
-
- 537              		.cfi_restore 80
- 538              		.cfi_restore 81
- 539              		.cfi_def_cfa_offset 8
- 540 008e 10BD     		pop	{r4, pc}
- 541              	.LVL30:
- 542              	.L16:
- 543              		.loc 1 114 1 view .LVU162
- 544              		.align	2
- 545              	.L15:
- 546 0090 A79B443A 		.word	977574823
- 547 0094 2EE34D3B 		.word	994960174
- 548 0098 2EE3CD3A 		.word	986571566
- 549 009c 6F12833A 		.word	981668463
- 550 00a0 00000000 		.word	MotorCoefficients
- 551 00a4 00000000 		.word	PendulumCoefficients
- 552 00a8 00000000 		.word	ConvertAngle
- 553 00ac 00000000 		.word	filter
- 554 00b0 00000000 		.word	estimate
- 555 00b4 00000000 		.word	procesNewData
- 556              		.cfi_endproc
- 557              	.LFE161:
- 559              		.text
- 560              	.Letext0:
- 561              		.file 2 "D:/InvertedPendulum/Tool/ArmGnuToolchain/lib/gcc/arm-none-eabi/14.2.1/include/stddef.h"
- 562              		.file 3 "D:/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/machine/_default_types.h"
- 563              		.file 4 "D:/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/sys/_stdint.h"
- 564              		.file 5 "Middlewares/ST/ARM/DSP/Inc/arm_math.h"
- 565              		.file 6 "Core/Src/Application/Inc/Topic.h"
- 566              		.file 7 "Core/Src/Common/Inc/dsp.h"
- 567              		.file 8 "Middlewares/Third_Party/ARM/FreeRTOS/include/portable.h"
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s 			page 14
+ 505              		.loc 1 114 1 view .LVU147
+ 506 007c BDEC028B 		vldm	sp!, {d8}
+ 507              	.LCFI8:
+ 508              		.cfi_restore 80
+ 509              		.cfi_restore 81
+ 510              		.cfi_def_cfa_offset 8
+ 511 0080 10BD     		pop	{r4, pc}
+ 512              	.LVL28:
+ 513              	.L16:
+ 514              		.loc 1 114 1 view .LVU148
+ 515 0082 00BF     		.align	2
+ 516              	.L15:
+ 517 0084 A79B443A 		.word	977574823
+ 518 0088 2EE34D3B 		.word	994960174
+ 519 008c 2EE3CD3A 		.word	986571566
+ 520 0090 6F12833A 		.word	981668463
+ 521 0094 00000000 		.word	MotorCoefficients
+ 522 0098 00000000 		.word	PendulumCoefficients
+ 523 009c 00000000 		.word	procesNewData
+ 524              		.cfi_endproc
+ 525              	.LFE161:
+ 527              		.text
+ 528              	.Letext0:
+ 529              		.file 2 "D:/DATN/InvertedPendulum/Tool/ArmGnuToolchain/lib/gcc/arm-none-eabi/14.2.1/include/stddef
+ 530              		.file 3 "D:/DATN/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/machine/_default_type
+ 531              		.file 4 "D:/DATN/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/sys/_stdint.h"
+ 532              		.file 5 "Middlewares/ST/ARM/DSP/Inc/arm_math.h"
+ 533              		.file 6 "Core/Src/Application/Inc/Topic.h"
+ 534              		.file 7 "Core/Src/Common/Inc/dsp.h"
+ 535              		.file 8 "Middlewares/Third_Party/ARM/FreeRTOS/include/portable.h"
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s 			page 13
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 dsp.c
-C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s:21     .text.ConvertAngle:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s:26     .text.ConvertAngle:00000000 ConvertAngle
-C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s:60     .text.filter:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s:66     .text.filter:00000000 filter
-C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s:112    .text.estimate:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s:118    .text.estimate:00000000 estimate
-C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s:174    .text.procesNewData:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s:180    .text.procesNewData:00000000 procesNewData
-C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s:252    .text.Differentiator_apply:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s:257    .text.Differentiator_apply:00000000 Differentiator_apply
-C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s:346    .text.Differentiator_new:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s:352    .text.Differentiator_new:00000000 Differentiator_new
-C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s:401    .text.Differentiator_new:00000028 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s:406    .text.dsp_new:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s:412    .text.dsp_new:00000000 dsp_new
-C:\Users\CuongLe\AppData\Local\Temp\ccnh3Vpw.s:546    .text.dsp_new:00000090 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s:21     .text.ConvertAngle:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s:26     .text.ConvertAngle:00000000 ConvertAngle
+C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s:60     .text.filter:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s:65     .text.filter:00000000 filter
+C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s:111    .text.estimate:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s:116    .text.estimate:00000000 estimate
+C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s:172    .text.procesNewData:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s:177    .text.procesNewData:00000000 procesNewData
+C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s:236    .text.Differentiator_new:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s:241    .text.Differentiator_new:00000000 Differentiator_new
+C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s:290    .text.Differentiator_new:00000028 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s:300    .text.Differentiator_apply:00000000 Differentiator_apply
+C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s:295    .text.Differentiator_apply:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s:389    .text.dsp_new:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s:395    .text.dsp_new:00000000 dsp_new
+C:\Users\CuongLe\AppData\Local\Temp\ccH0sClq.s:517    .text.dsp_new:00000084 $d
 
 UNDEFINED SYMBOLS
-arm_biquad_cascade_df2T_f32
 pvPortMalloc
 arm_biquad_cascade_df2T_init_f32
+arm_biquad_cascade_df2T_f32
 MotorCoefficients
 PendulumCoefficients

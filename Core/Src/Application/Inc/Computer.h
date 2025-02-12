@@ -22,7 +22,7 @@ typedef enum ComputerEvent {
 struct Computer {
     // Members --------------------------------
     Active super;                       /* Kế thừa Active Object */
-    QueueHandle_t state_sub;
+    // QueueHandle_t state_sub;
     QueueHandle_t received_message_sub; /* Queue để nhận tin nhắn từ Matlab */
 
     // Methods --------------------------------------------------------

@@ -2,13 +2,13 @@
 
 extern UART_HandleTypeDef huart3;
 
-extern struct Estimator * estimator; 
+extern struct Estimator * estimator;
+extern struct Motor * motor;
 
 struct Active * AO_Computer;
 struct Computer * computer;
 
 static char tx_data[50];
-uint8_t rx_byte_data;
 
 static Status init (struct Computer * const self, Event const * const event) {
     Status status = TRAN_STATUS;
@@ -45,28 +45,24 @@ static Status wait (struct Computer *const self, Event const * const event) {
     Status status;
     
     switch (event->signal) {
-        case ENTRY_SIG:
-            HAL_UART_Receive_IT(&huart3, &rx_byte_data, 1);           
+        case ENTRY_SIG:  
             status = HANDLED_STATUS;
             break;
 
         case STATE_UPDATED_SIG:
-            static State state_topic = {{0.0f}};
+            static State stateTopic = {{0.0f}};
+            float32_t voltage = 0;
             BaseType_t is_success;
-            is_success = xQueuePeek(estimator->state_pub, &state_topic, 0);
-            
+            is_success = xQueuePeek(estimator->statePublic, &stateTopic, 0);
+            xQueuePeek(motor->voltagePublic, &voltage, 0);
+
             if(is_success) {
-                // sprintf(tx_data,
-                //         "S%0.6f %0.6f %0.6f\n",
-                //         state_topic.Motor.position,
-                //         state_topic.Motor.velocity,
-                //         state_topic.Motor.rawVel
-                // );
                 sprintf(tx_data,
-                    "S%0.6f %0.6f %0.6f\n",
-                    1.0,
-                    2.0,
-                    3.0
+                        "S%0.6f %0.6f %0.6f %0.6f\n",
+                        voltage,
+                        stateTopic.Motor.position,
+                        stateTopic.Motor.velocity,
+                        stateTopic.Motor.rawVel
                 );
                 SendBuffer(&huart3, tx_data);
 
@@ -113,7 +109,7 @@ static void new (struct Computer * const self) {
     computer = self;
 
     /* Initialize Queue for Mailbox as subsribers, publishers */
-    self->state_sub = estimator->state_pub;
+    // self->state_sub = estimator->state_pub;
     self->received_message_sub = xQueueCreate(1, sizeof(RecivedMessage));
 }
 

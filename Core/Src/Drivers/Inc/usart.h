@@ -5,7 +5,8 @@
 #include <string.h>
 #include "FreeRTOS.h"
 #include "queue.h"
-#include "computer.h"
+#include "Computer.h"
+#include "Motor.h"
 
 void SendBuffer(UART_HandleTypeDef *huart, char* buffer);
 

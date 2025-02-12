@@ -21,8 +21,8 @@ struct Estimator {
     /* Members---------- */
     struct Active super;   /* Kế thừa lớp Active-Object */
     struct DSP * data_processor;
-    QueueHandle_t encoder_sub;
-    QueueHandle_t state_pub;
+    QueueHandle_t encoderSubsriber;
+    QueueHandle_t statePublic;
 
 
     /* Methods---------- */

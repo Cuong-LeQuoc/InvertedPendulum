@@ -24,7 +24,7 @@ struct Differentiator {
     void (*apply) (Differentiator * const self, float32_t * input, float32_t * output, float32_t * rawOutput);
 };
 
-void Differentiator_new(Differentiator * const self, float32_t sample_time, uint8_t num_states, float32_t * filter_coeffs);
+// void Differentiator_new(Differentiator * const self, float32_t sample_time, uint8_t num_states, float32_t * filter_coeffs);
 
 // ---------------------------------------------------
 typedef struct DSP DSP;
@@ -54,9 +54,9 @@ struct DSP {
 
 
     /* Methods-------------------- */
-    void (*ConvertAngle)(DSP * const self, Encoder const * const encoder_topic);
-    void (*filter)(DSP * const self);
-    void (*estimate)(DSP * const self);
+    // void (*ConvertAngle)(DSP * const self, Encoder const * const encoder_topic);
+    // void (*filter)(DSP * const self);
+    // void (*estimate)(DSP * const self);
     void (*procesNewData)(DSP * const self, Encoder const * const encoder_topic, State * const state_topic);
 };
 

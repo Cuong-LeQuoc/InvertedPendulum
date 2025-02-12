@@ -57,6 +57,9 @@ static struct Active * computer_AO = &computer.super;
 static struct Estimator estimator;
 static struct Active * estimator_AO = &estimator.super;
 
+static struct Motor motor;
+static struct Active * motor_AO = &motor.super;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -117,10 +120,13 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   Computer.new(&computer);
-  computer.super.start(computer_AO, 1, 15, 1000);
+  computer.super.start(computer_AO, 1, 15, 1500);
 
   Estimator.new(&estimator);
   estimator.super.start(estimator_AO, 2, 20, 3000);
+
+  Motor.new(&motor);
+  motor.super.start(motor_AO, 3, 15, 1500);
 
   vTaskStartScheduler();
 

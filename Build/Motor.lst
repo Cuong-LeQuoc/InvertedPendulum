@@ -1,0 +1,763 @@
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"Motor.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Core/Src/Application/Src/Motor.c"
+  20              		.section	.text.init,"ax",%progbits
+  21              		.align	1
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	init:
+  27              	.LVL0:
+  28              	.LFB288:
+   1:Core/Src/Application/Src/Motor.c **** #include "Motor.h"
+   2:Core/Src/Application/Src/Motor.c **** 
+   3:Core/Src/Application/Src/Motor.c **** extern UART_HandleTypeDef huart2;
+   4:Core/Src/Application/Src/Motor.c **** extern TIM_HandleTypeDef htim6;
+   5:Core/Src/Application/Src/Motor.c **** 
+   6:Core/Src/Application/Src/Motor.c **** struct Active * AO_Motor;
+   7:Core/Src/Application/Src/Motor.c **** struct Motor * motor;
+   8:Core/Src/Application/Src/Motor.c **** char tx_data[25];
+   9:Core/Src/Application/Src/Motor.c **** int32_t pwcDebug;
+  10:Core/Src/Application/Src/Motor.c **** float32_t volDebug;
+  11:Core/Src/Application/Src/Motor.c **** 
+  12:Core/Src/Application/Src/Motor.c **** static Status init (struct Motor * const self, Event const * const event) {
+  29              		.loc 1 12 75 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  13:Core/Src/Application/Src/Motor.c ****     Status status = TRAN_STATUS;
+  34              		.loc 1 13 5 view .LVU1
+  14:Core/Src/Application/Src/Motor.c ****     self->super.handler = (StateHandler) self->wait;
+  35              		.loc 1 14 5 view .LVU2
+  36              		.loc 1 14 46 is_stmt 0 view .LVU3
+  37 0000 D0F8DC30 		ldr	r3, [r0, #220]
+  38              		.loc 1 14 25 view .LVU4
+  39 0004 0360     		str	r3, [r0]
+  15:Core/Src/Application/Src/Motor.c ****     return status;
+  40              		.loc 1 15 5 is_stmt 1 view .LVU5
+  16:Core/Src/Application/Src/Motor.c **** }
+  41              		.loc 1 16 1 is_stmt 0 view .LVU6
+  42 0006 0020     		movs	r0, #0
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s 			page 2
+
+
+  43              	.LVL1:
+  44              		.loc 1 16 1 view .LVU7
+  45 0008 7047     		bx	lr
+  46              		.cfi_endproc
+  47              	.LFE288:
+  49              		.section	.text.sending,"ax",%progbits
+  50              		.align	1
+  51              		.syntax unified
+  52              		.thumb
+  53              		.thumb_func
+  55              	sending:
+  56              	.LVL2:
+  57              	.LFB289:
+  17:Core/Src/Application/Src/Motor.c **** 
+  18:Core/Src/Application/Src/Motor.c **** static Status sending (struct Motor * const self, Event const * const event) {
+  58              		.loc 1 18 78 is_stmt 1 view -0
+  59              		.cfi_startproc
+  60              		@ args = 0, pretend = 0, frame = 0
+  61              		@ frame_needed = 0, uses_anonymous_args = 0
+  62              		@ link register save eliminated.
+  19:Core/Src/Application/Src/Motor.c ****     Status status;
+  63              		.loc 1 19 5 view .LVU9
+  20:Core/Src/Application/Src/Motor.c ****     
+  21:Core/Src/Application/Src/Motor.c ****     switch (event->signal) {
+  64              		.loc 1 21 5 view .LVU10
+  65              		.loc 1 21 18 is_stmt 0 view .LVU11
+  66 0000 0B88     		ldrh	r3, [r1]
+  67              		.loc 1 21 5 view .LVU12
+  68 0002 022B     		cmp	r3, #2
+  69 0004 06D9     		bls	.L7
+  70 0006 042B     		cmp	r3, #4
+  71 0008 0AD1     		bne	.L6
+  22:Core/Src/Application/Src/Motor.c ****         case ENTRY_SIG:
+  23:Core/Src/Application/Src/Motor.c ****             status = HANDLED_STATUS;
+  24:Core/Src/Application/Src/Motor.c ****             break;
+  25:Core/Src/Application/Src/Motor.c **** 
+  26:Core/Src/Application/Src/Motor.c ****         case COMMAND_SENDED_SIG:
+  27:Core/Src/Application/Src/Motor.c ****             self->super.handler = (StateHandler)self->wait;
+  72              		.loc 1 27 13 is_stmt 1 view .LVU13
+  73              		.loc 1 27 53 is_stmt 0 view .LVU14
+  74 000a D0F8DC30 		ldr	r3, [r0, #220]
+  75              		.loc 1 27 33 view .LVU15
+  76 000e 0360     		str	r3, [r0]
+  28:Core/Src/Application/Src/Motor.c ****             status = TRAN_STATUS;
+  77              		.loc 1 28 13 is_stmt 1 view .LVU16
+  78              	.LVL3:
+  29:Core/Src/Application/Src/Motor.c ****             break;
+  79              		.loc 1 29 13 view .LVU17
+  28:Core/Src/Application/Src/Motor.c ****             status = TRAN_STATUS;
+  80              		.loc 1 28 20 is_stmt 0 view .LVU18
+  81 0010 0020     		movs	r0, #0
+  82              	.LVL4:
+  83              		.loc 1 29 13 view .LVU19
+  84 0012 7047     		bx	lr
+  85              	.LVL5:
+  86              	.L7:
+  21:Core/Src/Application/Src/Motor.c ****         case ENTRY_SIG:
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s 			page 3
+
+
+  87              		.loc 1 21 5 view .LVU20
+  88 0014 1BB2     		sxth	r3, r3
+  89 0016 0BB1     		cbz	r3, .L5
+  90 0018 0120     		movs	r0, #1
+  91              	.LVL6:
+  21:Core/Src/Application/Src/Motor.c ****         case ENTRY_SIG:
+  92              		.loc 1 21 5 view .LVU21
+  93 001a 7047     		bx	lr
+  94              	.LVL7:
+  95              	.L5:
+  30:Core/Src/Application/Src/Motor.c **** 
+  31:Core/Src/Application/Src/Motor.c ****         case EXIT_SIG:
+  32:Core/Src/Application/Src/Motor.c ****             status = HANDLED_STATUS;
+  33:Core/Src/Application/Src/Motor.c ****             break;
+  34:Core/Src/Application/Src/Motor.c ****         
+  35:Core/Src/Application/Src/Motor.c ****         default:
+  36:Core/Src/Application/Src/Motor.c ****             status = IGNORED_STATUS;
+  96              		.loc 1 36 20 view .LVU22
+  97 001c 0220     		movs	r0, #2
+  98              	.LVL8:
+  99              		.loc 1 36 20 view .LVU23
+ 100 001e 7047     		bx	lr
+ 101              	.LVL9:
+ 102              	.L6:
+ 103              		.loc 1 36 20 view .LVU24
+ 104 0020 0220     		movs	r0, #2
+ 105              	.LVL10:
+  37:Core/Src/Application/Src/Motor.c ****             break; 
+  38:Core/Src/Application/Src/Motor.c ****     }
+  39:Core/Src/Application/Src/Motor.c **** 
+  40:Core/Src/Application/Src/Motor.c ****     return status;
+ 106              		.loc 1 40 5 is_stmt 1 view .LVU25
+  41:Core/Src/Application/Src/Motor.c **** }
+ 107              		.loc 1 41 1 is_stmt 0 view .LVU26
+ 108 0022 7047     		bx	lr
+ 109              		.cfi_endproc
+ 110              	.LFE289:
+ 112              		.section	.text.new,"ax",%progbits
+ 113              		.align	1
+ 114              		.syntax unified
+ 115              		.thumb
+ 116              		.thumb_func
+ 118              	new:
+ 119              	.LVL11:
+ 120              	.LFB294:
+  42:Core/Src/Application/Src/Motor.c **** 
+  43:Core/Src/Application/Src/Motor.c **** static Status wait (struct Motor * const self, Event const * const event) {
+  44:Core/Src/Application/Src/Motor.c ****     Status status;
+  45:Core/Src/Application/Src/Motor.c ****     
+  46:Core/Src/Application/Src/Motor.c ****     switch (event->signal) {
+  47:Core/Src/Application/Src/Motor.c ****         case ENTRY_SIG:
+  48:Core/Src/Application/Src/Motor.c ****             HAL_TIM_Base_Start_IT(&htim6);
+  49:Core/Src/Application/Src/Motor.c ****             status = HANDLED_STATUS;
+  50:Core/Src/Application/Src/Motor.c ****             break;
+  51:Core/Src/Application/Src/Motor.c **** 
+  52:Core/Src/Application/Src/Motor.c ****         case TIMEOUT_100Hz_SIG:
+  53:Core/Src/Application/Src/Motor.c ****             // static PWC pwcTopic = {0};
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s 			page 4
+
+
+  54:Core/Src/Application/Src/Motor.c ****             // BaseType_t is_success;
+  55:Core/Src/Application/Src/Motor.c ****             // is_success = xQueuePeek(self->pwc_sub, &pwcTopic, 0);
+  56:Core/Src/Application/Src/Motor.c **** 
+  57:Core/Src/Application/Src/Motor.c ****             // if(is_success) {
+  58:Core/Src/Application/Src/Motor.c ****             //     sprintf(tx_data, "N1 O d%d\n", pwcTopic.d);
+  59:Core/Src/Application/Src/Motor.c ****             //     SendBuffer(&huart2, tx_data);
+  60:Core/Src/Application/Src/Motor.c **** 
+  61:Core/Src/Application/Src/Motor.c ****             //     self->super.handler = (StateHandler) self->sending;
+  62:Core/Src/Application/Src/Motor.c ****             //     status = TRAN_STATUS;
+  63:Core/Src/Application/Src/Motor.c ****             // }
+  64:Core/Src/Application/Src/Motor.c ****             // else {
+  65:Core/Src/Application/Src/Motor.c ****             //     status = HANDLED_STATUS;
+  66:Core/Src/Application/Src/Motor.c ****             // }
+  67:Core/Src/Application/Src/Motor.c **** 
+  68:Core/Src/Application/Src/Motor.c ****             // sprintf(tx_data, "N1 O d%d\n", pwcDebug);
+  69:Core/Src/Application/Src/Motor.c ****             // SendBuffer(&huart2, tx_data);
+  70:Core/Src/Application/Src/Motor.c **** 
+  71:Core/Src/Application/Src/Motor.c ****             self->setVoltage(tx_data, volDebug);
+  72:Core/Src/Application/Src/Motor.c ****             self->public(self->voltagePublic, &volDebug);
+  73:Core/Src/Application/Src/Motor.c **** 
+  74:Core/Src/Application/Src/Motor.c ****             self->super.handler = (StateHandler) self->sending;
+  75:Core/Src/Application/Src/Motor.c ****             status = TRAN_STATUS;
+  76:Core/Src/Application/Src/Motor.c ****         
+  77:Core/Src/Application/Src/Motor.c ****             break;
+  78:Core/Src/Application/Src/Motor.c **** 
+  79:Core/Src/Application/Src/Motor.c ****         case EXIT_SIG:
+  80:Core/Src/Application/Src/Motor.c ****             status = HANDLED_STATUS;
+  81:Core/Src/Application/Src/Motor.c ****             break;
+  82:Core/Src/Application/Src/Motor.c **** 
+  83:Core/Src/Application/Src/Motor.c ****         default:
+  84:Core/Src/Application/Src/Motor.c ****             status = IGNORED_STATUS;
+  85:Core/Src/Application/Src/Motor.c ****             break;
+  86:Core/Src/Application/Src/Motor.c ****     }
+  87:Core/Src/Application/Src/Motor.c **** 
+  88:Core/Src/Application/Src/Motor.c ****     return status;
+  89:Core/Src/Application/Src/Motor.c **** }
+  90:Core/Src/Application/Src/Motor.c **** 
+  91:Core/Src/Application/Src/Motor.c **** static void public (QueueHandle_t xQueue, const void * pvItemToQueue) {
+  92:Core/Src/Application/Src/Motor.c ****     xQueueOverwrite(xQueue, pvItemToQueue);
+  93:Core/Src/Application/Src/Motor.c **** }
+  94:Core/Src/Application/Src/Motor.c **** 
+  95:Core/Src/Application/Src/Motor.c **** static void publicFromISR (QueueHandle_t xQueue, const void * pvItemToQueue,
+  96:Core/Src/Application/Src/Motor.c ****                            BaseType_t *pxHigherPriorityTaskWoken)
+  97:Core/Src/Application/Src/Motor.c **** {
+  98:Core/Src/Application/Src/Motor.c ****     xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken);
+  99:Core/Src/Application/Src/Motor.c **** }
+ 100:Core/Src/Application/Src/Motor.c **** 
+ 101:Core/Src/Application/Src/Motor.c **** static void setVoltage (char *buffer, float32_t voltage) {
+ 102:Core/Src/Application/Src/Motor.c ****     int16_t pwc = 0;
+ 103:Core/Src/Application/Src/Motor.c **** 
+ 104:Core/Src/Application/Src/Motor.c ****     if(voltage > 0) {
+ 105:Core/Src/Application/Src/Motor.c ****         pwc = (int16_t) (83.296855952222570f * voltage + 6.699955398806081f);
+ 106:Core/Src/Application/Src/Motor.c ****     } else {
+ 107:Core/Src/Application/Src/Motor.c ****         pwc = (int16_t) (84.226798317384890f * voltage - 21.820956466774298f);
+ 108:Core/Src/Application/Src/Motor.c ****     }
+ 109:Core/Src/Application/Src/Motor.c **** 
+ 110:Core/Src/Application/Src/Motor.c ****     sprintf(buffer, "N1 O d%d\n", (int)pwc);
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s 			page 5
+
+
+ 111:Core/Src/Application/Src/Motor.c ****     SendBuffer(&huart2, buffer);
+ 112:Core/Src/Application/Src/Motor.c **** }
+ 113:Core/Src/Application/Src/Motor.c **** 
+ 114:Core/Src/Application/Src/Motor.c **** static void new(struct Motor * const self) {
+ 121              		.loc 1 114 44 is_stmt 1 view -0
+ 122              		.cfi_startproc
+ 123              		@ args = 0, pretend = 0, frame = 0
+ 124              		@ frame_needed = 0, uses_anonymous_args = 0
+ 125              		.loc 1 114 44 is_stmt 0 view .LVU28
+ 126 0000 10B5     		push	{r4, lr}
+ 127              	.LCFI0:
+ 128              		.cfi_def_cfa_offset 8
+ 129              		.cfi_offset 4, -8
+ 130              		.cfi_offset 14, -4
+ 131 0002 0446     		mov	r4, r0
+ 115:Core/Src/Application/Src/Motor.c ****     /* Assign Methods */
+ 116:Core/Src/Application/Src/Motor.c ****     self->setVoltage    = &setVoltage;
+ 132              		.loc 1 116 5 is_stmt 1 view .LVU29
+ 133              		.loc 1 116 25 is_stmt 0 view .LVU30
+ 134 0004 134B     		ldr	r3, .L10
+ 135 0006 C0F8D430 		str	r3, [r0, #212]
+ 117:Core/Src/Application/Src/Motor.c ****     self->init          = &init;
+ 136              		.loc 1 117 5 is_stmt 1 view .LVU31
+ 137              		.loc 1 117 25 is_stmt 0 view .LVU32
+ 138 000a 1349     		ldr	r1, .L10+4
+ 139 000c C0F8D810 		str	r1, [r0, #216]
+ 118:Core/Src/Application/Src/Motor.c ****     self->wait          = &wait;
+ 140              		.loc 1 118 5 is_stmt 1 view .LVU33
+ 141              		.loc 1 118 25 is_stmt 0 view .LVU34
+ 142 0010 124B     		ldr	r3, .L10+8
+ 143 0012 C0F8DC30 		str	r3, [r0, #220]
+ 119:Core/Src/Application/Src/Motor.c ****     self->sending       = &sending;
+ 144              		.loc 1 119 5 is_stmt 1 view .LVU35
+ 145              		.loc 1 119 25 is_stmt 0 view .LVU36
+ 146 0016 124B     		ldr	r3, .L10+12
+ 147 0018 C0F8E030 		str	r3, [r0, #224]
+ 120:Core/Src/Application/Src/Motor.c ****     self->public        = &public;
+ 148              		.loc 1 120 5 is_stmt 1 view .LVU37
+ 149              		.loc 1 120 25 is_stmt 0 view .LVU38
+ 150 001c 114B     		ldr	r3, .L10+16
+ 151 001e C0F8E430 		str	r3, [r0, #228]
+ 121:Core/Src/Application/Src/Motor.c ****     self->publicFromISR = &publicFromISR;
+ 152              		.loc 1 121 5 is_stmt 1 view .LVU39
+ 153              		.loc 1 121 25 is_stmt 0 view .LVU40
+ 154 0022 114B     		ldr	r3, .L10+20
+ 155 0024 C0F8E830 		str	r3, [r0, #232]
+ 122:Core/Src/Application/Src/Motor.c **** 
+ 123:Core/Src/Application/Src/Motor.c ****     /*Initialize members*/
+ 124:Core/Src/Application/Src/Motor.c ****     Active_new(&self->super, (StateHandler)&init);
+ 156              		.loc 1 124 5 is_stmt 1 view .LVU41
+ 157 0028 FFF7FEFF 		bl	Active_new
+ 158              	.LVL12:
+ 125:Core/Src/Application/Src/Motor.c **** 
+ 126:Core/Src/Application/Src/Motor.c ****     /*Cache Ao for using in Encoder driver*/
+ 127:Core/Src/Application/Src/Motor.c ****     AO_Motor = &self->super;
+ 159              		.loc 1 127 5 view .LVU42
+ 160              		.loc 1 127 14 is_stmt 0 view .LVU43
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s 			page 6
+
+
+ 161 002c 0F4B     		ldr	r3, .L10+24
+ 162 002e 1C60     		str	r4, [r3]
+ 128:Core/Src/Application/Src/Motor.c ****     motor = self;
+ 163              		.loc 1 128 5 is_stmt 1 view .LVU44
+ 164              		.loc 1 128 11 is_stmt 0 view .LVU45
+ 165 0030 0F4B     		ldr	r3, .L10+28
+ 166 0032 1C60     		str	r4, [r3]
+ 129:Core/Src/Application/Src/Motor.c **** 
+ 130:Core/Src/Application/Src/Motor.c ****     /*Initialize Queue for Mailbox as subsribers, publishers*/
+ 131:Core/Src/Application/Src/Motor.c ****     self->pwc_sub       = xQueueCreate( 1, sizeof( PWC ) );
+ 167              		.loc 1 131 5 is_stmt 1 view .LVU46
+ 168              		.loc 1 131 27 is_stmt 0 view .LVU47
+ 169 0034 0022     		movs	r2, #0
+ 170 0036 1021     		movs	r1, #16
+ 171 0038 0120     		movs	r0, #1
+ 172 003a FFF7FEFF 		bl	xQueueGenericCreate
+ 173              	.LVL13:
+ 174              		.loc 1 131 25 discriminator 1 view .LVU48
+ 175 003e C4F8CC00 		str	r0, [r4, #204]
+ 132:Core/Src/Application/Src/Motor.c ****     self->voltagePublic = xQueueCreate(1, sizeof(float32_t));
+ 176              		.loc 1 132 5 is_stmt 1 view .LVU49
+ 177              		.loc 1 132 27 is_stmt 0 view .LVU50
+ 178 0042 0022     		movs	r2, #0
+ 179 0044 0421     		movs	r1, #4
+ 180 0046 0120     		movs	r0, #1
+ 181 0048 FFF7FEFF 		bl	xQueueGenericCreate
+ 182              	.LVL14:
+ 183              		.loc 1 132 25 discriminator 1 view .LVU51
+ 184 004c C4F8D000 		str	r0, [r4, #208]
+ 133:Core/Src/Application/Src/Motor.c **** }
+ 185              		.loc 1 133 1 view .LVU52
+ 186 0050 10BD     		pop	{r4, pc}
+ 187              	.LVL15:
+ 188              	.L11:
+ 189              		.loc 1 133 1 view .LVU53
+ 190 0052 00BF     		.align	2
+ 191              	.L10:
+ 192 0054 00000000 		.word	setVoltage
+ 193 0058 00000000 		.word	init
+ 194 005c 00000000 		.word	wait
+ 195 0060 00000000 		.word	sending
+ 196 0064 00000000 		.word	public
+ 197 0068 00000000 		.word	publicFromISR
+ 198 006c 00000000 		.word	AO_Motor
+ 199 0070 00000000 		.word	motor
+ 200              		.cfi_endproc
+ 201              	.LFE294:
+ 203              		.section	.text.publicFromISR,"ax",%progbits
+ 204              		.align	1
+ 205              		.syntax unified
+ 206              		.thumb
+ 207              		.thumb_func
+ 209              	publicFromISR:
+ 210              	.LVL16:
+ 211              	.LFB292:
+  97:Core/Src/Application/Src/Motor.c ****     xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken);
+ 212              		.loc 1 97 1 is_stmt 1 view -0
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s 			page 7
+
+
+ 213              		.cfi_startproc
+ 214              		@ args = 0, pretend = 0, frame = 0
+ 215              		@ frame_needed = 0, uses_anonymous_args = 0
+  97:Core/Src/Application/Src/Motor.c ****     xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken);
+ 216              		.loc 1 97 1 is_stmt 0 view .LVU55
+ 217 0000 08B5     		push	{r3, lr}
+ 218              	.LCFI1:
+ 219              		.cfi_def_cfa_offset 8
+ 220              		.cfi_offset 3, -8
+ 221              		.cfi_offset 14, -4
+  98:Core/Src/Application/Src/Motor.c **** }
+ 222              		.loc 1 98 5 is_stmt 1 view .LVU56
+ 223 0002 0223     		movs	r3, #2
+ 224 0004 FFF7FEFF 		bl	xQueueGenericSendFromISR
+ 225              	.LVL17:
+  99:Core/Src/Application/Src/Motor.c **** 
+ 226              		.loc 1 99 1 is_stmt 0 view .LVU57
+ 227 0008 08BD     		pop	{r3, pc}
+ 228              		.cfi_endproc
+ 229              	.LFE292:
+ 231              		.section	.text.public,"ax",%progbits
+ 232              		.align	1
+ 233              		.syntax unified
+ 234              		.thumb
+ 235              		.thumb_func
+ 237              	public:
+ 238              	.LVL18:
+ 239              	.LFB291:
+  91:Core/Src/Application/Src/Motor.c ****     xQueueOverwrite(xQueue, pvItemToQueue);
+ 240              		.loc 1 91 71 is_stmt 1 view -0
+ 241              		.cfi_startproc
+ 242              		@ args = 0, pretend = 0, frame = 0
+ 243              		@ frame_needed = 0, uses_anonymous_args = 0
+  91:Core/Src/Application/Src/Motor.c ****     xQueueOverwrite(xQueue, pvItemToQueue);
+ 244              		.loc 1 91 71 is_stmt 0 view .LVU59
+ 245 0000 08B5     		push	{r3, lr}
+ 246              	.LCFI2:
+ 247              		.cfi_def_cfa_offset 8
+ 248              		.cfi_offset 3, -8
+ 249              		.cfi_offset 14, -4
+  92:Core/Src/Application/Src/Motor.c **** }
+ 250              		.loc 1 92 5 is_stmt 1 view .LVU60
+ 251 0002 0223     		movs	r3, #2
+ 252 0004 0022     		movs	r2, #0
+ 253 0006 FFF7FEFF 		bl	xQueueGenericSend
+ 254              	.LVL19:
+  93:Core/Src/Application/Src/Motor.c **** 
+ 255              		.loc 1 93 1 is_stmt 0 view .LVU61
+ 256 000a 08BD     		pop	{r3, pc}
+ 257              		.cfi_endproc
+ 258              	.LFE291:
+ 260              		.section	.text.wait,"ax",%progbits
+ 261              		.align	1
+ 262              		.syntax unified
+ 263              		.thumb
+ 264              		.thumb_func
+ 266              	wait:
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s 			page 8
+
+
+ 267              	.LVL20:
+ 268              	.LFB290:
+  43:Core/Src/Application/Src/Motor.c ****     Status status;
+ 269              		.loc 1 43 75 is_stmt 1 view -0
+ 270              		.cfi_startproc
+ 271              		@ args = 0, pretend = 0, frame = 0
+ 272              		@ frame_needed = 0, uses_anonymous_args = 0
+  43:Core/Src/Application/Src/Motor.c ****     Status status;
+ 273              		.loc 1 43 75 is_stmt 0 view .LVU63
+ 274 0000 38B5     		push	{r3, r4, r5, lr}
+ 275              	.LCFI3:
+ 276              		.cfi_def_cfa_offset 16
+ 277              		.cfi_offset 3, -16
+ 278              		.cfi_offset 4, -12
+ 279              		.cfi_offset 5, -8
+ 280              		.cfi_offset 14, -4
+  44:Core/Src/Application/Src/Motor.c ****     
+ 281              		.loc 1 44 5 is_stmt 1 view .LVU64
+  46:Core/Src/Application/Src/Motor.c ****         case ENTRY_SIG:
+ 282              		.loc 1 46 5 view .LVU65
+  46:Core/Src/Application/Src/Motor.c ****         case ENTRY_SIG:
+ 283              		.loc 1 46 18 is_stmt 0 view .LVU66
+ 284 0002 0B88     		ldrh	r3, [r1]
+  46:Core/Src/Application/Src/Motor.c ****         case ENTRY_SIG:
+ 285              		.loc 1 46 5 view .LVU67
+ 286 0004 022B     		cmp	r3, #2
+ 287 0006 1BD0     		beq	.L19
+ 288 0008 0446     		mov	r4, r0
+ 289 000a 032B     		cmp	r3, #3
+ 290 000c 06D0     		beq	.L18
+ 291 000e 012B     		cmp	r3, #1
+ 292 0010 18D1     		bne	.L20
+  48:Core/Src/Application/Src/Motor.c ****             status = HANDLED_STATUS;
+ 293              		.loc 1 48 13 is_stmt 1 view .LVU68
+ 294 0012 0D48     		ldr	r0, .L22
+ 295              	.LVL21:
+  48:Core/Src/Application/Src/Motor.c ****             status = HANDLED_STATUS;
+ 296              		.loc 1 48 13 is_stmt 0 view .LVU69
+ 297 0014 FFF7FEFF 		bl	HAL_TIM_Base_Start_IT
+ 298              	.LVL22:
+  49:Core/Src/Application/Src/Motor.c ****             break;
+ 299              		.loc 1 49 13 is_stmt 1 view .LVU70
+  50:Core/Src/Application/Src/Motor.c **** 
+ 300              		.loc 1 50 13 view .LVU71
+  49:Core/Src/Application/Src/Motor.c ****             break;
+ 301              		.loc 1 49 20 is_stmt 0 view .LVU72
+ 302 0018 0120     		movs	r0, #1
+ 303              	.LVL23:
+ 304              	.L17:
+  88:Core/Src/Application/Src/Motor.c **** }
+ 305              		.loc 1 88 5 is_stmt 1 view .LVU73
+  89:Core/Src/Application/Src/Motor.c **** 
+ 306              		.loc 1 89 1 is_stmt 0 view .LVU74
+ 307 001a 38BD     		pop	{r3, r4, r5, pc}
+ 308              	.LVL24:
+ 309              	.L18:
+  71:Core/Src/Application/Src/Motor.c ****             self->public(self->voltagePublic, &volDebug);
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s 			page 9
+
+
+ 310              		.loc 1 71 13 is_stmt 1 view .LVU75
+  71:Core/Src/Application/Src/Motor.c ****             self->public(self->voltagePublic, &volDebug);
+ 311              		.loc 1 71 17 is_stmt 0 view .LVU76
+ 312 001c D0F8D430 		ldr	r3, [r0, #212]
+  71:Core/Src/Application/Src/Motor.c ****             self->public(self->voltagePublic, &volDebug);
+ 313              		.loc 1 71 13 view .LVU77
+ 314 0020 0A4D     		ldr	r5, .L22+4
+ 315 0022 95ED000A 		vldr.32	s0, [r5]
+ 316 0026 0A48     		ldr	r0, .L22+8
+ 317              	.LVL25:
+  71:Core/Src/Application/Src/Motor.c ****             self->public(self->voltagePublic, &volDebug);
+ 318              		.loc 1 71 13 view .LVU78
+ 319 0028 9847     		blx	r3
+ 320              	.LVL26:
+  72:Core/Src/Application/Src/Motor.c **** 
+ 321              		.loc 1 72 13 is_stmt 1 view .LVU79
+  72:Core/Src/Application/Src/Motor.c **** 
+ 322              		.loc 1 72 17 is_stmt 0 view .LVU80
+ 323 002a D4F8E430 		ldr	r3, [r4, #228]
+  72:Core/Src/Application/Src/Motor.c **** 
+ 324              		.loc 1 72 13 view .LVU81
+ 325 002e 2946     		mov	r1, r5
+ 326 0030 D4F8D000 		ldr	r0, [r4, #208]
+ 327 0034 9847     		blx	r3
+ 328              	.LVL27:
+  74:Core/Src/Application/Src/Motor.c ****             status = TRAN_STATUS;
+ 329              		.loc 1 74 13 is_stmt 1 view .LVU82
+  74:Core/Src/Application/Src/Motor.c ****             status = TRAN_STATUS;
+ 330              		.loc 1 74 54 is_stmt 0 view .LVU83
+ 331 0036 D4F8E030 		ldr	r3, [r4, #224]
+  74:Core/Src/Application/Src/Motor.c ****             status = TRAN_STATUS;
+ 332              		.loc 1 74 33 view .LVU84
+ 333 003a 2360     		str	r3, [r4]
+  75:Core/Src/Application/Src/Motor.c ****         
+ 334              		.loc 1 75 13 is_stmt 1 view .LVU85
+ 335              	.LVL28:
+  77:Core/Src/Application/Src/Motor.c **** 
+ 336              		.loc 1 77 13 view .LVU86
+  75:Core/Src/Application/Src/Motor.c ****         
+ 337              		.loc 1 75 20 is_stmt 0 view .LVU87
+ 338 003c 0020     		movs	r0, #0
+  77:Core/Src/Application/Src/Motor.c **** 
+ 339              		.loc 1 77 13 view .LVU88
+ 340 003e ECE7     		b	.L17
+ 341              	.LVL29:
+ 342              	.L19:
+  46:Core/Src/Application/Src/Motor.c ****         case ENTRY_SIG:
+ 343              		.loc 1 46 5 view .LVU89
+ 344 0040 0120     		movs	r0, #1
+ 345              	.LVL30:
+  46:Core/Src/Application/Src/Motor.c ****         case ENTRY_SIG:
+ 346              		.loc 1 46 5 view .LVU90
+ 347 0042 EAE7     		b	.L17
+ 348              	.LVL31:
+ 349              	.L20:
+  84:Core/Src/Application/Src/Motor.c ****             break;
+ 350              		.loc 1 84 20 view .LVU91
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s 			page 10
+
+
+ 351 0044 0220     		movs	r0, #2
+ 352              	.LVL32:
+  84:Core/Src/Application/Src/Motor.c ****             break;
+ 353              		.loc 1 84 20 view .LVU92
+ 354 0046 E8E7     		b	.L17
+ 355              	.L23:
+ 356              		.align	2
+ 357              	.L22:
+ 358 0048 00000000 		.word	htim6
+ 359 004c 00000000 		.word	volDebug
+ 360 0050 00000000 		.word	tx_data
+ 361              		.cfi_endproc
+ 362              	.LFE290:
+ 364              		.section	.rodata.setVoltage.str1.4,"aMS",%progbits,1
+ 365              		.align	2
+ 366              	.LC0:
+ 367 0000 4E31204F 		.ascii	"N1 O d%d\012\000"
+ 367      20642564 
+ 367      0A00
+ 368              		.section	.text.setVoltage,"ax",%progbits
+ 369              		.align	1
+ 370              		.syntax unified
+ 371              		.thumb
+ 372              		.thumb_func
+ 374              	setVoltage:
+ 375              	.LVL33:
+ 376              	.LFB293:
+ 101:Core/Src/Application/Src/Motor.c ****     int16_t pwc = 0;
+ 377              		.loc 1 101 58 is_stmt 1 view -0
+ 378              		.cfi_startproc
+ 379              		@ args = 0, pretend = 0, frame = 0
+ 380              		@ frame_needed = 0, uses_anonymous_args = 0
+ 101:Core/Src/Application/Src/Motor.c ****     int16_t pwc = 0;
+ 381              		.loc 1 101 58 is_stmt 0 view .LVU94
+ 382 0000 10B5     		push	{r4, lr}
+ 383              	.LCFI4:
+ 384              		.cfi_def_cfa_offset 8
+ 385              		.cfi_offset 4, -8
+ 386              		.cfi_offset 14, -4
+ 387 0002 0446     		mov	r4, r0
+ 102:Core/Src/Application/Src/Motor.c **** 
+ 388              		.loc 1 102 5 is_stmt 1 view .LVU95
+ 389              	.LVL34:
+ 104:Core/Src/Application/Src/Motor.c ****         pwc = (int16_t) (83.296855952222570f * voltage + 6.699955398806081f);
+ 390              		.loc 1 104 5 view .LVU96
+ 104:Core/Src/Application/Src/Motor.c ****         pwc = (int16_t) (83.296855952222570f * voltage + 6.699955398806081f);
+ 391              		.loc 1 104 7 is_stmt 0 view .LVU97
+ 392 0004 B5EEC00A 		vcmpe.f32	s0, #0
+ 393 0008 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 394 000c 15DD     		ble	.L29
+ 105:Core/Src/Application/Src/Motor.c ****     } else {
+ 395              		.loc 1 105 9 is_stmt 1 view .LVU98
+ 105:Core/Src/Application/Src/Motor.c ****     } else {
+ 396              		.loc 1 105 46 is_stmt 0 view .LVU99
+ 397 000e DFED127A 		vldr.32	s15, .L31
+ 398 0012 20EE270A 		vmul.f32	s0, s0, s15
+ 399              	.LVL35:
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s 			page 11
+
+
+ 105:Core/Src/Application/Src/Motor.c ****     } else {
+ 400              		.loc 1 105 56 view .LVU100
+ 401 0016 DFED117A 		vldr.32	s15, .L31+4
+ 402 001a 30EE270A 		vadd.f32	s0, s0, s15
+ 105:Core/Src/Application/Src/Motor.c ****     } else {
+ 403              		.loc 1 105 13 view .LVU101
+ 404 001e BDEEC00A 		vcvt.s32.f32	s0, s0
+ 405 0022 10EE103A 		vmov	r3, s0	@ int
+ 406 0026 1AB2     		sxth	r2, r3
+ 407              	.LVL36:
+ 408              	.L27:
+ 110:Core/Src/Application/Src/Motor.c ****     SendBuffer(&huart2, buffer);
+ 409              		.loc 1 110 5 is_stmt 1 view .LVU102
+ 410 0028 0D49     		ldr	r1, .L31+8
+ 411 002a 2046     		mov	r0, r4
+ 412              	.LVL37:
+ 110:Core/Src/Application/Src/Motor.c ****     SendBuffer(&huart2, buffer);
+ 413              		.loc 1 110 5 is_stmt 0 view .LVU103
+ 414 002c FFF7FEFF 		bl	sprintf_
+ 415              	.LVL38:
+ 111:Core/Src/Application/Src/Motor.c **** }
+ 416              		.loc 1 111 5 is_stmt 1 view .LVU104
+ 417 0030 2146     		mov	r1, r4
+ 418 0032 0C48     		ldr	r0, .L31+12
+ 419 0034 FFF7FEFF 		bl	SendBuffer
+ 420              	.LVL39:
+ 112:Core/Src/Application/Src/Motor.c **** 
+ 421              		.loc 1 112 1 is_stmt 0 view .LVU105
+ 422 0038 10BD     		pop	{r4, pc}
+ 423              	.LVL40:
+ 424              	.L29:
+ 107:Core/Src/Application/Src/Motor.c ****     }
+ 425              		.loc 1 107 9 is_stmt 1 view .LVU106
+ 107:Core/Src/Application/Src/Motor.c ****     }
+ 426              		.loc 1 107 46 is_stmt 0 view .LVU107
+ 427 003a DFED0B7A 		vldr.32	s15, .L31+16
+ 428 003e 20EE270A 		vmul.f32	s0, s0, s15
+ 429              	.LVL41:
+ 107:Core/Src/Application/Src/Motor.c ****     }
+ 430              		.loc 1 107 56 view .LVU108
+ 431 0042 DFED0A7A 		vldr.32	s15, .L31+20
+ 432 0046 30EE670A 		vsub.f32	s0, s0, s15
+ 107:Core/Src/Application/Src/Motor.c ****     }
+ 433              		.loc 1 107 13 view .LVU109
+ 434 004a BDEEC00A 		vcvt.s32.f32	s0, s0
+ 435 004e 10EE103A 		vmov	r3, s0	@ int
+ 436 0052 1AB2     		sxth	r2, r3
+ 437 0054 E8E7     		b	.L27
+ 438              	.L32:
+ 439 0056 00BF     		.align	2
+ 440              	.L31:
+ 441 0058 FE97A642 		.word	1118214142
+ 442 005c 0966D640 		.word	1087792649
+ 443 0060 00000000 		.word	.LC0
+ 444 0064 00000000 		.word	huart2
+ 445 0068 1F74A842 		.word	1118336031
+ 446 006c 5291AE41 		.word	1101959506
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s 			page 12
+
+
+ 447              		.cfi_endproc
+ 448              	.LFE293:
+ 450              		.global	Motor
+ 451              		.section	.rodata.Motor,"a"
+ 452              		.align	2
+ 455              	Motor:
+ 456 0000 00000000 		.word	new
+ 457              		.global	volDebug
+ 458              		.section	.bss.volDebug,"aw",%nobits
+ 459              		.align	2
+ 462              	volDebug:
+ 463 0000 00000000 		.space	4
+ 464              		.global	pwcDebug
+ 465              		.section	.bss.pwcDebug,"aw",%nobits
+ 466              		.align	2
+ 469              	pwcDebug:
+ 470 0000 00000000 		.space	4
+ 471              		.global	tx_data
+ 472              		.section	.bss.tx_data,"aw",%nobits
+ 473              		.align	2
+ 476              	tx_data:
+ 477 0000 00000000 		.space	25
+ 477      00000000 
+ 477      00000000 
+ 477      00000000 
+ 477      00000000 
+ 478              		.global	motor
+ 479              		.section	.bss.motor,"aw",%nobits
+ 480              		.align	2
+ 483              	motor:
+ 484 0000 00000000 		.space	4
+ 485              		.global	AO_Motor
+ 486              		.section	.bss.AO_Motor,"aw",%nobits
+ 487              		.align	2
+ 490              	AO_Motor:
+ 491 0000 00000000 		.space	4
+ 492              		.text
+ 493              	.Letext0:
+ 494              		.file 2 "D:/DATN/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/machine/_default_type
+ 495              		.file 3 "D:/DATN/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/sys/_stdint.h"
+ 496              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
+ 497              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 498              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 499              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 500              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
+ 501              		.file 9 "Middlewares/Third_Party/ARM/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h"
+ 502              		.file 10 "Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h"
+ 503              		.file 11 "Middlewares/Third_Party/ARM/FreeRTOS/include/task.h"
+ 504              		.file 12 "Middlewares/Third_Party/ARM/FreeRTOS/include/queue.h"
+ 505              		.file 13 "Middlewares/ST/ARM/DSP/Inc/arm_math.h"
+ 506              		.file 14 "Core/Src/Application/Inc/ActiveObject.h"
+ 507              		.file 15 "Core/Src/Application/Inc/Motor.h"
+ 508              		.file 16 "Core/Inc/printf.h"
+ 509              		.file 17 "Core/Src/Drivers/Inc/usart.h"
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 Motor.c
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:21     .text.init:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:26     .text.init:00000000 init
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:50     .text.sending:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:55     .text.sending:00000000 sending
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:113    .text.new:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:118    .text.new:00000000 new
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:192    .text.new:00000054 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:374    .text.setVoltage:00000000 setVoltage
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:266    .text.wait:00000000 wait
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:237    .text.public:00000000 public
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:209    .text.publicFromISR:00000000 publicFromISR
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:490    .bss.AO_Motor:00000000 AO_Motor
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:483    .bss.motor:00000000 motor
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:204    .text.publicFromISR:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:232    .text.public:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:261    .text.wait:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:358    .text.wait:00000048 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:462    .bss.volDebug:00000000 volDebug
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:476    .bss.tx_data:00000000 tx_data
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:365    .rodata.setVoltage.str1.4:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:369    .text.setVoltage:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:441    .text.setVoltage:00000058 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:455    .rodata.Motor:00000000 Motor
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:452    .rodata.Motor:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:459    .bss.volDebug:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:469    .bss.pwcDebug:00000000 pwcDebug
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:466    .bss.pwcDebug:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:473    .bss.tx_data:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:480    .bss.motor:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccqh1e5D.s:487    .bss.AO_Motor:00000000 $d
+
+UNDEFINED SYMBOLS
+Active_new
+xQueueGenericCreate
+xQueueGenericSendFromISR
+xQueueGenericSend
+HAL_TIM_Base_Start_IT
+htim6
+sprintf_
+SendBuffer
+huart2

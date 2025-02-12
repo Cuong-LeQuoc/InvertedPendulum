@@ -30,19 +30,19 @@ Status wait (struct Estimator * const self, Event const * const event) {
             break;
 
         case TIMEOUT_1kHz_SIG:
-            static Encoder encoder_topic = {.MotorCnt = 0, .PendulumCnt = 0};
-            static State state_topic = {{0.0f}};
+            static Encoder encoderTopic = {0.0f};
+            static State stateTopic = {{0.0f}};
 
-            BaseType_t is_success = xQueuePeek(self->encoder_sub, &encoder_topic, 0);
+            BaseType_t is_success = xQueuePeek(self->encoderSubsriber, &encoderTopic, 0);
 
             if (is_success) {
-                self->data_processor->procesNewData(self->data_processor, &encoder_topic, &state_topic);
+                self->data_processor->procesNewData(self->data_processor, &encoderTopic, &stateTopic);
             }
 
-            self->public(self->state_pub, &state_topic);
+            self->public(self->statePublic, &stateTopic);
 
-            static const Event state_evt = {.signal = STATE_UPDATED_SIG};
-            AO_Estimator->post(&computer->super, &state_evt);
+            static const Event stateEvent = {.signal = STATE_UPDATED_SIG};
+            AO_Estimator->post(&computer->super, &stateEvent);
 
             status = HANDLED_STATUS;
             break;
@@ -82,8 +82,8 @@ static void new (struct Estimator * const self) {
     AO_Estimator = &self->super;
     estimator = self;
 
-    self->encoder_sub   = xQueueCreate(1, sizeof(Encoder));
-    self->state_pub     = xQueueCreate(1, sizeof(State));
+    self->encoderSubsriber  = xQueueCreate(1, sizeof(Encoder));
+    self->statePublic       = xQueueCreate(1, sizeof(State));
 }
 
 const struct EstimatorClass Estimator = { .new = &new };
