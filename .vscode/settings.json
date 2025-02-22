@@ -2,6 +2,12 @@
     "files.associations": {
         "usart.h": "c",
         "cstdint": "c",
-        "main.h": "c"
+        "main.h": "c",
+        "bitset": "c",
+        "string_view": "c",
+        "rope": "c",
+        "regex": "c",
+        "sstream": "c",
+        "expected": "c"
     }
 }

@@ -1,4 +1,4 @@
-Build/event_groups.o: Middlewares/Third_Party/ARM/FreeRTOS/event_groups.c \
+build/event_groups.o: Middlewares/Third_Party/ARM/FreeRTOS/event_groups.c \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOSConfig.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/projdefs.h \

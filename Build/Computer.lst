@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 1
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -38,32 +38,33 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 1
    8:Core/Src/Application/Src/Computer.c **** struct Active * AO_Computer;
    9:Core/Src/Application/Src/Computer.c **** struct Computer * computer;
   10:Core/Src/Application/Src/Computer.c **** 
-  11:Core/Src/Application/Src/Computer.c **** static char tx_data[50];
-  12:Core/Src/Application/Src/Computer.c **** 
-  13:Core/Src/Application/Src/Computer.c **** static Status init (struct Computer * const self, Event const * const event) {
-  29              		.loc 1 13 78 view -0
+  11:Core/Src/Application/Src/Computer.c **** uint8_t rxByte;
+  12:Core/Src/Application/Src/Computer.c **** static char tx_data[250]; /* Kích thước không đủ hoặc quá to sẽ không gửi được 
+  13:Core/Src/Application/Src/Computer.c **** 
+  14:Core/Src/Application/Src/Computer.c **** static Status init (struct Computer * const self, Event const * const event) {
+  29              		.loc 1 14 78 view -0
   30              		.cfi_startproc
   31              		@ args = 0, pretend = 0, frame = 0
   32              		@ frame_needed = 0, uses_anonymous_args = 0
   33              		@ link register save eliminated.
-  14:Core/Src/Application/Src/Computer.c ****     Status status = TRAN_STATUS;
-  34              		.loc 1 14 5 view .LVU1
-  15:Core/Src/Application/Src/Computer.c ****     self->super.handler = (StateHandler) self->wait;
-  35              		.loc 1 15 5 view .LVU2
-  36              		.loc 1 15 46 is_stmt 0 view .LVU3
+  15:Core/Src/Application/Src/Computer.c ****     Status status = TRAN_STATUS;
+  34              		.loc 1 15 5 view .LVU1
+  16:Core/Src/Application/Src/Computer.c ****     self->super.handler = (StateHandler) self->wait;
+  35              		.loc 1 16 5 view .LVU2
+  36              		.loc 1 16 46 is_stmt 0 view .LVU3
   37 0000 D0F8D430 		ldr	r3, [r0, #212]
-  38              		.loc 1 15 25 view .LVU4
+  38              		.loc 1 16 25 view .LVU4
   39 0004 0360     		str	r3, [r0]
-  16:Core/Src/Application/Src/Computer.c ****     return status;
-  40              		.loc 1 16 5 is_stmt 1 view .LVU5
-  17:Core/Src/Application/Src/Computer.c **** }
-  41              		.loc 1 17 1 is_stmt 0 view .LVU6
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 2
+  17:Core/Src/Application/Src/Computer.c ****     return status;
+  40              		.loc 1 17 5 is_stmt 1 view .LVU5
+  18:Core/Src/Application/Src/Computer.c **** }
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s 			page 2
 
 
+  41              		.loc 1 18 1 is_stmt 0 view .LVU6
   42 0006 0020     		movs	r0, #0
   43              	.LVL1:
-  44              		.loc 1 17 1 view .LVU7
+  44              		.loc 1 18 1 view .LVU7
   45 0008 7047     		bx	lr
   46              		.cfi_endproc
   47              	.LFE288:
@@ -75,87 +76,87 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 1
   55              	sending:
   56              	.LVL2:
   57              	.LFB289:
-  18:Core/Src/Application/Src/Computer.c **** 
-  19:Core/Src/Application/Src/Computer.c **** static Status sending (struct Computer * const self, Event const * const event) {
-  58              		.loc 1 19 81 is_stmt 1 view -0
+  19:Core/Src/Application/Src/Computer.c **** 
+  20:Core/Src/Application/Src/Computer.c **** static Status sending (struct Computer * const self, Event const * const event) {
+  58              		.loc 1 20 81 is_stmt 1 view -0
   59              		.cfi_startproc
   60              		@ args = 0, pretend = 0, frame = 0
   61              		@ frame_needed = 0, uses_anonymous_args = 0
   62              		@ link register save eliminated.
-  20:Core/Src/Application/Src/Computer.c ****     Status status;
-  63              		.loc 1 20 5 view .LVU9
-  21:Core/Src/Application/Src/Computer.c **** 
-  22:Core/Src/Application/Src/Computer.c ****     switch (event->signal) {
-  64              		.loc 1 22 5 view .LVU10
-  65              		.loc 1 22 18 is_stmt 0 view .LVU11
+  21:Core/Src/Application/Src/Computer.c ****     Status status;
+  63              		.loc 1 21 5 view .LVU9
+  22:Core/Src/Application/Src/Computer.c **** 
+  23:Core/Src/Application/Src/Computer.c ****     switch (event->signal) {
+  64              		.loc 1 23 5 view .LVU10
+  65              		.loc 1 23 18 is_stmt 0 view .LVU11
   66 0000 0B88     		ldrh	r3, [r1]
-  67              		.loc 1 22 5 view .LVU12
+  67              		.loc 1 23 5 view .LVU12
   68 0002 022B     		cmp	r3, #2
   69 0004 06D9     		bls	.L7
   70 0006 042B     		cmp	r3, #4
   71 0008 0AD1     		bne	.L6
-  23:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:
-  24:Core/Src/Application/Src/Computer.c ****             status = HANDLED_STATUS;
-  25:Core/Src/Application/Src/Computer.c ****             break;
-  26:Core/Src/Application/Src/Computer.c **** 
-  27:Core/Src/Application/Src/Computer.c ****         case SENSOR_SENDED_SIG:
-  28:Core/Src/Application/Src/Computer.c ****             self->super.handler = (StateHandler)self->wait;
-  72              		.loc 1 28 13 is_stmt 1 view .LVU13
-  73              		.loc 1 28 53 is_stmt 0 view .LVU14
+  24:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:
+  25:Core/Src/Application/Src/Computer.c ****             status = HANDLED_STATUS;
+  26:Core/Src/Application/Src/Computer.c ****             break;
+  27:Core/Src/Application/Src/Computer.c **** 
+  28:Core/Src/Application/Src/Computer.c ****         case SENSOR_SENDED_SIG:
+  29:Core/Src/Application/Src/Computer.c ****             self->super.handler = (StateHandler)self->wait;
+  72              		.loc 1 29 13 is_stmt 1 view .LVU13
+  73              		.loc 1 29 53 is_stmt 0 view .LVU14
   74 000a D0F8D430 		ldr	r3, [r0, #212]
-  75              		.loc 1 28 33 view .LVU15
+  75              		.loc 1 29 33 view .LVU15
   76 000e 0360     		str	r3, [r0]
-  29:Core/Src/Application/Src/Computer.c ****             status = TRAN_STATUS;
-  77              		.loc 1 29 13 is_stmt 1 view .LVU16
+  30:Core/Src/Application/Src/Computer.c ****             status = TRAN_STATUS;
+  77              		.loc 1 30 13 is_stmt 1 view .LVU16
   78              	.LVL3:
-  30:Core/Src/Application/Src/Computer.c ****             break;
-  79              		.loc 1 30 13 view .LVU17
-  29:Core/Src/Application/Src/Computer.c ****             status = TRAN_STATUS;
-  80              		.loc 1 29 20 is_stmt 0 view .LVU18
+  31:Core/Src/Application/Src/Computer.c ****             break;
+  79              		.loc 1 31 13 view .LVU17
+  30:Core/Src/Application/Src/Computer.c ****             status = TRAN_STATUS;
+  80              		.loc 1 30 20 is_stmt 0 view .LVU18
   81 0010 0020     		movs	r0, #0
   82              	.LVL4:
-  83              		.loc 1 30 13 view .LVU19
+  83              		.loc 1 31 13 view .LVU19
   84 0012 7047     		bx	lr
   85              	.LVL5:
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s 			page 3
+
+
   86              	.L7:
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 3
-
-
-  22:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:
-  87              		.loc 1 22 5 view .LVU20
+  23:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:
+  87              		.loc 1 23 5 view .LVU20
   88 0014 1BB2     		sxth	r3, r3
   89 0016 0BB1     		cbz	r3, .L5
   90 0018 0120     		movs	r0, #1
   91              	.LVL6:
-  22:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:
-  92              		.loc 1 22 5 view .LVU21
+  23:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:
+  92              		.loc 1 23 5 view .LVU21
   93 001a 7047     		bx	lr
   94              	.LVL7:
   95              	.L5:
-  31:Core/Src/Application/Src/Computer.c **** 
-  32:Core/Src/Application/Src/Computer.c ****         case EXIT_SIG:
-  33:Core/Src/Application/Src/Computer.c ****             status = HANDLED_STATUS;
-  34:Core/Src/Application/Src/Computer.c ****             break;
-  35:Core/Src/Application/Src/Computer.c ****         
-  36:Core/Src/Application/Src/Computer.c ****         default:
-  37:Core/Src/Application/Src/Computer.c ****             status = IGNORED_STATUS;
-  96              		.loc 1 37 20 view .LVU22
+  32:Core/Src/Application/Src/Computer.c **** 
+  33:Core/Src/Application/Src/Computer.c ****         case EXIT_SIG:
+  34:Core/Src/Application/Src/Computer.c ****             status = HANDLED_STATUS;
+  35:Core/Src/Application/Src/Computer.c ****             break;
+  36:Core/Src/Application/Src/Computer.c ****         
+  37:Core/Src/Application/Src/Computer.c ****         default:
+  38:Core/Src/Application/Src/Computer.c ****             status = IGNORED_STATUS;
+  96              		.loc 1 38 20 view .LVU22
   97 001c 0220     		movs	r0, #2
   98              	.LVL8:
-  99              		.loc 1 37 20 view .LVU23
+  99              		.loc 1 38 20 view .LVU23
  100 001e 7047     		bx	lr
  101              	.LVL9:
  102              	.L6:
- 103              		.loc 1 37 20 view .LVU24
+ 103              		.loc 1 38 20 view .LVU24
  104 0020 0220     		movs	r0, #2
  105              	.LVL10:
-  38:Core/Src/Application/Src/Computer.c ****             break;
-  39:Core/Src/Application/Src/Computer.c ****     }
-  40:Core/Src/Application/Src/Computer.c **** 
-  41:Core/Src/Application/Src/Computer.c ****     return status;
- 106              		.loc 1 41 5 is_stmt 1 view .LVU25
-  42:Core/Src/Application/Src/Computer.c **** }
- 107              		.loc 1 42 1 is_stmt 0 view .LVU26
+  39:Core/Src/Application/Src/Computer.c ****             break;
+  40:Core/Src/Application/Src/Computer.c ****     }
+  41:Core/Src/Application/Src/Computer.c **** 
+  42:Core/Src/Application/Src/Computer.c ****     return status;
+ 106              		.loc 1 42 5 is_stmt 1 view .LVU25
+  43:Core/Src/Application/Src/Computer.c **** }
+ 107              		.loc 1 43 1 is_stmt 0 view .LVU26
  108 0022 7047     		bx	lr
  109              		.cfi_endproc
  110              	.LFE289:
@@ -167,143 +168,147 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 1
  118              	new:
  119              	.LVL11:
  120              	.LFB293:
-  43:Core/Src/Application/Src/Computer.c **** 
-  44:Core/Src/Application/Src/Computer.c **** static Status wait (struct Computer *const self, Event const * const event) {
-  45:Core/Src/Application/Src/Computer.c ****     Status status;
-  46:Core/Src/Application/Src/Computer.c ****     
-  47:Core/Src/Application/Src/Computer.c ****     switch (event->signal) {
-  48:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:  
-  49:Core/Src/Application/Src/Computer.c ****             status = HANDLED_STATUS;
-  50:Core/Src/Application/Src/Computer.c ****             break;
-  51:Core/Src/Application/Src/Computer.c **** 
-  52:Core/Src/Application/Src/Computer.c ****         case STATE_UPDATED_SIG:
-  53:Core/Src/Application/Src/Computer.c ****             static State stateTopic = {{0.0f}};
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 4
+  44:Core/Src/Application/Src/Computer.c **** 
+  45:Core/Src/Application/Src/Computer.c **** static Status wait (struct Computer *const self, Event const * const event) {
+  46:Core/Src/Application/Src/Computer.c ****     Status status;
+  47:Core/Src/Application/Src/Computer.c ****     
+  48:Core/Src/Application/Src/Computer.c ****     switch (event->signal) {
+  49:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:
+  50:Core/Src/Application/Src/Computer.c ****             HAL_UART_Receive_IT(&huart3, &rxByte, 1);
+  51:Core/Src/Application/Src/Computer.c ****             status = HANDLED_STATUS;
+  52:Core/Src/Application/Src/Computer.c ****             break;
+  53:Core/Src/Application/Src/Computer.c **** 
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s 			page 4
 
 
-  54:Core/Src/Application/Src/Computer.c ****             float32_t voltage = 0;
-  55:Core/Src/Application/Src/Computer.c ****             BaseType_t is_success;
-  56:Core/Src/Application/Src/Computer.c ****             is_success = xQueuePeek(estimator->statePublic, &stateTopic, 0);
-  57:Core/Src/Application/Src/Computer.c ****             xQueuePeek(motor->voltagePublic, &voltage, 0);
-  58:Core/Src/Application/Src/Computer.c **** 
-  59:Core/Src/Application/Src/Computer.c ****             if(is_success) {
-  60:Core/Src/Application/Src/Computer.c ****                 sprintf(tx_data,
-  61:Core/Src/Application/Src/Computer.c ****                         "S%0.6f %0.6f %0.6f %0.6f\n",
-  62:Core/Src/Application/Src/Computer.c ****                         voltage,
-  63:Core/Src/Application/Src/Computer.c ****                         stateTopic.Motor.position,
-  64:Core/Src/Application/Src/Computer.c ****                         stateTopic.Motor.velocity,
-  65:Core/Src/Application/Src/Computer.c ****                         stateTopic.Motor.rawVel
-  66:Core/Src/Application/Src/Computer.c ****                 );
-  67:Core/Src/Application/Src/Computer.c ****                 SendBuffer(&huart3, tx_data);
-  68:Core/Src/Application/Src/Computer.c **** 
-  69:Core/Src/Application/Src/Computer.c ****                 self->super.handler = (StateHandler) self->sending;
-  70:Core/Src/Application/Src/Computer.c ****                 status = TRAN_STATUS;
-  71:Core/Src/Application/Src/Computer.c ****             }
-  72:Core/Src/Application/Src/Computer.c ****             else {
-  73:Core/Src/Application/Src/Computer.c ****                 status = HANDLED_STATUS;
-  74:Core/Src/Application/Src/Computer.c ****             }
-  75:Core/Src/Application/Src/Computer.c ****         
-  76:Core/Src/Application/Src/Computer.c ****             break;
-  77:Core/Src/Application/Src/Computer.c **** 
-  78:Core/Src/Application/Src/Computer.c ****         case EXIT_SIG:
-  79:Core/Src/Application/Src/Computer.c ****             status = HANDLED_STATUS;
-  80:Core/Src/Application/Src/Computer.c ****             break;
-  81:Core/Src/Application/Src/Computer.c ****         
-  82:Core/Src/Application/Src/Computer.c ****         default:
-  83:Core/Src/Application/Src/Computer.c ****             status = IGNORED_STATUS;
-  84:Core/Src/Application/Src/Computer.c ****             break;
-  85:Core/Src/Application/Src/Computer.c ****     }
-  86:Core/Src/Application/Src/Computer.c ****     return status;
-  87:Core/Src/Application/Src/Computer.c **** }
-  88:Core/Src/Application/Src/Computer.c **** 
-  89:Core/Src/Application/Src/Computer.c **** static void public(QueueHandle_t xQueue, const void * pvItemToQueue) {
-  90:Core/Src/Application/Src/Computer.c **** 
-  91:Core/Src/Application/Src/Computer.c ****     xQueueOverwrite(xQueue, pvItemToQueue);
+  54:Core/Src/Application/Src/Computer.c ****         case STATE_UPDATED_SIG:
+  55:Core/Src/Application/Src/Computer.c ****             static State stateTopic = {{0.0f}};
+  56:Core/Src/Application/Src/Computer.c ****             static SignalControl signalControlTopic = {.voltage = 0};
+  57:Core/Src/Application/Src/Computer.c ****             BaseType_t isSuccessState, isSuccessSignal;
+  58:Core/Src/Application/Src/Computer.c ****             isSuccessState = xQueuePeek(estimator->statePublic, &stateTopic, 0);
+  59:Core/Src/Application/Src/Computer.c ****             isSuccessSignal = xQueuePeek(motor->signalSubsribers, &signalControlTopic, 0);
+  60:Core/Src/Application/Src/Computer.c **** 
+  61:Core/Src/Application/Src/Computer.c ****             if(isSuccessState & isSuccessSignal) {
+  62:Core/Src/Application/Src/Computer.c ****                 sprintf(tx_data,
+  63:Core/Src/Application/Src/Computer.c ****                         "S%0.6f %0.6f %0.6f %0.6f %0.6f %0.6f\n",
+  64:Core/Src/Application/Src/Computer.c ****                         signalControlTopic.voltage,         /* Voltage */
+  65:Core/Src/Application/Src/Computer.c ****                         stateTopic.Motor.current,           /* Current of motor */
+  66:Core/Src/Application/Src/Computer.c ****                         stateTopic.Motor.currentDiff,
+  67:Core/Src/Application/Src/Computer.c ****                         stateTopic.Motor.position,
+  68:Core/Src/Application/Src/Computer.c ****                         stateTopic.Motor.velocity,           /* Angular velocity of motor */
+  69:Core/Src/Application/Src/Computer.c ****                         stateTopic.Motor.acceleration
+  70:Core/Src/Application/Src/Computer.c ****                 );
+  71:Core/Src/Application/Src/Computer.c **** 
+  72:Core/Src/Application/Src/Computer.c ****                 SendBuffer(&huart3, tx_data);
+  73:Core/Src/Application/Src/Computer.c **** 
+  74:Core/Src/Application/Src/Computer.c ****                 self->super.handler = (StateHandler) self->sending;
+  75:Core/Src/Application/Src/Computer.c ****                 status = TRAN_STATUS;
+  76:Core/Src/Application/Src/Computer.c ****             }
+  77:Core/Src/Application/Src/Computer.c ****             else {
+  78:Core/Src/Application/Src/Computer.c ****                 status = HANDLED_STATUS;
+  79:Core/Src/Application/Src/Computer.c ****             }
+  80:Core/Src/Application/Src/Computer.c ****         
+  81:Core/Src/Application/Src/Computer.c ****             break;
+  82:Core/Src/Application/Src/Computer.c **** 
+  83:Core/Src/Application/Src/Computer.c ****         case EXIT_SIG:
+  84:Core/Src/Application/Src/Computer.c ****             status = HANDLED_STATUS;
+  85:Core/Src/Application/Src/Computer.c ****             break;
+  86:Core/Src/Application/Src/Computer.c ****         
+  87:Core/Src/Application/Src/Computer.c ****         default:
+  88:Core/Src/Application/Src/Computer.c ****             status = IGNORED_STATUS;
+  89:Core/Src/Application/Src/Computer.c ****             break;
+  90:Core/Src/Application/Src/Computer.c ****     }
+  91:Core/Src/Application/Src/Computer.c ****     return status;
   92:Core/Src/Application/Src/Computer.c **** }
   93:Core/Src/Application/Src/Computer.c **** 
-  94:Core/Src/Application/Src/Computer.c **** static void publicFromISR(QueueHandle_t xQueue, const void * pvItemToQueue, BaseType_t *pxHigherPri
-  95:Core/Src/Application/Src/Computer.c ****   xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken);
-  96:Core/Src/Application/Src/Computer.c **** }
-  97:Core/Src/Application/Src/Computer.c **** 
-  98:Core/Src/Application/Src/Computer.c **** static void new (struct Computer * const self) {
- 121              		.loc 1 98 48 is_stmt 1 view -0
+  94:Core/Src/Application/Src/Computer.c **** static void public(QueueHandle_t xQueue, const void * pvItemToQueue) {
+  95:Core/Src/Application/Src/Computer.c **** 
+  96:Core/Src/Application/Src/Computer.c ****     xQueueOverwrite(xQueue, pvItemToQueue);
+  97:Core/Src/Application/Src/Computer.c **** }
+  98:Core/Src/Application/Src/Computer.c **** 
+  99:Core/Src/Application/Src/Computer.c **** static void publicFromISR(QueueHandle_t xQueue, const void * pvItemToQueue, BaseType_t *pxHigherPri
+ 100:Core/Src/Application/Src/Computer.c ****   xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken);
+ 101:Core/Src/Application/Src/Computer.c **** }
+ 102:Core/Src/Application/Src/Computer.c **** 
+ 103:Core/Src/Application/Src/Computer.c **** static void new (struct Computer * const self) {
+ 121              		.loc 1 103 48 is_stmt 1 view -0
  122              		.cfi_startproc
  123              		@ args = 0, pretend = 0, frame = 0
  124              		@ frame_needed = 0, uses_anonymous_args = 0
- 125              		.loc 1 98 48 is_stmt 0 view .LVU28
+ 125              		.loc 1 103 48 is_stmt 0 view .LVU28
  126 0000 10B5     		push	{r4, lr}
  127              	.LCFI0:
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s 			page 5
+
+
  128              		.cfi_def_cfa_offset 8
  129              		.cfi_offset 4, -8
  130              		.cfi_offset 14, -4
  131 0002 0446     		mov	r4, r0
-  99:Core/Src/Application/Src/Computer.c ****     /* Assign methods */
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 5
-
-
- 100:Core/Src/Application/Src/Computer.c ****     self->init          = &init;
- 132              		.loc 1 100 5 is_stmt 1 view .LVU29
- 133              		.loc 1 100 25 is_stmt 0 view .LVU30
+ 104:Core/Src/Application/Src/Computer.c ****     /* Assign methods */
+ 105:Core/Src/Application/Src/Computer.c ****     self->init          = &init;
+ 132              		.loc 1 105 5 is_stmt 1 view .LVU29
+ 133              		.loc 1 105 25 is_stmt 0 view .LVU30
  134 0004 0E49     		ldr	r1, .L10
  135 0006 C0F8D010 		str	r1, [r0, #208]
- 101:Core/Src/Application/Src/Computer.c ****     self->sending       = &sending;
- 136              		.loc 1 101 5 is_stmt 1 view .LVU31
- 137              		.loc 1 101 25 is_stmt 0 view .LVU32
+ 106:Core/Src/Application/Src/Computer.c ****     self->sending       = &sending;
+ 136              		.loc 1 106 5 is_stmt 1 view .LVU31
+ 137              		.loc 1 106 25 is_stmt 0 view .LVU32
  138 000a 0E4B     		ldr	r3, .L10+4
  139 000c C0F8D830 		str	r3, [r0, #216]
- 102:Core/Src/Application/Src/Computer.c ****     self->wait          = &wait;
- 140              		.loc 1 102 5 is_stmt 1 view .LVU33
- 141              		.loc 1 102 25 is_stmt 0 view .LVU34
+ 107:Core/Src/Application/Src/Computer.c ****     self->wait          = &wait;
+ 140              		.loc 1 107 5 is_stmt 1 view .LVU33
+ 141              		.loc 1 107 25 is_stmt 0 view .LVU34
  142 0010 0D4B     		ldr	r3, .L10+8
  143 0012 C0F8D430 		str	r3, [r0, #212]
- 103:Core/Src/Application/Src/Computer.c ****     self->public        = &public;
- 144              		.loc 1 103 5 is_stmt 1 view .LVU35
- 145              		.loc 1 103 25 is_stmt 0 view .LVU36
+ 108:Core/Src/Application/Src/Computer.c ****     self->public        = &public;
+ 144              		.loc 1 108 5 is_stmt 1 view .LVU35
+ 145              		.loc 1 108 25 is_stmt 0 view .LVU36
  146 0016 0D4B     		ldr	r3, .L10+12
  147 0018 C0F8DC30 		str	r3, [r0, #220]
- 104:Core/Src/Application/Src/Computer.c ****     self->publicFromISR = &publicFromISR;
- 148              		.loc 1 104 5 is_stmt 1 view .LVU37
- 149              		.loc 1 104 25 is_stmt 0 view .LVU38
+ 109:Core/Src/Application/Src/Computer.c ****     self->publicFromISR = &publicFromISR;
+ 148              		.loc 1 109 5 is_stmt 1 view .LVU37
+ 149              		.loc 1 109 25 is_stmt 0 view .LVU38
  150 001c 0C4B     		ldr	r3, .L10+16
  151 001e C0F8E030 		str	r3, [r0, #224]
- 105:Core/Src/Application/Src/Computer.c **** 
- 106:Core/Src/Application/Src/Computer.c ****     Active_new(&self->super, (StateHandler) &init);
- 152              		.loc 1 106 5 is_stmt 1 view .LVU39
+ 110:Core/Src/Application/Src/Computer.c **** 
+ 111:Core/Src/Application/Src/Computer.c ****     Active_new(&self->super, (StateHandler) &init);
+ 152              		.loc 1 111 5 is_stmt 1 view .LVU39
  153 0022 FFF7FEFF 		bl	Active_new
  154              	.LVL12:
- 107:Core/Src/Application/Src/Computer.c **** 
- 108:Core/Src/Application/Src/Computer.c ****     AO_Computer = &self->super;
- 155              		.loc 1 108 5 view .LVU40
- 156              		.loc 1 108 17 is_stmt 0 view .LVU41
+ 112:Core/Src/Application/Src/Computer.c **** 
+ 113:Core/Src/Application/Src/Computer.c ****     AO_Computer = &self->super;
+ 155              		.loc 1 113 5 view .LVU40
+ 156              		.loc 1 113 17 is_stmt 0 view .LVU41
  157 0026 0B4B     		ldr	r3, .L10+20
  158 0028 1C60     		str	r4, [r3]
- 109:Core/Src/Application/Src/Computer.c ****     computer = self;
- 159              		.loc 1 109 5 is_stmt 1 view .LVU42
- 160              		.loc 1 109 14 is_stmt 0 view .LVU43
+ 114:Core/Src/Application/Src/Computer.c ****     computer = self;
+ 159              		.loc 1 114 5 is_stmt 1 view .LVU42
+ 160              		.loc 1 114 14 is_stmt 0 view .LVU43
  161 002a 0B4B     		ldr	r3, .L10+24
  162 002c 1C60     		str	r4, [r3]
- 110:Core/Src/Application/Src/Computer.c **** 
- 111:Core/Src/Application/Src/Computer.c ****     /* Initialize Queue for Mailbox as subsribers, publishers */
- 112:Core/Src/Application/Src/Computer.c ****     // self->state_sub = estimator->state_pub;
- 113:Core/Src/Application/Src/Computer.c ****     self->received_message_sub = xQueueCreate(1, sizeof(RecivedMessage));
- 163              		.loc 1 113 5 is_stmt 1 view .LVU44
- 164              		.loc 1 113 34 is_stmt 0 view .LVU45
+ 115:Core/Src/Application/Src/Computer.c **** 
+ 116:Core/Src/Application/Src/Computer.c ****     /* Initialize Queue for Mailbox as subsribers, publishers */
+ 117:Core/Src/Application/Src/Computer.c ****     // self->state_sub = estimator->state_pub;
+ 118:Core/Src/Application/Src/Computer.c ****     self->received_message_sub = xQueueCreate(1, sizeof(RecivedMessage));
+ 163              		.loc 1 118 5 is_stmt 1 view .LVU44
+ 164              		.loc 1 118 34 is_stmt 0 view .LVU45
  165 002e 0022     		movs	r2, #0
- 166 0030 0821     		movs	r1, #8
+ 166 0030 0D21     		movs	r1, #13
  167 0032 0120     		movs	r0, #1
  168 0034 FFF7FEFF 		bl	xQueueGenericCreate
  169              	.LVL13:
- 170              		.loc 1 113 32 discriminator 1 view .LVU46
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s 			page 6
+
+
+ 170              		.loc 1 118 32 discriminator 1 view .LVU46
  171 0038 C4F8CC00 		str	r0, [r4, #204]
- 114:Core/Src/Application/Src/Computer.c **** }
- 172              		.loc 1 114 1 view .LVU47
+ 119:Core/Src/Application/Src/Computer.c **** }
+ 172              		.loc 1 119 1 view .LVU47
  173 003c 10BD     		pop	{r4, pc}
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 6
-
-
  174              	.LVL14:
  175              	.L11:
- 176              		.loc 1 114 1 view .LVU48
+ 176              		.loc 1 119 1 view .LVU48
  177 003e 00BF     		.align	2
  178              	.L10:
  179 0040 00000000 		.word	init
@@ -323,25 +328,25 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 1
  195              	publicFromISR:
  196              	.LVL15:
  197              	.LFB292:
-  94:Core/Src/Application/Src/Computer.c ****   xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken);
- 198              		.loc 1 94 116 is_stmt 1 view -0
+  99:Core/Src/Application/Src/Computer.c ****   xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken);
+ 198              		.loc 1 99 116 is_stmt 1 view -0
  199              		.cfi_startproc
  200              		@ args = 0, pretend = 0, frame = 0
  201              		@ frame_needed = 0, uses_anonymous_args = 0
-  94:Core/Src/Application/Src/Computer.c ****   xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken);
- 202              		.loc 1 94 116 is_stmt 0 view .LVU50
+  99:Core/Src/Application/Src/Computer.c ****   xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken);
+ 202              		.loc 1 99 116 is_stmt 0 view .LVU50
  203 0000 08B5     		push	{r3, lr}
  204              	.LCFI1:
  205              		.cfi_def_cfa_offset 8
  206              		.cfi_offset 3, -8
  207              		.cfi_offset 14, -4
-  95:Core/Src/Application/Src/Computer.c **** }
- 208              		.loc 1 95 3 is_stmt 1 view .LVU51
+ 100:Core/Src/Application/Src/Computer.c **** }
+ 208              		.loc 1 100 3 is_stmt 1 view .LVU51
  209 0002 0223     		movs	r3, #2
  210 0004 FFF7FEFF 		bl	xQueueGenericSendFromISR
  211              	.LVL16:
-  96:Core/Src/Application/Src/Computer.c **** 
- 212              		.loc 1 96 1 is_stmt 0 view .LVU52
+ 101:Core/Src/Application/Src/Computer.c **** 
+ 212              		.loc 1 101 1 is_stmt 0 view .LVU52
  213 0008 08BD     		pop	{r3, pc}
  214              		.cfi_endproc
  215              	.LFE292:
@@ -353,36 +358,36 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 1
  223              	public:
  224              	.LVL17:
  225              	.LFB291:
-  89:Core/Src/Application/Src/Computer.c **** 
- 226              		.loc 1 89 70 is_stmt 1 view -0
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s 			page 7
+
+
+  94:Core/Src/Application/Src/Computer.c **** 
+ 226              		.loc 1 94 70 is_stmt 1 view -0
  227              		.cfi_startproc
  228              		@ args = 0, pretend = 0, frame = 0
  229              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 7
-
-
-  89:Core/Src/Application/Src/Computer.c **** 
- 230              		.loc 1 89 70 is_stmt 0 view .LVU54
+  94:Core/Src/Application/Src/Computer.c **** 
+ 230              		.loc 1 94 70 is_stmt 0 view .LVU54
  231 0000 08B5     		push	{r3, lr}
  232              	.LCFI2:
  233              		.cfi_def_cfa_offset 8
  234              		.cfi_offset 3, -8
  235              		.cfi_offset 14, -4
-  91:Core/Src/Application/Src/Computer.c **** }
- 236              		.loc 1 91 5 is_stmt 1 view .LVU55
+  96:Core/Src/Application/Src/Computer.c **** }
+ 236              		.loc 1 96 5 is_stmt 1 view .LVU55
  237 0002 0223     		movs	r3, #2
  238 0004 0022     		movs	r2, #0
  239 0006 FFF7FEFF 		bl	xQueueGenericSend
  240              	.LVL18:
-  92:Core/Src/Application/Src/Computer.c **** 
- 241              		.loc 1 92 1 is_stmt 0 view .LVU56
+  97:Core/Src/Application/Src/Computer.c **** 
+ 241              		.loc 1 97 1 is_stmt 0 view .LVU56
  242 000a 08BD     		pop	{r3, pc}
  243              		.cfi_endproc
  244              	.LFE291:
  246              		.section	.rodata.wait.str1.4,"aMS",%progbits,1
  247              		.align	2
  248              	.LC0:
- 249 0000 5325302E 		.ascii	"S%0.6f %0.6f %0.6f %0.6f\012\000"
+ 249 0000 5325302E 		.ascii	"S%0.6f %0.6f %0.6f %0.6f %0.6f %0.6f\012\000"
  249      36662025 
  249      302E3666 
  249      2025302E 
@@ -395,375 +400,407 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 1
  256              	wait:
  257              	.LVL19:
  258              	.LFB290:
-  44:Core/Src/Application/Src/Computer.c ****     Status status;
- 259              		.loc 1 44 77 is_stmt 1 view -0
+  45:Core/Src/Application/Src/Computer.c ****     Status status;
+ 259              		.loc 1 45 77 is_stmt 1 view -0
  260              		.cfi_startproc
  261              		@ args = 0, pretend = 0, frame = 8
  262              		@ frame_needed = 0, uses_anonymous_args = 0
-  45:Core/Src/Application/Src/Computer.c ****     
- 263              		.loc 1 45 5 view .LVU58
-  47:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:  
- 264              		.loc 1 47 5 view .LVU59
-  47:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:  
- 265              		.loc 1 47 18 is_stmt 0 view .LVU60
+  46:Core/Src/Application/Src/Computer.c ****     
+ 263              		.loc 1 46 5 view .LVU58
+  48:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:
+ 264              		.loc 1 48 5 view .LVU59
+  48:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:
+ 265              		.loc 1 48 18 is_stmt 0 view .LVU60
  266 0000 0B88     		ldrh	r3, [r1]
-  47:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:  
- 267              		.loc 1 47 5 view .LVU61
+  48:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:
+ 267              		.loc 1 48 5 view .LVU61
  268 0002 022B     		cmp	r3, #2
- 269 0004 1DD9     		bls	.L25
-  44:Core/Src/Application/Src/Computer.c ****     Status status;
- 270              		.loc 1 44 77 view .LVU62
- 271 0006 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 269 0004 5ED0     		beq	.L19
+  45:Core/Src/Application/Src/Computer.c ****     Status status;
+ 270              		.loc 1 45 77 view .LVU62
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s 			page 8
+
+
+ 271 0006 2DE9704F 		push	{r4, r5, r6, r8, r9, r10, fp, lr}
  272              	.LCFI3:
  273              		.cfi_def_cfa_offset 32
  274              		.cfi_offset 4, -32
  275              		.cfi_offset 5, -28
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 8
-
-
  276              		.cfi_offset 6, -24
- 277              		.cfi_offset 7, -20
- 278              		.cfi_offset 8, -16
- 279              		.cfi_offset 9, -12
- 280              		.cfi_offset 10, -8
+ 277              		.cfi_offset 8, -20
+ 278              		.cfi_offset 9, -16
+ 279              		.cfi_offset 10, -12
+ 280              		.cfi_offset 11, -8
  281              		.cfi_offset 14, -4
- 282 000a 88B0     		sub	sp, sp, #32
+ 282 000a 8CB0     		sub	sp, sp, #48
  283              	.LCFI4:
- 284              		.cfi_def_cfa_offset 64
+ 284              		.cfi_def_cfa_offset 80
  285 000c 0446     		mov	r4, r0
-  47:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:  
- 286              		.loc 1 47 5 view .LVU63
+  48:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:
+ 286              		.loc 1 48 5 view .LVU63
  287 000e 052B     		cmp	r3, #5
- 288 0010 48D1     		bne	.L20
- 289              	.LBB2:
-  53:Core/Src/Application/Src/Computer.c ****             float32_t voltage = 0;
- 290              		.loc 1 53 13 is_stmt 1 view .LVU64
-  54:Core/Src/Application/Src/Computer.c ****             BaseType_t is_success;
- 291              		.loc 1 54 13 view .LVU65
-  54:Core/Src/Application/Src/Computer.c ****             BaseType_t is_success;
- 292              		.loc 1 54 23 is_stmt 0 view .LVU66
- 293 0012 0023     		movs	r3, #0
- 294 0014 0793     		str	r3, [sp, #28]	@ float
-  55:Core/Src/Application/Src/Computer.c ****             is_success = xQueuePeek(estimator->statePublic, &stateTopic, 0);
- 295              		.loc 1 55 13 is_stmt 1 view .LVU67
-  56:Core/Src/Application/Src/Computer.c ****             xQueuePeek(motor->voltagePublic, &voltage, 0);
- 296              		.loc 1 56 13 view .LVU68
-  56:Core/Src/Application/Src/Computer.c ****             xQueuePeek(motor->voltagePublic, &voltage, 0);
- 297              		.loc 1 56 46 is_stmt 0 view .LVU69
- 298 0016 244B     		ldr	r3, .L27
- 299 0018 1B68     		ldr	r3, [r3]
-  56:Core/Src/Application/Src/Computer.c ****             xQueuePeek(motor->voltagePublic, &voltage, 0);
- 300              		.loc 1 56 26 view .LVU70
- 301 001a 0022     		movs	r2, #0
- 302 001c 2349     		ldr	r1, .L27+4
- 303              	.LVL20:
-  56:Core/Src/Application/Src/Computer.c ****             xQueuePeek(motor->voltagePublic, &voltage, 0);
- 304              		.loc 1 56 26 view .LVU71
- 305 001e D3F8D400 		ldr	r0, [r3, #212]
- 306              	.LVL21:
-  56:Core/Src/Application/Src/Computer.c ****             xQueuePeek(motor->voltagePublic, &voltage, 0);
- 307              		.loc 1 56 26 view .LVU72
- 308 0022 FFF7FEFF 		bl	xQueuePeek
- 309              	.LVL22:
- 310 0026 0546     		mov	r5, r0
- 311              	.LVL23:
-  57:Core/Src/Application/Src/Computer.c **** 
- 312              		.loc 1 57 13 is_stmt 1 view .LVU73
-  57:Core/Src/Application/Src/Computer.c **** 
- 313              		.loc 1 57 29 is_stmt 0 view .LVU74
- 314 0028 214B     		ldr	r3, .L27+8
- 315 002a 1B68     		ldr	r3, [r3]
-  57:Core/Src/Application/Src/Computer.c **** 
- 316              		.loc 1 57 13 view .LVU75
- 317 002c 0022     		movs	r2, #0
- 318 002e 07A9     		add	r1, sp, #28
- 319 0030 D3F8D000 		ldr	r0, [r3, #208]
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 9
+ 288 0010 0AD0     		beq	.L18
+ 289 0012 012B     		cmp	r3, #1
+ 290 0014 58D1     		bne	.L20
+ 291              	.LBB2:
+  50:Core/Src/Application/Src/Computer.c ****             status = HANDLED_STATUS;
+ 292              		.loc 1 50 13 is_stmt 1 view .LVU64
+ 293 0016 0122     		movs	r2, #1
+ 294 0018 2C49     		ldr	r1, .L27
+ 295              	.LVL20:
+  50:Core/Src/Application/Src/Computer.c ****             status = HANDLED_STATUS;
+ 296              		.loc 1 50 13 is_stmt 0 view .LVU65
+ 297 001a 2D48     		ldr	r0, .L27+4
+ 298              	.LVL21:
+  50:Core/Src/Application/Src/Computer.c ****             status = HANDLED_STATUS;
+ 299              		.loc 1 50 13 view .LVU66
+ 300 001c FFF7FEFF 		bl	HAL_UART_Receive_IT
+ 301              	.LVL22:
+  51:Core/Src/Application/Src/Computer.c ****             break;
+ 302              		.loc 1 51 13 is_stmt 1 view .LVU67
+  52:Core/Src/Application/Src/Computer.c **** 
+ 303              		.loc 1 52 13 view .LVU68
+  51:Core/Src/Application/Src/Computer.c ****             break;
+ 304              		.loc 1 51 20 is_stmt 0 view .LVU69
+ 305 0020 0120     		movs	r0, #1
+ 306              	.LVL23:
+ 307              	.L17:
+  51:Core/Src/Application/Src/Computer.c ****             break;
+ 308              		.loc 1 51 20 view .LVU70
+ 309              	.LBE2:
+  91:Core/Src/Application/Src/Computer.c **** }
+ 310              		.loc 1 91 5 is_stmt 1 view .LVU71
+  92:Core/Src/Application/Src/Computer.c **** 
+ 311              		.loc 1 92 1 is_stmt 0 view .LVU72
+ 312 0022 0CB0     		add	sp, sp, #48
+ 313              	.LCFI5:
+ 314              		.cfi_remember_state
+ 315              		.cfi_def_cfa_offset 32
+ 316              		@ sp needed
+ 317 0024 BDE8708F 		pop	{r4, r5, r6, r8, r9, r10, fp, pc}
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s 			page 9
 
 
- 320              	.LVL24:
-  57:Core/Src/Application/Src/Computer.c **** 
- 321              		.loc 1 57 13 view .LVU76
- 322 0034 FFF7FEFF 		bl	xQueuePeek
- 323              	.LVL25:
-  59:Core/Src/Application/Src/Computer.c ****                 sprintf(tx_data,
- 324              		.loc 1 59 13 is_stmt 1 view .LVU77
-  59:Core/Src/Application/Src/Computer.c ****                 sprintf(tx_data,
- 325              		.loc 1 59 15 is_stmt 0 view .LVU78
- 326 0038 3DB9     		cbnz	r5, .L26
-  73:Core/Src/Application/Src/Computer.c ****             }
- 327              		.loc 1 73 24 view .LVU79
- 328 003a 0120     		movs	r0, #1
- 329              	.LVL26:
- 330              	.L18:
-  73:Core/Src/Application/Src/Computer.c ****             }
- 331              		.loc 1 73 24 view .LVU80
- 332              	.LBE2:
-  86:Core/Src/Application/Src/Computer.c **** }
- 333              		.loc 1 86 5 is_stmt 1 view .LVU81
-  87:Core/Src/Application/Src/Computer.c **** 
- 334              		.loc 1 87 1 is_stmt 0 view .LVU82
- 335 003c 08B0     		add	sp, sp, #32
- 336              	.LCFI5:
- 337              		.cfi_def_cfa_offset 32
- 338              		@ sp needed
- 339 003e BDE8F087 		pop	{r4, r5, r6, r7, r8, r9, r10, pc}
- 340              	.LVL27:
- 341              	.L25:
- 342              	.LCFI6:
- 343              		.cfi_def_cfa_offset 0
- 344              		.cfi_restore 4
- 345              		.cfi_restore 5
- 346              		.cfi_restore 6
- 347              		.cfi_restore 7
- 348              		.cfi_restore 8
- 349              		.cfi_restore 9
- 350              		.cfi_restore 10
- 351              		.cfi_restore 14
-  47:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:  
- 352              		.loc 1 47 5 view .LVU83
- 353 0042 1BB2     		sxth	r3, r3
- 354 0044 63B3     		cbz	r3, .L19
- 355 0046 0120     		movs	r0, #1
- 356              	.LVL28:
-  47:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:  
- 357              		.loc 1 47 5 view .LVU84
- 358 0048 7047     		bx	lr
- 359              	.LVL29:
- 360              	.L26:
- 361              	.LCFI7:
- 362              		.cfi_def_cfa_offset 64
- 363              		.cfi_offset 4, -32
- 364              		.cfi_offset 5, -28
- 365              		.cfi_offset 6, -24
- 366              		.cfi_offset 7, -20
- 367              		.cfi_offset 8, -16
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 10
+ 318              	.LVL24:
+ 319              	.L18:
+ 320              	.LCFI6:
+ 321              		.cfi_restore_state
+ 322              	.LBB3:
+  55:Core/Src/Application/Src/Computer.c ****             static SignalControl signalControlTopic = {.voltage = 0};
+ 323              		.loc 1 55 13 is_stmt 1 view .LVU73
+  56:Core/Src/Application/Src/Computer.c ****             BaseType_t isSuccessState, isSuccessSignal;
+ 324              		.loc 1 56 13 view .LVU74
+  57:Core/Src/Application/Src/Computer.c ****             isSuccessState = xQueuePeek(estimator->statePublic, &stateTopic, 0);
+ 325              		.loc 1 57 13 view .LVU75
+  58:Core/Src/Application/Src/Computer.c ****             isSuccessSignal = xQueuePeek(motor->signalSubsribers, &signalControlTopic, 0);
+ 326              		.loc 1 58 13 view .LVU76
+  58:Core/Src/Application/Src/Computer.c ****             isSuccessSignal = xQueuePeek(motor->signalSubsribers, &signalControlTopic, 0);
+ 327              		.loc 1 58 50 is_stmt 0 view .LVU77
+ 328 0028 2A4B     		ldr	r3, .L27+8
+ 329 002a 1B68     		ldr	r3, [r3]
+  58:Core/Src/Application/Src/Computer.c ****             isSuccessSignal = xQueuePeek(motor->signalSubsribers, &signalControlTopic, 0);
+ 330              		.loc 1 58 30 view .LVU78
+ 331 002c 0022     		movs	r2, #0
+ 332 002e 2A49     		ldr	r1, .L27+12
+ 333              	.LVL25:
+  58:Core/Src/Application/Src/Computer.c ****             isSuccessSignal = xQueuePeek(motor->signalSubsribers, &signalControlTopic, 0);
+ 334              		.loc 1 58 30 view .LVU79
+ 335 0030 D3F8D400 		ldr	r0, [r3, #212]
+ 336              	.LVL26:
+  58:Core/Src/Application/Src/Computer.c ****             isSuccessSignal = xQueuePeek(motor->signalSubsribers, &signalControlTopic, 0);
+ 337              		.loc 1 58 30 view .LVU80
+ 338 0034 FFF7FEFF 		bl	xQueuePeek
+ 339              	.LVL27:
+ 340 0038 0546     		mov	r5, r0
+ 341              	.LVL28:
+  59:Core/Src/Application/Src/Computer.c **** 
+ 342              		.loc 1 59 13 is_stmt 1 view .LVU81
+  59:Core/Src/Application/Src/Computer.c **** 
+ 343              		.loc 1 59 47 is_stmt 0 view .LVU82
+ 344 003a 284B     		ldr	r3, .L27+16
+ 345 003c 1B68     		ldr	r3, [r3]
+  59:Core/Src/Application/Src/Computer.c **** 
+ 346              		.loc 1 59 31 view .LVU83
+ 347 003e 0022     		movs	r2, #0
+ 348 0040 2749     		ldr	r1, .L27+20
+ 349 0042 D3F8CC00 		ldr	r0, [r3, #204]
+ 350              	.LVL29:
+  59:Core/Src/Application/Src/Computer.c **** 
+ 351              		.loc 1 59 31 view .LVU84
+ 352 0046 FFF7FEFF 		bl	xQueuePeek
+ 353              	.LVL30:
+  61:Core/Src/Application/Src/Computer.c ****                 sprintf(tx_data,
+ 354              		.loc 1 61 13 is_stmt 1 view .LVU85
+  61:Core/Src/Application/Src/Computer.c ****                 sprintf(tx_data,
+ 355              		.loc 1 61 15 is_stmt 0 view .LVU86
+ 356 004a 0542     		tst	r5, r0
+ 357 004c 01D1     		bne	.L26
+  78:Core/Src/Application/Src/Computer.c ****             }
+ 358              		.loc 1 78 24 view .LVU87
+ 359 004e 0120     		movs	r0, #1
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s 			page 10
 
 
- 368              		.cfi_offset 9, -12
- 369              		.cfi_offset 10, -8
- 370              		.cfi_offset 14, -4
- 371              	.LBB3:
-  60:Core/Src/Application/Src/Computer.c ****                         "S%0.6f %0.6f %0.6f %0.6f\n",
- 372              		.loc 1 60 17 is_stmt 1 view .LVU85
-  63:Core/Src/Application/Src/Computer.c ****                         stateTopic.Motor.velocity,
- 373              		.loc 1 63 41 is_stmt 0 view .LVU86
- 374 004a 184B     		ldr	r3, .L27+4
- 375 004c D3F80C80 		ldr	r8, [r3, #12]	@ float
-  64:Core/Src/Application/Src/Computer.c ****                         stateTopic.Motor.rawVel
- 376              		.loc 1 64 41 view .LVU87
- 377 0050 D3F81090 		ldr	r9, [r3, #16]	@ float
-  65:Core/Src/Application/Src/Computer.c ****                 );
- 378              		.loc 1 65 41 view .LVU88
- 379 0054 D3F804A0 		ldr	r10, [r3, #4]	@ float
-  60:Core/Src/Application/Src/Computer.c ****                         "S%0.6f %0.6f %0.6f %0.6f\n",
- 380              		.loc 1 60 17 view .LVU89
- 381 0058 0798     		ldr	r0, [sp, #28]	@ float
- 382 005a FFF7FEFF 		bl	__aeabi_f2d
- 383              	.LVL30:
- 384 005e 0646     		mov	r6, r0
- 385 0060 0F46     		mov	r7, r1
- 386 0062 144D     		ldr	r5, .L27+12
- 387              	.LVL31:
-  60:Core/Src/Application/Src/Computer.c ****                         "S%0.6f %0.6f %0.6f %0.6f\n",
- 388              		.loc 1 60 17 view .LVU90
- 389 0064 5046     		mov	r0, r10	@ float
- 390 0066 FFF7FEFF 		bl	__aeabi_f2d
- 391              	.LVL32:
- 392 006a CDE90401 		strd	r0, [sp, #16]
- 393 006e 4846     		mov	r0, r9	@ float
- 394 0070 FFF7FEFF 		bl	__aeabi_f2d
- 395              	.LVL33:
- 396 0074 CDE90201 		strd	r0, [sp, #8]
- 397 0078 4046     		mov	r0, r8	@ float
- 398 007a FFF7FEFF 		bl	__aeabi_f2d
- 399              	.LVL34:
- 400 007e CDE90001 		strd	r0, [sp]
- 401 0082 3246     		mov	r2, r6
- 402 0084 3B46     		mov	r3, r7
- 403 0086 0C49     		ldr	r1, .L27+16
- 404 0088 2846     		mov	r0, r5
- 405 008a FFF7FEFF 		bl	sprintf_
- 406              	.LVL35:
-  67:Core/Src/Application/Src/Computer.c **** 
- 407              		.loc 1 67 17 is_stmt 1 view .LVU91
- 408 008e 2946     		mov	r1, r5
- 409 0090 0A48     		ldr	r0, .L27+20
- 410 0092 FFF7FEFF 		bl	SendBuffer
- 411              	.LVL36:
-  69:Core/Src/Application/Src/Computer.c ****                 status = TRAN_STATUS;
- 412              		.loc 1 69 17 view .LVU92
-  69:Core/Src/Application/Src/Computer.c ****                 status = TRAN_STATUS;
- 413              		.loc 1 69 58 is_stmt 0 view .LVU93
- 414 0096 D4F8D830 		ldr	r3, [r4, #216]
-  69:Core/Src/Application/Src/Computer.c ****                 status = TRAN_STATUS;
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 11
+ 360              	.LVL31:
+  78:Core/Src/Application/Src/Computer.c ****             }
+ 361              		.loc 1 78 24 view .LVU88
+ 362 0050 E7E7     		b	.L17
+ 363              	.LVL32:
+ 364              	.L26:
+  62:Core/Src/Application/Src/Computer.c ****                         "S%0.6f %0.6f %0.6f %0.6f %0.6f %0.6f\n",
+ 365              		.loc 1 62 17 is_stmt 1 view .LVU89
+  65:Core/Src/Application/Src/Computer.c ****                         stateTopic.Motor.currentDiff,
+ 366              		.loc 1 65 41 is_stmt 0 view .LVU90
+ 367 0052 214B     		ldr	r3, .L27+12
+ 368 0054 D3F82080 		ldr	r8, [r3, #32]	@ float
+  66:Core/Src/Application/Src/Computer.c ****                         stateTopic.Motor.position,
+ 369              		.loc 1 66 41 view .LVU91
+ 370 0058 D3F82490 		ldr	r9, [r3, #36]	@ float
+  67:Core/Src/Application/Src/Computer.c ****                         stateTopic.Motor.velocity,           /* Angular velocity of motor */
+ 371              		.loc 1 67 41 view .LVU92
+ 372 005c D3F808A0 		ldr	r10, [r3, #8]	@ float
+  68:Core/Src/Application/Src/Computer.c ****                         stateTopic.Motor.acceleration
+ 373              		.loc 1 68 41 view .LVU93
+ 374 0060 D3F80CB0 		ldr	fp, [r3, #12]	@ float
+  69:Core/Src/Application/Src/Computer.c ****                 );
+ 375              		.loc 1 69 41 view .LVU94
+ 376 0064 1E69     		ldr	r6, [r3, #16]	@ float
+  62:Core/Src/Application/Src/Computer.c ****                         "S%0.6f %0.6f %0.6f %0.6f %0.6f %0.6f\n",
+ 377              		.loc 1 62 17 view .LVU95
+ 378 0066 1E4B     		ldr	r3, .L27+20
+ 379 0068 5868     		ldr	r0, [r3, #4]	@ float
+ 380              	.LVL33:
+  62:Core/Src/Application/Src/Computer.c ****                         "S%0.6f %0.6f %0.6f %0.6f %0.6f %0.6f\n",
+ 381              		.loc 1 62 17 view .LVU96
+ 382 006a FFF7FEFF 		bl	__aeabi_f2d
+ 383              	.LVL34:
+ 384 006e CDE90A01 		strd	r0, [sp, #40]
+ 385 0072 1C4D     		ldr	r5, .L27+24
+ 386              	.LVL35:
+  62:Core/Src/Application/Src/Computer.c ****                         "S%0.6f %0.6f %0.6f %0.6f %0.6f %0.6f\n",
+ 387              		.loc 1 62 17 view .LVU97
+ 388 0074 3046     		mov	r0, r6	@ float
+ 389 0076 FFF7FEFF 		bl	__aeabi_f2d
+ 390              	.LVL36:
+ 391 007a CDE90801 		strd	r0, [sp, #32]
+ 392 007e 5846     		mov	r0, fp	@ float
+ 393 0080 FFF7FEFF 		bl	__aeabi_f2d
+ 394              	.LVL37:
+ 395 0084 CDE90601 		strd	r0, [sp, #24]
+ 396 0088 5046     		mov	r0, r10	@ float
+ 397 008a FFF7FEFF 		bl	__aeabi_f2d
+ 398              	.LVL38:
+ 399 008e CDE90401 		strd	r0, [sp, #16]
+ 400 0092 4846     		mov	r0, r9	@ float
+ 401 0094 FFF7FEFF 		bl	__aeabi_f2d
+ 402              	.LVL39:
+ 403 0098 CDE90201 		strd	r0, [sp, #8]
+ 404 009c 4046     		mov	r0, r8	@ float
+ 405 009e FFF7FEFF 		bl	__aeabi_f2d
+ 406              	.LVL40:
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s 			page 11
 
 
- 415              		.loc 1 69 37 view .LVU94
- 416 009a 2360     		str	r3, [r4]
-  70:Core/Src/Application/Src/Computer.c ****             }
- 417              		.loc 1 70 17 is_stmt 1 view .LVU95
- 418              	.LVL37:
-  70:Core/Src/Application/Src/Computer.c ****             }
- 419              		.loc 1 70 24 is_stmt 0 view .LVU96
- 420 009c 0020     		movs	r0, #0
- 421 009e CDE7     		b	.L18
- 422              	.LVL38:
- 423              	.L19:
- 424              	.LCFI8:
- 425              		.cfi_def_cfa_offset 0
- 426              		.cfi_restore 4
- 427              		.cfi_restore 5
- 428              		.cfi_restore 6
- 429              		.cfi_restore 7
- 430              		.cfi_restore 8
- 431              		.cfi_restore 9
- 432              		.cfi_restore 10
- 433              		.cfi_restore 14
-  83:Core/Src/Application/Src/Computer.c ****             break;
- 434              		.loc 1 83 20 view .LVU97
- 435 00a0 0220     		movs	r0, #2
- 436              	.LVL39:
-  83:Core/Src/Application/Src/Computer.c ****             break;
- 437              		.loc 1 83 20 view .LVU98
- 438              	.LBE3:
-  86:Core/Src/Application/Src/Computer.c **** }
- 439              		.loc 1 86 5 is_stmt 1 view .LVU99
-  87:Core/Src/Application/Src/Computer.c **** 
- 440              		.loc 1 87 1 is_stmt 0 view .LVU100
- 441 00a2 7047     		bx	lr
- 442              	.LVL40:
- 443              	.L20:
- 444              	.LCFI9:
- 445              		.cfi_def_cfa_offset 64
- 446              		.cfi_offset 4, -32
- 447              		.cfi_offset 5, -28
- 448              		.cfi_offset 6, -24
- 449              		.cfi_offset 7, -20
- 450              		.cfi_offset 8, -16
- 451              		.cfi_offset 9, -12
- 452              		.cfi_offset 10, -8
- 453              		.cfi_offset 14, -4
- 454              	.LBB4:
-  83:Core/Src/Application/Src/Computer.c ****             break;
- 455              		.loc 1 83 20 view .LVU101
- 456 00a4 0220     		movs	r0, #2
- 457              	.LVL41:
-  83:Core/Src/Application/Src/Computer.c ****             break;
- 458              		.loc 1 83 20 view .LVU102
- 459 00a6 C9E7     		b	.L18
- 460              	.L28:
- 461              		.align	2
- 462              	.L27:
- 463 00a8 00000000 		.word	estimator
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 12
+ 407 00a2 CDE90001 		strd	r0, [sp]
+ 408 00a6 DDE90A23 		ldrd	r2, [sp, #40]
+ 409 00aa 0F49     		ldr	r1, .L27+28
+ 410 00ac 2846     		mov	r0, r5
+ 411 00ae FFF7FEFF 		bl	sprintf_
+ 412              	.LVL41:
+  72:Core/Src/Application/Src/Computer.c **** 
+ 413              		.loc 1 72 17 is_stmt 1 view .LVU98
+ 414 00b2 2946     		mov	r1, r5
+ 415 00b4 0648     		ldr	r0, .L27+4
+ 416 00b6 FFF7FEFF 		bl	SendBuffer
+ 417              	.LVL42:
+  74:Core/Src/Application/Src/Computer.c ****                 status = TRAN_STATUS;
+ 418              		.loc 1 74 17 view .LVU99
+  74:Core/Src/Application/Src/Computer.c ****                 status = TRAN_STATUS;
+ 419              		.loc 1 74 58 is_stmt 0 view .LVU100
+ 420 00ba D4F8D830 		ldr	r3, [r4, #216]
+  74:Core/Src/Application/Src/Computer.c ****                 status = TRAN_STATUS;
+ 421              		.loc 1 74 37 view .LVU101
+ 422 00be 2360     		str	r3, [r4]
+  75:Core/Src/Application/Src/Computer.c ****             }
+ 423              		.loc 1 75 17 is_stmt 1 view .LVU102
+ 424              	.LVL43:
+  75:Core/Src/Application/Src/Computer.c ****             }
+ 425              		.loc 1 75 24 is_stmt 0 view .LVU103
+ 426 00c0 0020     		movs	r0, #0
+ 427 00c2 AEE7     		b	.L17
+ 428              	.LVL44:
+ 429              	.L19:
+ 430              	.LCFI7:
+ 431              		.cfi_def_cfa_offset 0
+ 432              		.cfi_restore 4
+ 433              		.cfi_restore 5
+ 434              		.cfi_restore 6
+ 435              		.cfi_restore 8
+ 436              		.cfi_restore 9
+ 437              		.cfi_restore 10
+ 438              		.cfi_restore 11
+ 439              		.cfi_restore 14
+  75:Core/Src/Application/Src/Computer.c ****             }
+ 440              		.loc 1 75 24 view .LVU104
+ 441              	.LBE3:
+  48:Core/Src/Application/Src/Computer.c ****         case ENTRY_SIG:
+ 442              		.loc 1 48 5 view .LVU105
+ 443 00c4 0120     		movs	r0, #1
+ 444              	.LVL45:
+  91:Core/Src/Application/Src/Computer.c **** }
+ 445              		.loc 1 91 5 is_stmt 1 view .LVU106
+  92:Core/Src/Application/Src/Computer.c **** 
+ 446              		.loc 1 92 1 is_stmt 0 view .LVU107
+ 447 00c6 7047     		bx	lr
+ 448              	.LVL46:
+ 449              	.L20:
+ 450              	.LCFI8:
+ 451              		.cfi_def_cfa_offset 80
+ 452              		.cfi_offset 4, -32
+ 453              		.cfi_offset 5, -28
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s 			page 12
 
 
- 464 00ac 00000000 		.word	stateTopic.0
- 465 00b0 00000000 		.word	motor
- 466 00b4 00000000 		.word	tx_data
- 467 00b8 00000000 		.word	.LC0
- 468 00bc 00000000 		.word	huart3
- 469              	.LBE4:
- 470              		.cfi_endproc
- 471              	.LFE290:
- 473              		.section	.bss.stateTopic.0,"aw",%nobits
- 474              		.align	2
- 477              	stateTopic.0:
- 478 0000 00000000 		.space	72
- 478      00000000 
- 478      00000000 
- 478      00000000 
- 478      00000000 
- 479              		.global	Computer
- 480              		.section	.rodata.Computer,"a"
- 481              		.align	2
- 484              	Computer:
- 485 0000 00000000 		.word	new
- 486              		.section	.bss.tx_data,"aw",%nobits
- 487              		.align	2
- 490              	tx_data:
- 491 0000 00000000 		.space	50
- 491      00000000 
- 491      00000000 
- 491      00000000 
- 491      00000000 
- 492              		.global	computer
- 493              		.section	.bss.computer,"aw",%nobits
- 494              		.align	2
- 497              	computer:
- 498 0000 00000000 		.space	4
- 499              		.global	AO_Computer
- 500              		.section	.bss.AO_Computer,"aw",%nobits
+ 454              		.cfi_offset 6, -24
+ 455              		.cfi_offset 8, -20
+ 456              		.cfi_offset 9, -16
+ 457              		.cfi_offset 10, -12
+ 458              		.cfi_offset 11, -8
+ 459              		.cfi_offset 14, -4
+ 460              	.LBB4:
+  88:Core/Src/Application/Src/Computer.c ****             break;
+ 461              		.loc 1 88 20 view .LVU108
+ 462 00c8 0220     		movs	r0, #2
+ 463              	.LVL47:
+  88:Core/Src/Application/Src/Computer.c ****             break;
+ 464              		.loc 1 88 20 view .LVU109
+ 465 00ca AAE7     		b	.L17
+ 466              	.L28:
+ 467              		.align	2
+ 468              	.L27:
+ 469 00cc 00000000 		.word	rxByte
+ 470 00d0 00000000 		.word	huart3
+ 471 00d4 00000000 		.word	estimator
+ 472 00d8 00000000 		.word	stateTopic.1
+ 473 00dc 00000000 		.word	motor
+ 474 00e0 00000000 		.word	signalControlTopic.0
+ 475 00e4 00000000 		.word	tx_data
+ 476 00e8 00000000 		.word	.LC0
+ 477              	.LBE4:
+ 478              		.cfi_endproc
+ 479              	.LFE290:
+ 481              		.section	.bss.signalControlTopic.0,"aw",%nobits
+ 482              		.align	2
+ 485              	signalControlTopic.0:
+ 486 0000 00000000 		.space	20
+ 486      00000000 
+ 486      00000000 
+ 486      00000000 
+ 486      00000000 
+ 487              		.section	.bss.stateTopic.1,"aw",%nobits
+ 488              		.align	2
+ 491              	stateTopic.1:
+ 492 0000 00000000 		.space	120
+ 492      00000000 
+ 492      00000000 
+ 492      00000000 
+ 492      00000000 
+ 493              		.global	Computer
+ 494              		.section	.rodata.Computer,"a"
+ 495              		.align	2
+ 498              	Computer:
+ 499 0000 00000000 		.word	new
+ 500              		.section	.bss.tx_data,"aw",%nobits
  501              		.align	2
- 504              	AO_Computer:
- 505 0000 00000000 		.space	4
- 506              		.text
- 507              	.Letext0:
- 508              		.file 2 "D:/DATN/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/machine/_default_type
- 509              		.file 3 "D:/DATN/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/sys/_stdint.h"
- 510              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
- 511              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 512              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 513              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
- 514              		.file 8 "Middlewares/Third_Party/ARM/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h"
- 515              		.file 9 "Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h"
- 516              		.file 10 "Middlewares/Third_Party/ARM/FreeRTOS/include/task.h"
- 517              		.file 11 "Middlewares/Third_Party/ARM/FreeRTOS/include/queue.h"
- 518              		.file 12 "Middlewares/ST/ARM/DSP/Inc/arm_math.h"
- 519              		.file 13 "Core/Src/Application/Inc/Topic.h"
- 520              		.file 14 "Core/Src/Application/Inc/ActiveObject.h"
- 521              		.file 15 "Core/Src/Common/Inc/dsp.h"
- 522              		.file 16 "Core/Src/Application/Inc/Estimator.h"
- 523              		.file 17 "Core/Src/Application/Inc/Motor.h"
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 13
+ 504              	tx_data:
+ 505 0000 00000000 		.space	250
+ 505      00000000 
+ 505      00000000 
+ 505      00000000 
+ 505      00000000 
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s 			page 13
 
 
- 524              		.file 18 "Core/Src/Application/Inc/Computer.h"
- 525              		.file 19 "Core/Inc/printf.h"
- 526              		.file 20 "Core/Src/Drivers/Inc/usart.h"
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s 			page 14
+ 506              		.global	rxByte
+ 507              		.section	.bss.rxByte,"aw",%nobits
+ 510              	rxByte:
+ 511 0000 00       		.space	1
+ 512              		.global	computer
+ 513              		.section	.bss.computer,"aw",%nobits
+ 514              		.align	2
+ 517              	computer:
+ 518 0000 00000000 		.space	4
+ 519              		.global	AO_Computer
+ 520              		.section	.bss.AO_Computer,"aw",%nobits
+ 521              		.align	2
+ 524              	AO_Computer:
+ 525 0000 00000000 		.space	4
+ 526              		.text
+ 527              	.Letext0:
+ 528              		.file 2 "D:/DATN/00_MainFolder/00_FirmwaveSTM32/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eab
+ 529              		.file 3 "D:/DATN/00_MainFolder/00_FirmwaveSTM32/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eab
+ 530              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
+ 531              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 532              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 533              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
+ 534              		.file 8 "Middlewares/Third_Party/ARM/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h"
+ 535              		.file 9 "Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h"
+ 536              		.file 10 "Middlewares/Third_Party/ARM/FreeRTOS/include/task.h"
+ 537              		.file 11 "Middlewares/Third_Party/ARM/FreeRTOS/include/queue.h"
+ 538              		.file 12 "Middlewares/ST/ARM/DSP/Inc/arm_math.h"
+ 539              		.file 13 "Core/Src/Application/Inc/Topic.h"
+ 540              		.file 14 "Core/Src/Application/Inc/ActiveObject.h"
+ 541              		.file 15 "Core/Src/Common/Inc/dsp.h"
+ 542              		.file 16 "Core/Src/Application/Inc/Estimator.h"
+ 543              		.file 17 "Core/Src/Application/Inc/Motor.h"
+ 544              		.file 18 "Core/Src/Application/Inc/Computer.h"
+ 545              		.file 19 "Core/Inc/printf.h"
+ 546              		.file 20 "Core/Src/Drivers/Inc/usart.h"
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s 			page 14
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 Computer.c
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:21     .text.init:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:26     .text.init:00000000 init
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:50     .text.sending:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:55     .text.sending:00000000 sending
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:113    .text.new:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:118    .text.new:00000000 new
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:179    .text.new:00000040 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:256    .text.wait:00000000 wait
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:223    .text.public:00000000 public
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:195    .text.publicFromISR:00000000 publicFromISR
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:504    .bss.AO_Computer:00000000 AO_Computer
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:497    .bss.computer:00000000 computer
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:190    .text.publicFromISR:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:218    .text.public:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:247    .rodata.wait.str1.4:00000000 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:251    .text.wait:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:463    .text.wait:000000a8 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:477    .bss.stateTopic.0:00000000 stateTopic.0
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:490    .bss.tx_data:00000000 tx_data
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:474    .bss.stateTopic.0:00000000 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:484    .rodata.Computer:00000000 Computer
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:481    .rodata.Computer:00000000 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:487    .bss.tx_data:00000000 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:494    .bss.computer:00000000 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccO11J8q.s:501    .bss.AO_Computer:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:21     .text.init:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:26     .text.init:00000000 init
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:50     .text.sending:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:55     .text.sending:00000000 sending
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:113    .text.new:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:118    .text.new:00000000 new
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:179    .text.new:00000040 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:256    .text.wait:00000000 wait
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:223    .text.public:00000000 public
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:195    .text.publicFromISR:00000000 publicFromISR
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:524    .bss.AO_Computer:00000000 AO_Computer
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:517    .bss.computer:00000000 computer
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:190    .text.publicFromISR:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:218    .text.public:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:247    .rodata.wait.str1.4:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:251    .text.wait:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:469    .text.wait:000000cc $d
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:510    .bss.rxByte:00000000 rxByte
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:491    .bss.stateTopic.1:00000000 stateTopic.1
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:485    .bss.signalControlTopic.0:00000000 signalControlTopic.0
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:504    .bss.tx_data:00000000 tx_data
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:482    .bss.signalControlTopic.0:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:488    .bss.stateTopic.1:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:498    .rodata.Computer:00000000 Computer
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:495    .rodata.Computer:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:501    .bss.tx_data:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:511    .bss.rxByte:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:514    .bss.computer:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccfF67R0.s:521    .bss.AO_Computer:00000000 $d
 
 UNDEFINED SYMBOLS
 Active_new
 xQueueGenericCreate
 xQueueGenericSendFromISR
 xQueueGenericSend
+HAL_UART_Receive_IT
 xQueuePeek
 __aeabi_f2d
 sprintf_
 SendBuffer
+huart3
 estimator
 motor
-huart3

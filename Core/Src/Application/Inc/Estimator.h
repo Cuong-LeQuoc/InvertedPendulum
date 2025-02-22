@@ -11,6 +11,8 @@
 #include "dsp.h"
 #include "computer.h"
 
+#include "adc.h"
+
 typedef enum {
     /* Sự kiện sẽ được kích hoạt khi timer trigger*/
     TIMEOUT_1kHz_SIG = USER_SIG
@@ -20,8 +22,9 @@ struct Estimator {
     
     /* Members---------- */
     struct Active super;   /* Kế thừa lớp Active-Object */
-    struct DSP * data_processor;
-    QueueHandle_t encoderSubsriber;
+    struct DSP * dataProcessor;
+
+    QueueHandle_t sensorSubsribers;
     QueueHandle_t statePublic;
 
 

@@ -1,4 +1,4 @@
-Build/heap_4.o: \
+build/heap_4.o: \
  Middlewares/Third_Party/ARM/FreeRTOS/portable/MemMang/heap_4.c \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOSConfig.h \

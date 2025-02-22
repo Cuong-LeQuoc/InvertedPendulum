@@ -1,4 +1,4 @@
-Build/stream_buffer.o: \
+build/stream_buffer.o: \
  Middlewares/Third_Party/ARM/FreeRTOS/stream_buffer.c \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOSConfig.h \

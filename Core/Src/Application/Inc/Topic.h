@@ -6,18 +6,28 @@
 typedef struct {
   int16_t pendulumCnt;
   int32_t motorCnt;
-} Encoder;
+
+  float32_t currentAdc;
+} Sensor;
 
 typedef struct {
   /* Raw Data */
   float32_t rawPos;
   float32_t rawVel;
-  float32_t rawAcc;
 
   /* Observation*/
   float32_t position;
   float32_t velocity;
   float32_t acceleration;
+
+  /* Motor */
+  float32_t posShaft;
+  float32_t velShaft;
+
+  float32_t rawCurrent;
+  float32_t current;
+
+  float32_t currentDiff;
 } StateData;
 
 typedef struct {
@@ -29,15 +39,19 @@ typedef struct {
 /* Pulse width command */
 typedef struct {
   int16_t d;
+  float32_t voltage;
   /* Desired (Setpoint) */
   float32_t xd;
   float32_t vd;
   float32_t ad;
-} PWC;
+} SignalControl;
 
 typedef struct {
-  char message[7];
-  uint8_t length;
+  char message[10];
+  int8_t maxLength;
+  uint8_t index;
+  uint8_t dataComming;
+
 } RecivedMessage;
 
 #endif /* TOPIC_H */ 

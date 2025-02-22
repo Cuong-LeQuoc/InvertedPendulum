@@ -9,23 +9,30 @@
 #include "ActiveObject.h"
 #include "usart.h"
 #include "printf.h"
+#include "Constants.h"
 
 typedef enum {
     // PWC_TRIGGER_SIG = USER_SIG,
     // COMMAND_SENDED_SIG
 
-    TIMEOUT_100Hz_SIG = USER_SIG,
+    // TIMEOUT_100Hz_SIG = USER_SIG,
+    VOLTAGE_TRIGGER_SIG = USER_SIG,
+    TIMEOUT_100Hz_SIG, // để tạm
     COMMAND_SENDED_SIG
 } MotorEvent;
 
+typedef enum {
+    AUTO,
+    MAN
+} MODE;
+
 struct Motor {
     struct Active super;
-    QueueHandle_t pwc_sub;
-    QueueHandle_t voltagePublic;
+    QueueHandle_t signalSubsribers;
+    QueueHandle_t setPointSubsribers;
+
     
     // Methods --------------------------------------------------------
-    void (*setVoltage) (char *buffer, float32_t voltage);
-
     Status (*init) (struct Motor * const self, Event const * const event);
     Status (*wait) (struct Motor * const self, Event const * const event);
     Status (*sending) (struct Motor * const self, Event const * const event);
@@ -34,6 +41,7 @@ struct Motor {
     void (*public) (QueueHandle_t xQueue, const void * pvItemToQueue);
     void (*publicFromISR) (QueueHandle_t xQueue, const void * pvItemToQueue, BaseType_t *pxHigherPriorityTaskWoken);
 
+    void (*setVoltage) (char *buffer, float32_t voltage);
 };
 
 extern const struct MotorClass {

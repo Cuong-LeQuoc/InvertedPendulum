@@ -1,4 +1,4 @@
-Build/croutine.o: Middlewares/Third_Party/ARM/FreeRTOS/croutine.c \
+build/croutine.o: Middlewares/Third_Party/ARM/FreeRTOS/croutine.c \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOSConfig.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/projdefs.h \

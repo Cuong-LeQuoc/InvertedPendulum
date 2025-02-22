@@ -1,4 +1,4 @@
-Build/stm32f4xx_hal_msp.o: Core/Src/stm32f4xx_hal_msp.c Core/Inc/main.h \
+build/stm32f4xx_hal_msp.o: Core/Src/stm32f4xx_hal_msp.c Core/Inc/main.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  Core/Inc/stm32f4xx_hal_conf.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -46,8 +46,9 @@ Build/stm32f4xx_hal_msp.o: Core/Src/stm32f4xx_hal_msp.c Core/Inc/main.h \
  Core/Src/Application/Inc/ActiveObject.h Core/Src/Application/Inc/Topic.h \
  Core/Src/Application/Inc/Estimator.h Core/Src/Common/Inc/dsp.h \
  Core/Src/Application/Inc/Topic.h Core/Src/Common/Inc/Butter_Worth.h \
- Core/Src/Application/Inc/computer.h Core/Inc/printf.h \
- Core/Src/Application/Inc/Motor.h Core/Src/Application/Inc/Estimator.h
+ Core/Src/Drivers/Inc/adc.h Core/Src/Application/Inc/Estimator.h \
+ Core/Src/Common/Constants.h Core/Src/Application/Inc/computer.h \
+ Core/Inc/printf.h Core/Src/Application/Inc/Motor.h
 Core/Inc/main.h:
 Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 Core/Inc/stm32f4xx_hal_conf.h:
@@ -102,7 +103,9 @@ Core/Src/Application/Inc/Estimator.h:
 Core/Src/Common/Inc/dsp.h:
 Core/Src/Application/Inc/Topic.h:
 Core/Src/Common/Inc/Butter_Worth.h:
+Core/Src/Drivers/Inc/adc.h:
+Core/Src/Application/Inc/Estimator.h:
+Core/Src/Common/Constants.h:
 Core/Src/Application/Inc/computer.h:
 Core/Inc/printf.h:
 Core/Src/Application/Inc/Motor.h:
-Core/Src/Application/Inc/Estimator.h:

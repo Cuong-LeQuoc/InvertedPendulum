@@ -8,6 +8,9 @@
 #include "Computer.h"
 #include "Motor.h"
 
+// #define RX2_BUFFER_SIZE 10
+
 void SendBuffer(UART_HandleTypeDef *huart, char* buffer);
+// static float32_t StringToFloat(const char *str);
 
 #endif /* USART_H */ 

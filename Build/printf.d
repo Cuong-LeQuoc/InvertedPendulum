@@ -1,2 +1,2 @@
-Build/printf.o: Core/Src/printf.c Core/Inc/printf.h
+build/printf.o: Core/Src/printf.c Core/Inc/printf.h
 Core/Inc/printf.h:

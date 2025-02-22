@@ -1,4 +1,4 @@
-Build/list.o: Middlewares/Third_Party/ARM/FreeRTOS/list.c \
+build/list.o: Middlewares/Third_Party/ARM/FreeRTOS/list.c \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOSConfig.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/projdefs.h \

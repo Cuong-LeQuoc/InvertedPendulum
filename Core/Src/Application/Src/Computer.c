@@ -8,7 +8,8 @@ extern struct Motor * motor;
 struct Active * AO_Computer;
 struct Computer * computer;
 
-static char tx_data[50];
+uint8_t rxByte;
+static char tx_data[250]; /* Kích thước không đủ hoặc quá to sẽ không gửi được data*/
 
 static Status init (struct Computer * const self, Event const * const event) {
     Status status = TRAN_STATUS;
@@ -45,25 +46,29 @@ static Status wait (struct Computer *const self, Event const * const event) {
     Status status;
     
     switch (event->signal) {
-        case ENTRY_SIG:  
+        case ENTRY_SIG:
+            HAL_UART_Receive_IT(&huart3, &rxByte, 1);
             status = HANDLED_STATUS;
             break;
 
         case STATE_UPDATED_SIG:
             static State stateTopic = {{0.0f}};
-            float32_t voltage = 0;
-            BaseType_t is_success;
-            is_success = xQueuePeek(estimator->statePublic, &stateTopic, 0);
-            xQueuePeek(motor->voltagePublic, &voltage, 0);
+            static SignalControl signalControlTopic = {.voltage = 0};
+            BaseType_t isSuccessState, isSuccessSignal;
+            isSuccessState = xQueuePeek(estimator->statePublic, &stateTopic, 0);
+            isSuccessSignal = xQueuePeek(motor->signalSubsribers, &signalControlTopic, 0);
 
-            if(is_success) {
+            if(isSuccessState & isSuccessSignal) {
                 sprintf(tx_data,
-                        "S%0.6f %0.6f %0.6f %0.6f\n",
-                        voltage,
+                        "S%0.6f %0.6f %0.6f %0.6f %0.6f %0.6f\n",
+                        signalControlTopic.voltage,         /* Voltage */
+                        stateTopic.Motor.current,           /* Current of motor */
+                        stateTopic.Motor.currentDiff,
                         stateTopic.Motor.position,
-                        stateTopic.Motor.velocity,
-                        stateTopic.Motor.rawVel
+                        stateTopic.Motor.velocity,           /* Angular velocity of motor */
+                        stateTopic.Motor.acceleration
                 );
+
                 SendBuffer(&huart3, tx_data);
 
                 self->super.handler = (StateHandler) self->sending;

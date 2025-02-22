@@ -1,4 +1,4 @@
-Build/queue.o: Middlewares/Third_Party/ARM/FreeRTOS/queue.c \
+build/queue.o: Middlewares/Third_Party/ARM/FreeRTOS/queue.c \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOSConfig.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/projdefs.h \

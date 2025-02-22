@@ -1,4 +1,4 @@
-Build/port.o: \
+build/port.o: \
  Middlewares/Third_Party/ARM/FreeRTOS/portable/GCC/ARM_CM4F/port.c \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOSConfig.h \

@@ -5,9 +5,16 @@ extern TIM_HandleTypeDef htim6;
 
 struct Active * AO_Motor;
 struct Motor * motor;
+
+extern struct Estimator * estimator;
+
 char tx_data[25];
-int32_t pwcDebug;
-float32_t volDebug;
+
+float32_t t = 0.0f;
+
+State setPoint;
+
+static float32_t PID_Controller(State setPoint, State currentValue);
 
 static Status init (struct Motor * const self, Event const * const event) {
     Status status = TRAN_STATUS;
@@ -50,13 +57,37 @@ static Status wait (struct Motor * const self, Event const * const event) {
             break;
 
         case TIMEOUT_100Hz_SIG:
-            // static PWC pwcTopic = {0};
-            // BaseType_t is_success;
-            // is_success = xQueuePeek(self->pwc_sub, &pwcTopic, 0);
+            static SignalControl signalControlTopic = {.voltage = 0};
+            static State stateTopic = {{0.0f}};
+            BaseType_t isSuccessState;
+            // is_success = xQueuePeek(self->signalSubsribers, &signalControlTopic, 0);
+
+            // xQueuePeek(self->setPointSubsribers, &setPoint, 0);
+
+            isSuccessState = xQueuePeek(estimator->statePublic, &stateTopic, 0);
+
+
+            if(isSuccessState) {
+
+                t += 0.01f;
+                setPoint.Motor.posShaft = 2.0f *PI*arm_sin_f32(3.0*t);
+                setPoint.Motor.velShaft = 2.0* 2.0*PI*arm_cos_f32(3.0*t);
+
+                signalControlTopic.voltage = PID_Controller(setPoint, stateTopic);
+
+                self->setVoltage(tx_data, signalControlTopic.voltage);
+
+                self->public(self->signalSubsribers, &signalControlTopic);
+
+                self->super.handler = (StateHandler) self->sending;
+                status = TRAN_STATUS;
+            }
+            else {
+                status = HANDLED_STATUS;
+            }
 
             // if(is_success) {
-            //     sprintf(tx_data, "N1 O d%d\n", pwcTopic.d);
-            //     SendBuffer(&huart2, tx_data);
+            //     self->setVoltage(tx_data, signalControlTopic.voltage);
 
             //     self->super.handler = (StateHandler) self->sending;
             //     status = TRAN_STATUS;
@@ -68,11 +99,11 @@ static Status wait (struct Motor * const self, Event const * const event) {
             // sprintf(tx_data, "N1 O d%d\n", pwcDebug);
             // SendBuffer(&huart2, tx_data);
 
-            self->setVoltage(tx_data, volDebug);
-            self->public(self->voltagePublic, &volDebug);
+            // self->setVoltage(tx_data, volDebug);
+            // self->public(self->voltagePublic, &volDebug);
 
-            self->super.handler = (StateHandler) self->sending;
-            status = TRAN_STATUS;
+            // self->super.handler = (StateHandler) self->sending;
+            // status = TRAN_STATUS;
         
             break;
 
@@ -123,13 +154,50 @@ static void new(struct Motor * const self) {
     /*Initialize members*/
     Active_new(&self->super, (StateHandler)&init);
 
+    /* Begin by 0V */
+    setVoltage(tx_data, 0);
+
     /*Cache Ao for using in Encoder driver*/
     AO_Motor = &self->super;
     motor = self;
 
+    // mode_t = (MODE) MAN;
+
     /*Initialize Queue for Mailbox as subsribers, publishers*/
-    self->pwc_sub       = xQueueCreate( 1, sizeof( PWC ) );
-    self->voltagePublic = xQueueCreate(1, sizeof(float32_t));
+    self->signalSubsribers      = xQueueCreate(1, sizeof(SignalControl));
+    self->setPointSubsribers    = xQueueCreate(1, sizeof(State));
 }
 
 const struct MotorClass Motor = { .new = &new };
+
+
+static float32_t PID_Controller(State setPoint, State currentValue) {
+    static float32_t Iterm = 0, pre_x_error;
+    float32_t uout = 0;
+
+    float32_t x_error = setPoint.Motor.posShaft - currentValue.Motor.posShaft;
+    float32_t v_error = setPoint.Motor.velShaft - currentValue.Motor.velShaft;
+
+    float32_t Pterm = P*x_error;
+
+    Iterm += I * TS * (x_error + pre_x_error)/2.0f;
+    
+    float32_t Dterm = D*v_error;//x_error/TS;
+    pre_x_error = x_error;
+
+    uout = Pterm + Iterm + Dterm;
+
+    // if(uout > 11.0f) uout = 11.0f;
+    // else if(uout < -11.0f) uout = -11.0f;
+
+    if(uout > 0.0f) {
+        if(uout < 0.9f) uout = 0.9f;
+        else if(uout > 11.0f) uout = 11.0f;
+    }
+    else {
+        if(uout > -0.9f) uout = -0.9f;
+        else if(uout < -11.0f) uout = -11.0f;
+    }
+    return uout; 
+}
+

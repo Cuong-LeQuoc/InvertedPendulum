@@ -1,0 +1,258 @@
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccxM8DeE.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"adc.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.file 1 "Core/Src/Drivers/Src/adc.c"
+  20              		.section	.text.HAL_ADC_ConvCpltCallback,"ax",%progbits
+  21              		.align	1
+  22              		.global	HAL_ADC_ConvCpltCallback
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	HAL_ADC_ConvCpltCallback:
+  28              	.LVL0:
+  29              	.LFB288:
+   1:Core/Src/Drivers/Src/adc.c **** #include "adc.h"
+   2:Core/Src/Drivers/Src/adc.c **** 
+   3:Core/Src/Drivers/Src/adc.c **** extern struct Active * AO_Estimator;
+   4:Core/Src/Drivers/Src/adc.c **** extern struct Estimator * estimator;
+   5:Core/Src/Drivers/Src/adc.c **** 
+   6:Core/Src/Drivers/Src/adc.c **** uint16_t adcBuffer[ADC_BUFFER_SIZE];
+   7:Core/Src/Drivers/Src/adc.c **** 
+   8:Core/Src/Drivers/Src/adc.c **** extern Sensor sensorTopic;     /* Đồng bộ data với Sensor của timer */
+   9:Core/Src/Drivers/Src/adc.c **** 
+  10:Core/Src/Drivers/Src/adc.c **** /**
+  11:Core/Src/Drivers/Src/adc.c ****   * @brief  Regular conversion complete callback in non blocking mode
+  12:Core/Src/Drivers/Src/adc.c ****   * @param  hadc pointer to a ADC_HandleTypeDef structure that contains
+  13:Core/Src/Drivers/Src/adc.c ****   *         the configuration information for the specified ADC.
+  14:Core/Src/Drivers/Src/adc.c ****   * @retval None
+  15:Core/Src/Drivers/Src/adc.c ****   */
+  16:Core/Src/Drivers/Src/adc.c **** void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
+  30              		.loc 1 16 56 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 8
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 16 56 is_stmt 0 view .LVU1
+  35 0000 10B5     		push	{r4, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 4, -8
+  39              		.cfi_offset 14, -4
+  40 0002 82B0     		sub	sp, sp, #8
+  41              	.LCFI1:
+  42              		.cfi_def_cfa_offset 16
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccxM8DeE.s 			page 2
+
+
+  17:Core/Src/Drivers/Src/adc.c ****     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+  43              		.loc 1 17 5 is_stmt 1 view .LVU2
+  44              		.loc 1 17 16 is_stmt 0 view .LVU3
+  45 0004 0023     		movs	r3, #0
+  46 0006 0193     		str	r3, [sp, #4]
+  18:Core/Src/Drivers/Src/adc.c **** 
+  19:Core/Src/Drivers/Src/adc.c ****     if(hadc->Instance == ADC1) {
+  47              		.loc 1 19 5 is_stmt 1 view .LVU4
+  48              		.loc 1 19 12 is_stmt 0 view .LVU5
+  49 0008 0268     		ldr	r2, [r0]
+  50              		.loc 1 19 7 view .LVU6
+  51 000a 03F18043 		add	r3, r3, #1073741824
+  52 000e 03F59033 		add	r3, r3, #73728
+  53 0012 9A42     		cmp	r2, r3
+  54 0014 2BD0     		beq	.L8
+  55              	.LVL1:
+  56              	.L3:
+  20:Core/Src/Drivers/Src/adc.c ****         uint64_t total = 0;
+  21:Core/Src/Drivers/Src/adc.c **** 
+  22:Core/Src/Drivers/Src/adc.c ****         for(uint32_t i=0; i < ADC_BUFFER_SIZE; i++) {
+  23:Core/Src/Drivers/Src/adc.c ****             total += adcBuffer[i];
+  24:Core/Src/Drivers/Src/adc.c ****         }
+  25:Core/Src/Drivers/Src/adc.c ****         sensorTopic.currentAdc = total / (1.0f * ADC_BUFFER_SIZE);
+  26:Core/Src/Drivers/Src/adc.c **** 
+  27:Core/Src/Drivers/Src/adc.c ****         estimator->publicFromISR(estimator->sensorSubsribers, &sensorTopic, &xHigherPriorityTaskWok
+  28:Core/Src/Drivers/Src/adc.c ****     }
+  29:Core/Src/Drivers/Src/adc.c **** 
+  30:Core/Src/Drivers/Src/adc.c ****     portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
+  57              		.loc 1 30 5 is_stmt 1 view .LVU7
+  58              		.loc 1 30 5 view .LVU8
+  59 0016 019B     		ldr	r3, [sp, #4]
+  60 0018 4BB1     		cbz	r3, .L1
+  61              		.loc 1 30 5 discriminator 1 view .LVU9
+  62 001a 4FF0E023 		mov	r3, #-536813568
+  63 001e 4FF08052 		mov	r2, #268435456
+  64 0022 C3F8042D 		str	r2, [r3, #3332]
+  65              		.loc 1 30 5 view .LVU10
+  66              		.loc 1 30 5 is_stmt 0 discriminator 1 view .LVU11
+  67              		.syntax unified
+  68              	@ 30 "Core/Src/Drivers/Src/adc.c" 1
+  69 0026 BFF34F8F 		dsb
+  70              	@ 0 "" 2
+  71              		.loc 1 30 5 is_stmt 1 view .LVU12
+  72              		.loc 1 30 5 is_stmt 0 discriminator 1 view .LVU13
+  73              	@ 30 "Core/Src/Drivers/Src/adc.c" 1
+  74 002a BFF36F8F 		isb
+  75              	@ 0 "" 2
+  76              		.loc 1 30 5 is_stmt 1 discriminator 3 view .LVU14
+  77              		.loc 1 30 5 discriminator 3 view .LVU15
+  78              		.thumb
+  79              		.syntax unified
+  80              	.L1:
+  31:Core/Src/Drivers/Src/adc.c **** }...
+  81              		.loc 1 31 1 is_stmt 0 view .LVU16
+  82 002e 02B0     		add	sp, sp, #8
+  83              	.LCFI2:
+  84              		.cfi_remember_state
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccxM8DeE.s 			page 3
+
+
+  85              		.cfi_def_cfa_offset 8
+  86              		@ sp needed
+  87 0030 10BD     		pop	{r4, pc}
+  88              	.LVL2:
+  89              	.L4:
+  90              	.LCFI3:
+  91              		.cfi_restore_state
+  92              	.LBB2:
+  93              	.LBB3:
+  23:Core/Src/Drivers/Src/adc.c ****             total += adcBuffer[i];
+  94              		.loc 1 23 13 is_stmt 1 view .LVU17
+  23:Core/Src/Drivers/Src/adc.c ****             total += adcBuffer[i];
+  95              		.loc 1 23 31 is_stmt 0 view .LVU18
+  96 0032 114A     		ldr	r2, .L9
+  97 0034 32F81320 		ldrh	r2, [r2, r3, lsl #1]
+  23:Core/Src/Drivers/Src/adc.c ****             total += adcBuffer[i];
+  98              		.loc 1 23 19 view .LVU19
+  99 0038 1018     		adds	r0, r2, r0
+ 100              	.LVL3:
+  23:Core/Src/Drivers/Src/adc.c ****             total += adcBuffer[i];
+ 101              		.loc 1 23 19 view .LVU20
+ 102 003a 41F10001 		adc	r1, r1, #0
+ 103              	.LVL4:
+  22:Core/Src/Drivers/Src/adc.c ****         for(uint32_t i=0; i < ADC_BUFFER_SIZE; i++) {
+ 104              		.loc 1 22 49 is_stmt 1 discriminator 3 view .LVU21
+ 105 003e 0133     		adds	r3, r3, #1
+ 106              	.LVL5:
+ 107              	.L2:
+  22:Core/Src/Drivers/Src/adc.c ****         for(uint32_t i=0; i < ADC_BUFFER_SIZE; i++) {
+ 108              		.loc 1 22 29 discriminator 1 view .LVU22
+ 109 0040 B3F5006F 		cmp	r3, #2048
+ 110 0044 F5D3     		bcc	.L4
+ 111              	.LBE3:
+  25:Core/Src/Drivers/Src/adc.c ****         sensorTopic.currentAdc = total / (1.0f * ADC_BUFFER_SIZE);
+ 112              		.loc 1 25 9 view .LVU23
+  25:Core/Src/Drivers/Src/adc.c ****         sensorTopic.currentAdc = total / (1.0f * ADC_BUFFER_SIZE);
+ 113              		.loc 1 25 40 is_stmt 0 view .LVU24
+ 114 0046 FFF7FEFF 		bl	__aeabi_ul2f
+ 115              	.LVL6:
+  25:Core/Src/Drivers/Src/adc.c ****         sensorTopic.currentAdc = total / (1.0f * ADC_BUFFER_SIZE);
+ 116              		.loc 1 25 40 view .LVU25
+ 117 004a 07EE900A 		vmov	s15, r0
+ 118 004e 9FED0B7A 		vldr.32	s14, .L9+4
+ 119 0052 67EE877A 		vmul.f32	s15, s15, s14
+  25:Core/Src/Drivers/Src/adc.c ****         sensorTopic.currentAdc = total / (1.0f * ADC_BUFFER_SIZE);
+ 120              		.loc 1 25 32 view .LVU26
+ 121 0056 0A49     		ldr	r1, .L9+8
+ 122 0058 C1ED027A 		vstr.32	s15, [r1, #8]
+  27:Core/Src/Drivers/Src/adc.c ****         estimator->publicFromISR(estimator->sensorSubsribers, &sensorTopic, &xHigherPriorityTaskWok
+ 123              		.loc 1 27 9 is_stmt 1 view .LVU27
+  27:Core/Src/Drivers/Src/adc.c ****         estimator->publicFromISR(estimator->sensorSubsribers, &sensorTopic, &xHigherPriorityTaskWok
+ 124              		.loc 1 27 18 is_stmt 0 view .LVU28
+ 125 005c 094B     		ldr	r3, .L9+12
+ 126 005e 1B68     		ldr	r3, [r3]
+ 127 0060 D3F8E440 		ldr	r4, [r3, #228]
+  27:Core/Src/Drivers/Src/adc.c ****         estimator->publicFromISR(estimator->sensorSubsribers, &sensorTopic, &xHigherPriorityTaskWok
+ 128              		.loc 1 27 9 view .LVU29
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccxM8DeE.s 			page 4
+
+
+ 129 0064 01AA     		add	r2, sp, #4
+ 130 0066 D3F8D000 		ldr	r0, [r3, #208]
+ 131 006a A047     		blx	r4
+ 132              	.LVL7:
+ 133 006c D3E7     		b	.L3
+ 134              	.LVL8:
+ 135              	.L8:
+ 136              	.LBB4:
+  22:Core/Src/Drivers/Src/adc.c ****         for(uint32_t i=0; i < ADC_BUFFER_SIZE; i++) {
+ 137              		.loc 1 22 22 view .LVU30
+ 138 006e 0023     		movs	r3, #0
+ 139              	.LBE4:
+  20:Core/Src/Drivers/Src/adc.c ****         uint64_t total = 0;
+ 140              		.loc 1 20 18 view .LVU31
+ 141 0070 1846     		mov	r0, r3
+ 142              	.LVL9:
+  20:Core/Src/Drivers/Src/adc.c ****         uint64_t total = 0;
+ 143              		.loc 1 20 18 view .LVU32
+ 144 0072 1946     		mov	r1, r3
+ 145 0074 E4E7     		b	.L2
+ 146              	.L10:
+ 147 0076 00BF     		.align	2
+ 148              	.L9:
+ 149 0078 00000000 		.word	adcBuffer
+ 150 007c 0000003A 		.word	973078528
+ 151 0080 00000000 		.word	sensorTopic
+ 152 0084 00000000 		.word	estimator
+ 153              	.LBE2:
+ 154              		.cfi_endproc
+ 155              	.LFE288:
+ 157              		.global	adcBuffer
+ 158              		.section	.bss.adcBuffer,"aw",%nobits
+ 159              		.align	2
+ 162              	adcBuffer:
+ 163 0000 00000000 		.space	4096
+ 163      00000000 
+ 163      00000000 
+ 163      00000000 
+ 163      00000000 
+ 164              		.text
+ 165              	.Letext0:
+ 166              		.file 2 "D:/DATN/00_MainFolder/00_FirmwaveSTM32/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eab
+ 167              		.file 3 "D:/DATN/00_MainFolder/00_FirmwaveSTM32/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eab
+ 168              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
+ 169              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 170              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 171              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 172              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
+ 173              		.file 9 "Middlewares/ST/ARM/DSP/Inc/arm_math.h"
+ 174              		.file 10 "Middlewares/Third_Party/ARM/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h"
+ 175              		.file 11 "Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h"
+ 176              		.file 12 "Middlewares/Third_Party/ARM/FreeRTOS/include/task.h"
+ 177              		.file 13 "Middlewares/Third_Party/ARM/FreeRTOS/include/queue.h"
+ 178              		.file 14 "Core/Src/Application/Inc/Topic.h"
+ 179              		.file 15 "Core/Src/Application/Inc/ActiveObject.h"
+ 180              		.file 16 "Core/Src/Common/Inc/dsp.h"
+ 181              		.file 17 "Core/Src/Application/Inc/Estimator.h"
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccxM8DeE.s 			page 5
+
+
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccxM8DeE.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 adc.c
+C:\Users\CuongLe\AppData\Local\Temp\ccxM8DeE.s:21     .text.HAL_ADC_ConvCpltCallback:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccxM8DeE.s:27     .text.HAL_ADC_ConvCpltCallback:00000000 HAL_ADC_ConvCpltCallback
+C:\Users\CuongLe\AppData\Local\Temp\ccxM8DeE.s:149    .text.HAL_ADC_ConvCpltCallback:00000078 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccxM8DeE.s:162    .bss.adcBuffer:00000000 adcBuffer
+C:\Users\CuongLe\AppData\Local\Temp\ccxM8DeE.s:159    .bss.adcBuffer:00000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_ul2f
+sensorTopic
+estimator

@@ -1,4 +1,4 @@
-Build/stm32f4xx_hal_gpio.o: \
+build/stm32f4xx_hal_gpio.o: \
  Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  Core/Inc/stm32f4xx_hal_conf.h \

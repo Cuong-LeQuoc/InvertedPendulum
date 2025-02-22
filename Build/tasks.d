@@ -1,4 +1,4 @@
-Build/tasks.o: Middlewares/Third_Party/ARM/FreeRTOS/tasks.c \
+build/tasks.o: Middlewares/Third_Party/ARM/FreeRTOS/tasks.c \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOSConfig.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/projdefs.h \

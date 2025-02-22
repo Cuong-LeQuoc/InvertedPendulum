@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s 			page 1
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -31,41 +31,44 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s 			page 1
   29              	.LFB288:
    1:Core/Src/Application/Src/Estimator.c **** #include "Estimator.h"
    2:Core/Src/Application/Src/Estimator.c **** 
-   3:Core/Src/Application/Src/Estimator.c **** extern TIM_HandleTypeDef htim2;
-   4:Core/Src/Application/Src/Estimator.c **** extern TIM_HandleTypeDef htim3;
-   5:Core/Src/Application/Src/Estimator.c **** extern TIM_HandleTypeDef htim7;
-   6:Core/Src/Application/Src/Estimator.c **** 
-   7:Core/Src/Application/Src/Estimator.c **** extern struct Computer * computer;
-   8:Core/Src/Application/Src/Estimator.c **** struct Active * AO_Estimator;
-   9:Core/Src/Application/Src/Estimator.c **** struct Estimator * estimator;
-  10:Core/Src/Application/Src/Estimator.c **** 
-  11:Core/Src/Application/Src/Estimator.c **** 
-  12:Core/Src/Application/Src/Estimator.c **** Status init (struct Estimator * const self, Event const * const event) {
-  30              		.loc 1 12 72 view -0
+   3:Core/Src/Application/Src/Estimator.c **** extern uint16_t adcBuffer[ADC_BUFFER_SIZE];
+   4:Core/Src/Application/Src/Estimator.c **** 
+   5:Core/Src/Application/Src/Estimator.c **** extern ADC_HandleTypeDef hadc1;
+   6:Core/Src/Application/Src/Estimator.c **** extern TIM_HandleTypeDef htim2;
+   7:Core/Src/Application/Src/Estimator.c **** extern TIM_HandleTypeDef htim3;
+   8:Core/Src/Application/Src/Estimator.c **** extern TIM_HandleTypeDef htim7;
+   9:Core/Src/Application/Src/Estimator.c **** 
+  10:Core/Src/Application/Src/Estimator.c **** extern struct Computer * computer;
+  11:Core/Src/Application/Src/Estimator.c **** struct Active * AO_Estimator;
+  12:Core/Src/Application/Src/Estimator.c **** struct Estimator * estimator;
+  13:Core/Src/Application/Src/Estimator.c **** 
+  14:Core/Src/Application/Src/Estimator.c **** 
+  15:Core/Src/Application/Src/Estimator.c **** Status init (struct Estimator * const self, Event const * const event) {
+  30              		.loc 1 15 72 view -0
   31              		.cfi_startproc
   32              		@ args = 0, pretend = 0, frame = 0
   33              		@ frame_needed = 0, uses_anonymous_args = 0
   34              		@ link register save eliminated.
-  13:Core/Src/Application/Src/Estimator.c ****     Status status = TRAN_STATUS;
-  35              		.loc 1 13 5 view .LVU1
-  14:Core/Src/Application/Src/Estimator.c **** 
-  15:Core/Src/Application/Src/Estimator.c ****     self->super.handler = (StateHandler) self->wait;
-  36              		.loc 1 15 5 view .LVU2
-  37              		.loc 1 15 46 is_stmt 0 view .LVU3
+  16:Core/Src/Application/Src/Estimator.c ****     Status status = TRAN_STATUS;
+  35              		.loc 1 16 5 view .LVU1
+  17:Core/Src/Application/Src/Estimator.c **** 
+  18:Core/Src/Application/Src/Estimator.c ****     self->super.handler = (StateHandler) self->wait;
+  36              		.loc 1 18 5 view .LVU2
+  37              		.loc 1 18 46 is_stmt 0 view .LVU3
   38 0000 D0F8DC30 		ldr	r3, [r0, #220]
-  39              		.loc 1 15 25 view .LVU4
+  39              		.loc 1 18 25 view .LVU4
   40 0004 0360     		str	r3, [r0]
-  16:Core/Src/Application/Src/Estimator.c **** 
-  17:Core/Src/Application/Src/Estimator.c ****     return status;
-  41              		.loc 1 17 5 is_stmt 1 view .LVU5
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s 			page 2
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s 			page 2
 
 
-  18:Core/Src/Application/Src/Estimator.c **** }
-  42              		.loc 1 18 1 is_stmt 0 view .LVU6
+  19:Core/Src/Application/Src/Estimator.c **** 
+  20:Core/Src/Application/Src/Estimator.c ****     return status;
+  41              		.loc 1 20 5 is_stmt 1 view .LVU5
+  21:Core/Src/Application/Src/Estimator.c **** }
+  42              		.loc 1 21 1 is_stmt 0 view .LVU6
   43 0006 0020     		movs	r0, #0
   44              	.LVL1:
-  45              		.loc 1 18 1 view .LVU7
+  45              		.loc 1 21 1 view .LVU7
   46 0008 7047     		bx	lr
   47              		.cfi_endproc
   48              	.LFE288:
@@ -78,484 +81,495 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s 			page 1
   57              	wait:
   58              	.LVL2:
   59              	.LFB289:
-  19:Core/Src/Application/Src/Estimator.c **** 
-  20:Core/Src/Application/Src/Estimator.c **** Status wait (struct Estimator * const self, Event const * const event) {
-  60              		.loc 1 20 72 is_stmt 1 view -0
+  22:Core/Src/Application/Src/Estimator.c **** 
+  23:Core/Src/Application/Src/Estimator.c **** Status wait (struct Estimator * const self, Event const * const event) {
+  60              		.loc 1 23 72 is_stmt 1 view -0
   61              		.cfi_startproc
   62              		@ args = 0, pretend = 0, frame = 0
   63              		@ frame_needed = 0, uses_anonymous_args = 0
-  64              		.loc 1 20 72 is_stmt 0 view .LVU9
+  64              		.loc 1 23 72 is_stmt 0 view .LVU9
   65 0000 10B5     		push	{r4, lr}
   66              	.LCFI0:
   67              		.cfi_def_cfa_offset 8
   68              		.cfi_offset 4, -8
   69              		.cfi_offset 14, -4
-  21:Core/Src/Application/Src/Estimator.c ****     Status status;
-  70              		.loc 1 21 5 is_stmt 1 view .LVU10
-  22:Core/Src/Application/Src/Estimator.c **** 
-  23:Core/Src/Application/Src/Estimator.c ****     switch (event->signal) {
-  71              		.loc 1 23 5 view .LVU11
-  72              		.loc 1 23 18 is_stmt 0 view .LVU12
+  24:Core/Src/Application/Src/Estimator.c ****     Status status;
+  70              		.loc 1 24 5 is_stmt 1 view .LVU10
+  25:Core/Src/Application/Src/Estimator.c **** 
+  26:Core/Src/Application/Src/Estimator.c ****     switch (event->signal) {
+  71              		.loc 1 26 5 view .LVU11
+  72              		.loc 1 26 18 is_stmt 0 view .LVU12
   73 0002 0B88     		ldrh	r3, [r1]
-  74              		.loc 1 23 5 view .LVU13
+  74              		.loc 1 26 5 view .LVU13
   75 0004 012B     		cmp	r3, #1
   76 0006 04D0     		beq	.L3
   77 0008 0446     		mov	r4, r0
   78 000a 032B     		cmp	r3, #3
-  79 000c 0ED0     		beq	.L4
+  79 000c 10D0     		beq	.L4
   80 000e 0220     		movs	r0, #2
   81              	.LVL3:
-  82              		.loc 1 23 5 view .LVU14
-  83 0010 0BE0     		b	.L5
+  82              		.loc 1 26 5 view .LVU14
+  83 0010 0DE0     		b	.L5
   84              	.LVL4:
   85              	.L3:
   86              	.LBB2:
-  24:Core/Src/Application/Src/Estimator.c ****         case ENTRY_SIG:
-  25:Core/Src/Application/Src/Estimator.c ****             HAL_TIM_Base_Start_IT(&htim7);
-  87              		.loc 1 25 13 is_stmt 1 view .LVU15
-  88 0012 1548     		ldr	r0, .L8
-  89              	.LVL5:
-  90              		.loc 1 25 13 is_stmt 0 view .LVU16
-  91 0014 FFF7FEFF 		bl	HAL_TIM_Base_Start_IT
-  92              	.LVL6:
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s 			page 3
+  27:Core/Src/Application/Src/Estimator.c ****         case ENTRY_SIG:
+  28:Core/Src/Application/Src/Estimator.c ****             HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adcBuffer, ADC_BUFFER_SIZE);
+  87              		.loc 1 28 13 is_stmt 1 view .LVU15
+  88 0012 4FF40062 		mov	r2, #2048
+  89 0016 1549     		ldr	r1, .L8
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s 			page 3
 
 
-  26:Core/Src/Application/Src/Estimator.c ****             HAL_TIM_Encoder_Start_IT(&htim3, TIM_CHANNEL_ALL);
-  93              		.loc 1 26 13 is_stmt 1 view .LVU17
-  94 0018 3C21     		movs	r1, #60
-  95 001a 1448     		ldr	r0, .L8+4
-  96 001c FFF7FEFF 		bl	HAL_TIM_Encoder_Start_IT
-  97              	.LVL7:
-  27:Core/Src/Application/Src/Estimator.c ****             HAL_TIM_Encoder_Start_IT(&htim2, TIM_CHANNEL_ALL);
-  98              		.loc 1 27 13 view .LVU18
-  99 0020 3C21     		movs	r1, #60
- 100 0022 1348     		ldr	r0, .L8+8
- 101 0024 FFF7FEFF 		bl	HAL_TIM_Encoder_Start_IT
- 102              	.LVL8:
-  28:Core/Src/Application/Src/Estimator.c **** 
-  29:Core/Src/Application/Src/Estimator.c ****             status = HANDLED_STATUS;
- 103              		.loc 1 29 13 view .LVU19
-  30:Core/Src/Application/Src/Estimator.c ****             break;
- 104              		.loc 1 30 13 view .LVU20
-  29:Core/Src/Application/Src/Estimator.c ****             break;
- 105              		.loc 1 29 20 is_stmt 0 view .LVU21
- 106 0028 0120     		movs	r0, #1
- 107              	.LVL9:
- 108              	.L5:
-  29:Core/Src/Application/Src/Estimator.c ****             break;
- 109              		.loc 1 29 20 view .LVU22
- 110              	.LBE2:
-  31:Core/Src/Application/Src/Estimator.c **** 
-  32:Core/Src/Application/Src/Estimator.c ****         case TIMEOUT_1kHz_SIG:
-  33:Core/Src/Application/Src/Estimator.c ****             static Encoder encoderTopic = {0.0f};
-  34:Core/Src/Application/Src/Estimator.c ****             static State stateTopic = {{0.0f}};
+  90              	.LVL5:
+  91              		.loc 1 28 13 is_stmt 0 view .LVU16
+  92 0018 1548     		ldr	r0, .L8+4
+  93              	.LVL6:
+  94              		.loc 1 28 13 view .LVU17
+  95 001a FFF7FEFF 		bl	HAL_ADC_Start_DMA
+  96              	.LVL7:
+  29:Core/Src/Application/Src/Estimator.c ****             HAL_TIM_Base_Start_IT(&htim7);
+  97              		.loc 1 29 13 is_stmt 1 view .LVU18
+  98 001e 1548     		ldr	r0, .L8+8
+  99 0020 FFF7FEFF 		bl	HAL_TIM_Base_Start_IT
+ 100              	.LVL8:
+  30:Core/Src/Application/Src/Estimator.c ****             // HAL_TIM_Encoder_Start_IT(&htim3, TIM_CHANNEL_ALL);
+  31:Core/Src/Application/Src/Estimator.c ****             HAL_TIM_Encoder_Start_IT(&htim2, TIM_CHANNEL_ALL);
+ 101              		.loc 1 31 13 view .LVU19
+ 102 0024 3C21     		movs	r1, #60
+ 103 0026 1448     		ldr	r0, .L8+12
+ 104 0028 FFF7FEFF 		bl	HAL_TIM_Encoder_Start_IT
+ 105              	.LVL9:
+  32:Core/Src/Application/Src/Estimator.c **** 
+  33:Core/Src/Application/Src/Estimator.c ****             status = HANDLED_STATUS;
+ 106              		.loc 1 33 13 view .LVU20
+  34:Core/Src/Application/Src/Estimator.c ****             break;
+ 107              		.loc 1 34 13 view .LVU21
+  33:Core/Src/Application/Src/Estimator.c ****             break;
+ 108              		.loc 1 33 20 is_stmt 0 view .LVU22
+ 109 002c 0120     		movs	r0, #1
+ 110              	.LVL10:
+ 111              	.L5:
+  33:Core/Src/Application/Src/Estimator.c ****             break;
+ 112              		.loc 1 33 20 view .LVU23
+ 113              	.LBE2:
   35:Core/Src/Application/Src/Estimator.c **** 
-  36:Core/Src/Application/Src/Estimator.c ****             BaseType_t is_success = xQueuePeek(self->encoderSubsriber, &encoderTopic, 0);
-  37:Core/Src/Application/Src/Estimator.c **** 
-  38:Core/Src/Application/Src/Estimator.c ****             if (is_success) {
-  39:Core/Src/Application/Src/Estimator.c ****                 self->data_processor->procesNewData(self->data_processor, &encoderTopic, &stateTopi
-  40:Core/Src/Application/Src/Estimator.c ****             }
-  41:Core/Src/Application/Src/Estimator.c **** 
-  42:Core/Src/Application/Src/Estimator.c ****             self->public(self->statePublic, &stateTopic);
-  43:Core/Src/Application/Src/Estimator.c **** 
-  44:Core/Src/Application/Src/Estimator.c ****             static const Event stateEvent = {.signal = STATE_UPDATED_SIG};
-  45:Core/Src/Application/Src/Estimator.c ****             AO_Estimator->post(&computer->super, &stateEvent);
+  36:Core/Src/Application/Src/Estimator.c ****         case TIMEOUT_1kHz_SIG:
+  37:Core/Src/Application/Src/Estimator.c ****             static Sensor sensorTopic = {0.0f};
+  38:Core/Src/Application/Src/Estimator.c ****             static State stateTopic = {{0.0f}};
+  39:Core/Src/Application/Src/Estimator.c **** 
+  40:Core/Src/Application/Src/Estimator.c ****             BaseType_t isSuccess = xQueuePeek(self->sensorSubsribers, &sensorTopic, 0);
+  41:Core/Src/Application/Src/Estimator.c ****             
+  42:Core/Src/Application/Src/Estimator.c **** 
+  43:Core/Src/Application/Src/Estimator.c ****             if(isSuccess) {
+  44:Core/Src/Application/Src/Estimator.c ****                 self->dataProcessor->procesNewData(self->dataProcessor, &sensorTopic, &stateTopic);
+  45:Core/Src/Application/Src/Estimator.c ****             }
   46:Core/Src/Application/Src/Estimator.c **** 
-  47:Core/Src/Application/Src/Estimator.c ****             status = HANDLED_STATUS;
-  48:Core/Src/Application/Src/Estimator.c ****             break;
-  49:Core/Src/Application/Src/Estimator.c ****         
-  50:Core/Src/Application/Src/Estimator.c ****         default:
-  51:Core/Src/Application/Src/Estimator.c ****             status = IGNORED_STATUS;
-  52:Core/Src/Application/Src/Estimator.c ****             break;
-  53:Core/Src/Application/Src/Estimator.c ****     }
-  54:Core/Src/Application/Src/Estimator.c ****     return status;
- 111              		.loc 1 54 5 is_stmt 1 view .LVU23
-  55:Core/Src/Application/Src/Estimator.c **** }
- 112              		.loc 1 55 1 is_stmt 0 view .LVU24
- 113 002a 10BD     		pop	{r4, pc}
- 114              	.LVL10:
- 115              	.L4:
- 116              	.LBB3:
-  33:Core/Src/Application/Src/Estimator.c ****             static State stateTopic = {{0.0f}};
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s 			page 4
+  47:Core/Src/Application/Src/Estimator.c ****             self->public(self->statePublic, &stateTopic);
+  48:Core/Src/Application/Src/Estimator.c **** 
+  49:Core/Src/Application/Src/Estimator.c ****             static const Event stateEvent = {.signal = STATE_UPDATED_SIG};
+  50:Core/Src/Application/Src/Estimator.c ****             AO_Estimator->post(&computer->super, &stateEvent);
+  51:Core/Src/Application/Src/Estimator.c **** 
+  52:Core/Src/Application/Src/Estimator.c ****             status = HANDLED_STATUS;
+  53:Core/Src/Application/Src/Estimator.c ****             break;
+  54:Core/Src/Application/Src/Estimator.c ****         
+  55:Core/Src/Application/Src/Estimator.c ****         default:
+  56:Core/Src/Application/Src/Estimator.c ****             status = IGNORED_STATUS;
+  57:Core/Src/Application/Src/Estimator.c ****             break;
+  58:Core/Src/Application/Src/Estimator.c ****     }
+  59:Core/Src/Application/Src/Estimator.c ****     return status;
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s 			page 4
 
 
- 117              		.loc 1 33 13 is_stmt 1 view .LVU25
-  34:Core/Src/Application/Src/Estimator.c **** 
- 118              		.loc 1 34 13 view .LVU26
-  36:Core/Src/Application/Src/Estimator.c **** 
- 119              		.loc 1 36 13 view .LVU27
-  36:Core/Src/Application/Src/Estimator.c **** 
- 120              		.loc 1 36 37 is_stmt 0 view .LVU28
- 121 002c 0022     		movs	r2, #0
- 122 002e 1149     		ldr	r1, .L8+12
- 123              	.LVL11:
-  36:Core/Src/Application/Src/Estimator.c **** 
- 124              		.loc 1 36 37 view .LVU29
- 125 0030 D0F8D000 		ldr	r0, [r0, #208]
+ 114              		.loc 1 59 5 is_stmt 1 view .LVU24
+  60:Core/Src/Application/Src/Estimator.c **** }
+ 115              		.loc 1 60 1 is_stmt 0 view .LVU25
+ 116 002e 10BD     		pop	{r4, pc}
+ 117              	.LVL11:
+ 118              	.L4:
+ 119              	.LBB3:
+  37:Core/Src/Application/Src/Estimator.c ****             static State stateTopic = {{0.0f}};
+ 120              		.loc 1 37 13 is_stmt 1 view .LVU26
+  38:Core/Src/Application/Src/Estimator.c **** 
+ 121              		.loc 1 38 13 view .LVU27
+  40:Core/Src/Application/Src/Estimator.c ****             
+ 122              		.loc 1 40 13 view .LVU28
+  40:Core/Src/Application/Src/Estimator.c ****             
+ 123              		.loc 1 40 36 is_stmt 0 view .LVU29
+ 124 0030 0022     		movs	r2, #0
+ 125 0032 1249     		ldr	r1, .L8+16
  126              	.LVL12:
-  36:Core/Src/Application/Src/Estimator.c **** 
- 127              		.loc 1 36 37 view .LVU30
- 128 0034 FFF7FEFF 		bl	xQueuePeek
+  40:Core/Src/Application/Src/Estimator.c ****             
+ 127              		.loc 1 40 36 view .LVU30
+ 128 0034 D0F8D000 		ldr	r0, [r0, #208]
  129              	.LVL13:
-  38:Core/Src/Application/Src/Estimator.c ****                 self->data_processor->procesNewData(self->data_processor, &encoderTopic, &stateTopi
- 130              		.loc 1 38 13 is_stmt 1 view .LVU31
-  38:Core/Src/Application/Src/Estimator.c ****                 self->data_processor->procesNewData(self->data_processor, &encoderTopic, &stateTopi
- 131              		.loc 1 38 16 is_stmt 0 view .LVU32
- 132 0038 28B1     		cbz	r0, .L6
-  39:Core/Src/Application/Src/Estimator.c ****             }
- 133              		.loc 1 39 17 is_stmt 1 view .LVU33
-  39:Core/Src/Application/Src/Estimator.c ****             }
- 134              		.loc 1 39 21 is_stmt 0 view .LVU34
- 135 003a D4F8CC00 		ldr	r0, [r4, #204]
- 136              	.LVL14:
-  39:Core/Src/Application/Src/Estimator.c ****             }
- 137              		.loc 1 39 37 view .LVU35
- 138 003e 436F     		ldr	r3, [r0, #116]
-  39:Core/Src/Application/Src/Estimator.c ****             }
- 139              		.loc 1 39 17 view .LVU36
- 140 0040 0D4A     		ldr	r2, .L8+16
- 141 0042 0C49     		ldr	r1, .L8+12
- 142 0044 9847     		blx	r3
- 143              	.LVL15:
- 144              	.L6:
-  42:Core/Src/Application/Src/Estimator.c **** 
- 145              		.loc 1 42 13 is_stmt 1 view .LVU37
-  42:Core/Src/Application/Src/Estimator.c **** 
- 146              		.loc 1 42 17 is_stmt 0 view .LVU38
- 147 0046 D4F8E030 		ldr	r3, [r4, #224]
-  42:Core/Src/Application/Src/Estimator.c **** 
- 148              		.loc 1 42 13 view .LVU39
- 149 004a 0B49     		ldr	r1, .L8+16
- 150 004c D4F8D400 		ldr	r0, [r4, #212]
- 151 0050 9847     		blx	r3
- 152              	.LVL16:
-  44:Core/Src/Application/Src/Estimator.c ****             AO_Estimator->post(&computer->super, &stateEvent);
- 153              		.loc 1 44 13 is_stmt 1 view .LVU40
-  45:Core/Src/Application/Src/Estimator.c **** 
- 154              		.loc 1 45 13 view .LVU41
-  45:Core/Src/Application/Src/Estimator.c **** 
- 155              		.loc 1 45 25 is_stmt 0 view .LVU42
- 156 0052 0A4B     		ldr	r3, .L8+20
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s 			page 5
+  40:Core/Src/Application/Src/Estimator.c ****             
+ 130              		.loc 1 40 36 view .LVU31
+ 131 0038 FFF7FEFF 		bl	xQueuePeek
+ 132              	.LVL14:
+  43:Core/Src/Application/Src/Estimator.c ****                 self->dataProcessor->procesNewData(self->dataProcessor, &sensorTopic, &stateTopic);
+ 133              		.loc 1 43 13 is_stmt 1 view .LVU32
+  43:Core/Src/Application/Src/Estimator.c ****                 self->dataProcessor->procesNewData(self->dataProcessor, &sensorTopic, &stateTopic);
+ 134              		.loc 1 43 15 is_stmt 0 view .LVU33
+ 135 003c 30B1     		cbz	r0, .L6
+  44:Core/Src/Application/Src/Estimator.c ****             }
+ 136              		.loc 1 44 17 is_stmt 1 view .LVU34
+  44:Core/Src/Application/Src/Estimator.c ****             }
+ 137              		.loc 1 44 21 is_stmt 0 view .LVU35
+ 138 003e D4F8CC00 		ldr	r0, [r4, #204]
+ 139              	.LVL15:
+  44:Core/Src/Application/Src/Estimator.c ****             }
+ 140              		.loc 1 44 36 view .LVU36
+ 141 0042 D0F8B430 		ldr	r3, [r0, #180]
+  44:Core/Src/Application/Src/Estimator.c ****             }
+ 142              		.loc 1 44 17 view .LVU37
+ 143 0046 0E4A     		ldr	r2, .L8+20
+ 144 0048 0C49     		ldr	r1, .L8+16
+ 145 004a 9847     		blx	r3
+ 146              	.LVL16:
+ 147              	.L6:
+  47:Core/Src/Application/Src/Estimator.c **** 
+ 148              		.loc 1 47 13 is_stmt 1 view .LVU38
+  47:Core/Src/Application/Src/Estimator.c **** 
+ 149              		.loc 1 47 17 is_stmt 0 view .LVU39
+ 150 004c D4F8E030 		ldr	r3, [r4, #224]
+  47:Core/Src/Application/Src/Estimator.c **** 
+ 151              		.loc 1 47 13 view .LVU40
+ 152 0050 0B49     		ldr	r1, .L8+20
+ 153 0052 D4F8D400 		ldr	r0, [r4, #212]
+ 154 0056 9847     		blx	r3
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s 			page 5
 
 
- 157 0054 1B68     		ldr	r3, [r3]
- 158 0056 D3F8C430 		ldr	r3, [r3, #196]
-  45:Core/Src/Application/Src/Estimator.c **** 
- 159              		.loc 1 45 13 view .LVU43
- 160 005a 0949     		ldr	r1, .L8+24
- 161 005c 094A     		ldr	r2, .L8+28
- 162 005e 1068     		ldr	r0, [r2]
- 163 0060 9847     		blx	r3
- 164              	.LVL17:
-  47:Core/Src/Application/Src/Estimator.c ****             break;
- 165              		.loc 1 47 13 is_stmt 1 view .LVU44
-  48:Core/Src/Application/Src/Estimator.c ****         
- 166              		.loc 1 48 13 view .LVU45
-  47:Core/Src/Application/Src/Estimator.c ****             break;
- 167              		.loc 1 47 20 is_stmt 0 view .LVU46
- 168 0062 0120     		movs	r0, #1
-  48:Core/Src/Application/Src/Estimator.c ****         
- 169              		.loc 1 48 13 view .LVU47
- 170 0064 E1E7     		b	.L5
- 171              	.L9:
- 172 0066 00BF     		.align	2
- 173              	.L8:
- 174 0068 00000000 		.word	htim7
- 175 006c 00000000 		.word	htim3
- 176 0070 00000000 		.word	htim2
- 177 0074 00000000 		.word	encoderTopic.2
- 178 0078 00000000 		.word	stateTopic.1
- 179 007c 00000000 		.word	AO_Estimator
- 180 0080 00000000 		.word	stateEvent.0
- 181 0084 00000000 		.word	computer
- 182              	.LBE3:
- 183              		.cfi_endproc
- 184              	.LFE289:
- 186              		.section	.text.new,"ax",%progbits
- 187              		.align	1
- 188              		.syntax unified
- 189              		.thumb
- 190              		.thumb_func
- 192              	new:
- 193              	.LVL18:
- 194              	.LFB292:
-  56:Core/Src/Application/Src/Estimator.c **** 
-  57:Core/Src/Application/Src/Estimator.c **** static void public (QueueHandle_t xQueue, const void * pvItemToQueue) {
-  58:Core/Src/Application/Src/Estimator.c ****     xQueueOverwrite(xQueue, pvItemToQueue);
-  59:Core/Src/Application/Src/Estimator.c **** }
-  60:Core/Src/Application/Src/Estimator.c **** 
-  61:Core/Src/Application/Src/Estimator.c **** static void publicFromISR (QueueHandle_t xQueue, const void * pvItemToQueue,
-  62:Core/Src/Application/Src/Estimator.c ****                            BaseType_t * pxHigherPriorityTaskWoken)
-  63:Core/Src/Application/Src/Estimator.c **** {
-  64:Core/Src/Application/Src/Estimator.c ****     xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken);
-  65:Core/Src/Application/Src/Estimator.c **** }
-  66:Core/Src/Application/Src/Estimator.c **** 
-  67:Core/Src/Application/Src/Estimator.c **** static void new (struct Estimator * const self) {
- 195              		.loc 1 67 49 is_stmt 1 view -0
- 196              		.cfi_startproc
- 197              		@ args = 0, pretend = 0, frame = 0
- 198              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s 			page 6
-
-
- 199              		.loc 1 67 49 is_stmt 0 view .LVU49
- 200 0000 10B5     		push	{r4, lr}
- 201              	.LCFI1:
- 202              		.cfi_def_cfa_offset 8
- 203              		.cfi_offset 4, -8
- 204              		.cfi_offset 14, -4
- 205 0002 0446     		mov	r4, r0
-  68:Core/Src/Application/Src/Estimator.c **** 
-  69:Core/Src/Application/Src/Estimator.c ****     /* Assign methods*/
-  70:Core/Src/Application/Src/Estimator.c ****     self->init          = &init;
- 206              		.loc 1 70 5 is_stmt 1 view .LVU50
- 207              		.loc 1 70 25 is_stmt 0 view .LVU51
- 208 0004 1349     		ldr	r1, .L12
- 209 0006 C0F8D810 		str	r1, [r0, #216]
-  71:Core/Src/Application/Src/Estimator.c ****     self->wait          = &wait;
- 210              		.loc 1 71 5 is_stmt 1 view .LVU52
- 211              		.loc 1 71 25 is_stmt 0 view .LVU53
- 212 000a 134B     		ldr	r3, .L12+4
- 213 000c C0F8DC30 		str	r3, [r0, #220]
-  72:Core/Src/Application/Src/Estimator.c ****     self->public        = &public;
- 214              		.loc 1 72 5 is_stmt 1 view .LVU54
- 215              		.loc 1 72 25 is_stmt 0 view .LVU55
- 216 0010 124B     		ldr	r3, .L12+8
- 217 0012 C0F8E030 		str	r3, [r0, #224]
-  73:Core/Src/Application/Src/Estimator.c ****     self->publicFromISR = &publicFromISR;
- 218              		.loc 1 73 5 is_stmt 1 view .LVU56
- 219              		.loc 1 73 25 is_stmt 0 view .LVU57
- 220 0016 124B     		ldr	r3, .L12+12
- 221 0018 C0F8E430 		str	r3, [r0, #228]
-  74:Core/Src/Application/Src/Estimator.c **** 
-  75:Core/Src/Application/Src/Estimator.c ****     /* Khởi tạo một Active Object mới kế thừa từ class Avtive Object */
-  76:Core/Src/Application/Src/Estimator.c ****     Active_new(&self->super, (StateHandler) &init);
- 222              		.loc 1 76 5 is_stmt 1 view .LVU58
- 223 001c FFF7FEFF 		bl	Active_new
- 224              	.LVL19:
-  77:Core/Src/Application/Src/Estimator.c **** 
-  78:Core/Src/Application/Src/Estimator.c ****     /* Cấp phát động cho biến kiểu DSP để lọc và xử lý data */
-  79:Core/Src/Application/Src/Estimator.c ****     self->data_processor = (struct DSP * ) pvPortMalloc( sizeof(struct DSP) );
- 225              		.loc 1 79 5 view .LVU59
- 226              		.loc 1 79 44 is_stmt 0 view .LVU60
- 227 0020 7820     		movs	r0, #120
- 228 0022 FFF7FEFF 		bl	pvPortMalloc
- 229              	.LVL20:
- 230              		.loc 1 79 26 discriminator 1 view .LVU61
- 231 0026 C4F8CC00 		str	r0, [r4, #204]
-  80:Core/Src/Application/Src/Estimator.c ****     dsp_new(self->data_processor);
- 232              		.loc 1 80 5 is_stmt 1 view .LVU62
- 233 002a FFF7FEFF 		bl	dsp_new
- 234              	.LVL21:
-  81:Core/Src/Application/Src/Estimator.c **** 
-  82:Core/Src/Application/Src/Estimator.c ****     AO_Estimator = &self->super;
- 235              		.loc 1 82 5 view .LVU63
- 236              		.loc 1 82 18 is_stmt 0 view .LVU64
- 237 002e 0D4B     		ldr	r3, .L12+16
- 238 0030 1C60     		str	r4, [r3]
-  83:Core/Src/Application/Src/Estimator.c ****     estimator = self;
- 239              		.loc 1 83 5 is_stmt 1 view .LVU65
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s 			page 7
-
-
- 240              		.loc 1 83 15 is_stmt 0 view .LVU66
- 241 0032 0D4B     		ldr	r3, .L12+20
- 242 0034 1C60     		str	r4, [r3]
-  84:Core/Src/Application/Src/Estimator.c **** 
-  85:Core/Src/Application/Src/Estimator.c ****     self->encoderSubsriber  = xQueueCreate(1, sizeof(Encoder));
- 243              		.loc 1 85 5 is_stmt 1 view .LVU67
- 244              		.loc 1 85 31 is_stmt 0 view .LVU68
- 245 0036 0022     		movs	r2, #0
- 246 0038 0821     		movs	r1, #8
- 247 003a 0120     		movs	r0, #1
- 248 003c FFF7FEFF 		bl	xQueueGenericCreate
- 249              	.LVL22:
- 250              		.loc 1 85 29 discriminator 1 view .LVU69
- 251 0040 C4F8D000 		str	r0, [r4, #208]
-  86:Core/Src/Application/Src/Estimator.c ****     self->statePublic       = xQueueCreate(1, sizeof(State));
- 252              		.loc 1 86 5 is_stmt 1 view .LVU70
- 253              		.loc 1 86 31 is_stmt 0 view .LVU71
- 254 0044 0022     		movs	r2, #0
- 255 0046 4821     		movs	r1, #72
- 256 0048 0120     		movs	r0, #1
- 257 004a FFF7FEFF 		bl	xQueueGenericCreate
- 258              	.LVL23:
- 259              		.loc 1 86 29 discriminator 1 view .LVU72
- 260 004e C4F8D400 		str	r0, [r4, #212]
-  87:Core/Src/Application/Src/Estimator.c **** }
- 261              		.loc 1 87 1 view .LVU73
- 262 0052 10BD     		pop	{r4, pc}
- 263              	.LVL24:
- 264              	.L13:
- 265              		.loc 1 87 1 view .LVU74
- 266              		.align	2
- 267              	.L12:
- 268 0054 00000000 		.word	init
- 269 0058 00000000 		.word	wait
- 270 005c 00000000 		.word	public
- 271 0060 00000000 		.word	publicFromISR
- 272 0064 00000000 		.word	AO_Estimator
- 273 0068 00000000 		.word	estimator
- 274              		.cfi_endproc
- 275              	.LFE292:
- 277              		.section	.text.publicFromISR,"ax",%progbits
- 278              		.align	1
- 279              		.syntax unified
- 280              		.thumb
- 281              		.thumb_func
- 283              	publicFromISR:
- 284              	.LVL25:
- 285              	.LFB291:
-  63:Core/Src/Application/Src/Estimator.c ****     xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken);
- 286              		.loc 1 63 1 is_stmt 1 view -0
- 287              		.cfi_startproc
- 288              		@ args = 0, pretend = 0, frame = 0
- 289              		@ frame_needed = 0, uses_anonymous_args = 0
-  63:Core/Src/Application/Src/Estimator.c ****     xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken);
- 290              		.loc 1 63 1 is_stmt 0 view .LVU76
- 291 0000 08B5     		push	{r3, lr}
- 292              	.LCFI2:
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s 			page 8
-
-
- 293              		.cfi_def_cfa_offset 8
- 294              		.cfi_offset 3, -8
- 295              		.cfi_offset 14, -4
+ 155              	.LVL17:
+  49:Core/Src/Application/Src/Estimator.c ****             AO_Estimator->post(&computer->super, &stateEvent);
+ 156              		.loc 1 49 13 is_stmt 1 view .LVU41
+  50:Core/Src/Application/Src/Estimator.c **** 
+ 157              		.loc 1 50 13 view .LVU42
+  50:Core/Src/Application/Src/Estimator.c **** 
+ 158              		.loc 1 50 25 is_stmt 0 view .LVU43
+ 159 0058 0A4B     		ldr	r3, .L8+24
+ 160 005a 1B68     		ldr	r3, [r3]
+ 161 005c D3F8C430 		ldr	r3, [r3, #196]
+  50:Core/Src/Application/Src/Estimator.c **** 
+ 162              		.loc 1 50 13 view .LVU44
+ 163 0060 0949     		ldr	r1, .L8+28
+ 164 0062 0A4A     		ldr	r2, .L8+32
+ 165 0064 1068     		ldr	r0, [r2]
+ 166 0066 9847     		blx	r3
+ 167              	.LVL18:
+  52:Core/Src/Application/Src/Estimator.c ****             break;
+ 168              		.loc 1 52 13 is_stmt 1 view .LVU45
+  53:Core/Src/Application/Src/Estimator.c ****         
+ 169              		.loc 1 53 13 view .LVU46
+  52:Core/Src/Application/Src/Estimator.c ****             break;
+ 170              		.loc 1 52 20 is_stmt 0 view .LVU47
+ 171 0068 0120     		movs	r0, #1
+  53:Core/Src/Application/Src/Estimator.c ****         
+ 172              		.loc 1 53 13 view .LVU48
+ 173 006a E0E7     		b	.L5
+ 174              	.L9:
+ 175              		.align	2
+ 176              	.L8:
+ 177 006c 00000000 		.word	adcBuffer
+ 178 0070 00000000 		.word	hadc1
+ 179 0074 00000000 		.word	htim7
+ 180 0078 00000000 		.word	htim2
+ 181 007c 00000000 		.word	sensorTopic.2
+ 182 0080 00000000 		.word	stateTopic.1
+ 183 0084 00000000 		.word	AO_Estimator
+ 184 0088 00000000 		.word	stateEvent.0
+ 185 008c 00000000 		.word	computer
+ 186              	.LBE3:
+ 187              		.cfi_endproc
+ 188              	.LFE289:
+ 190              		.section	.text.new,"ax",%progbits
+ 191              		.align	1
+ 192              		.syntax unified
+ 193              		.thumb
+ 194              		.thumb_func
+ 196              	new:
+ 197              	.LVL19:
+ 198              	.LFB292:
+  61:Core/Src/Application/Src/Estimator.c **** 
+  62:Core/Src/Application/Src/Estimator.c **** static void public (QueueHandle_t xQueue, const void * pvItemToQueue) {
+  63:Core/Src/Application/Src/Estimator.c ****     xQueueOverwrite(xQueue, pvItemToQueue);
   64:Core/Src/Application/Src/Estimator.c **** }
- 296              		.loc 1 64 5 is_stmt 1 view .LVU77
- 297 0002 0223     		movs	r3, #2
- 298 0004 FFF7FEFF 		bl	xQueueGenericSendFromISR
- 299              	.LVL26:
   65:Core/Src/Application/Src/Estimator.c **** 
- 300              		.loc 1 65 1 is_stmt 0 view .LVU78
- 301 0008 08BD     		pop	{r3, pc}
- 302              		.cfi_endproc
- 303              	.LFE291:
- 305              		.section	.text.public,"ax",%progbits
- 306              		.align	1
- 307              		.syntax unified
- 308              		.thumb
- 309              		.thumb_func
- 311              	public:
- 312              	.LVL27:
- 313              	.LFB290:
-  57:Core/Src/Application/Src/Estimator.c ****     xQueueOverwrite(xQueue, pvItemToQueue);
- 314              		.loc 1 57 71 is_stmt 1 view -0
- 315              		.cfi_startproc
- 316              		@ args = 0, pretend = 0, frame = 0
- 317              		@ frame_needed = 0, uses_anonymous_args = 0
-  57:Core/Src/Application/Src/Estimator.c ****     xQueueOverwrite(xQueue, pvItemToQueue);
- 318              		.loc 1 57 71 is_stmt 0 view .LVU80
- 319 0000 08B5     		push	{r3, lr}
- 320              	.LCFI3:
- 321              		.cfi_def_cfa_offset 8
- 322              		.cfi_offset 3, -8
- 323              		.cfi_offset 14, -4
-  58:Core/Src/Application/Src/Estimator.c **** }
- 324              		.loc 1 58 5 is_stmt 1 view .LVU81
- 325 0002 0223     		movs	r3, #2
- 326 0004 0022     		movs	r2, #0
- 327 0006 FFF7FEFF 		bl	xQueueGenericSend
- 328              	.LVL28:
-  59:Core/Src/Application/Src/Estimator.c **** 
- 329              		.loc 1 59 1 is_stmt 0 view .LVU82
- 330 000a 08BD     		pop	{r3, pc}
- 331              		.cfi_endproc
- 332              	.LFE290:
- 334              		.section	.rodata.stateEvent.0,"a"
- 335              		.align	2
- 338              	stateEvent.0:
- 339 0000 0500     		.short	5
- 340              		.section	.bss.stateTopic.1,"aw",%nobits
- 341              		.align	2
- 344              	stateTopic.1:
- 345 0000 00000000 		.space	72
- 345      00000000 
- 345      00000000 
- 345      00000000 
- 345      00000000 
- 346              		.section	.bss.encoderTopic.2,"aw",%nobits
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s 			page 9
+  66:Core/Src/Application/Src/Estimator.c **** static void publicFromISR (QueueHandle_t xQueue, const void * pvItemToQueue,
+  67:Core/Src/Application/Src/Estimator.c ****                            BaseType_t * pxHigherPriorityTaskWoken)
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s 			page 6
 
 
- 347              		.align	2
- 350              	encoderTopic.2:
- 351 0000 00000000 		.space	8
- 351      00000000 
- 352              		.global	Estimator
- 353              		.section	.rodata.Estimator,"a"
- 354              		.align	2
- 357              	Estimator:
- 358 0000 00000000 		.word	new
- 359              		.global	estimator
- 360              		.section	.bss.estimator,"aw",%nobits
- 361              		.align	2
- 364              	estimator:
- 365 0000 00000000 		.space	4
- 366              		.global	AO_Estimator
- 367              		.section	.bss.AO_Estimator,"aw",%nobits
- 368              		.align	2
- 371              	AO_Estimator:
- 372 0000 00000000 		.space	4
- 373              		.text
- 374              	.Letext0:
- 375              		.file 2 "D:/DATN/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/machine/_default_type
- 376              		.file 3 "D:/DATN/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/sys/_stdint.h"
- 377              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
- 378              		.file 5 "D:/DATN/InvertedPendulum/Tool/ArmGnuToolchain/lib/gcc/arm-none-eabi/14.2.1/include/stddef
- 379              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 380              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 381              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
- 382              		.file 9 "Middlewares/Third_Party/ARM/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h"
- 383              		.file 10 "Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h"
- 384              		.file 11 "Middlewares/Third_Party/ARM/FreeRTOS/include/task.h"
- 385              		.file 12 "Middlewares/Third_Party/ARM/FreeRTOS/include/queue.h"
- 386              		.file 13 "Middlewares/ST/ARM/DSP/Inc/arm_math.h"
- 387              		.file 14 "Core/Src/Application/Inc/Topic.h"
- 388              		.file 15 "Core/Src/Application/Inc/ActiveObject.h"
- 389              		.file 16 "Core/Src/Common/Inc/dsp.h"
- 390              		.file 17 "Core/Src/Application/Inc/computer.h"
- 391              		.file 18 "Core/Src/Application/Inc/Estimator.h"
- 392              		.file 19 "Middlewares/Third_Party/ARM/FreeRTOS/include/portable.h"
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s 			page 10
+  68:Core/Src/Application/Src/Estimator.c **** {
+  69:Core/Src/Application/Src/Estimator.c ****     xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken);
+  70:Core/Src/Application/Src/Estimator.c **** }
+  71:Core/Src/Application/Src/Estimator.c **** 
+  72:Core/Src/Application/Src/Estimator.c **** static void new (struct Estimator * const self) {
+ 199              		.loc 1 72 49 is_stmt 1 view -0
+ 200              		.cfi_startproc
+ 201              		@ args = 0, pretend = 0, frame = 0
+ 202              		@ frame_needed = 0, uses_anonymous_args = 0
+ 203              		.loc 1 72 49 is_stmt 0 view .LVU50
+ 204 0000 10B5     		push	{r4, lr}
+ 205              	.LCFI1:
+ 206              		.cfi_def_cfa_offset 8
+ 207              		.cfi_offset 4, -8
+ 208              		.cfi_offset 14, -4
+ 209 0002 0446     		mov	r4, r0
+  73:Core/Src/Application/Src/Estimator.c **** 
+  74:Core/Src/Application/Src/Estimator.c ****     /* Assign methods*/
+  75:Core/Src/Application/Src/Estimator.c ****     self->init          = &init;
+ 210              		.loc 1 75 5 is_stmt 1 view .LVU51
+ 211              		.loc 1 75 25 is_stmt 0 view .LVU52
+ 212 0004 1349     		ldr	r1, .L12
+ 213 0006 C0F8D810 		str	r1, [r0, #216]
+  76:Core/Src/Application/Src/Estimator.c ****     self->wait          = &wait;
+ 214              		.loc 1 76 5 is_stmt 1 view .LVU53
+ 215              		.loc 1 76 25 is_stmt 0 view .LVU54
+ 216 000a 134B     		ldr	r3, .L12+4
+ 217 000c C0F8DC30 		str	r3, [r0, #220]
+  77:Core/Src/Application/Src/Estimator.c ****     self->public        = &public;
+ 218              		.loc 1 77 5 is_stmt 1 view .LVU55
+ 219              		.loc 1 77 25 is_stmt 0 view .LVU56
+ 220 0010 124B     		ldr	r3, .L12+8
+ 221 0012 C0F8E030 		str	r3, [r0, #224]
+  78:Core/Src/Application/Src/Estimator.c ****     self->publicFromISR = &publicFromISR;
+ 222              		.loc 1 78 5 is_stmt 1 view .LVU57
+ 223              		.loc 1 78 25 is_stmt 0 view .LVU58
+ 224 0016 124B     		ldr	r3, .L12+12
+ 225 0018 C0F8E430 		str	r3, [r0, #228]
+  79:Core/Src/Application/Src/Estimator.c **** 
+  80:Core/Src/Application/Src/Estimator.c ****     /* Khởi tạo một Active Object mới kế thừa từ class Avtive Object */
+  81:Core/Src/Application/Src/Estimator.c ****     Active_new(&self->super, (StateHandler) &init);
+ 226              		.loc 1 81 5 is_stmt 1 view .LVU59
+ 227 001c FFF7FEFF 		bl	Active_new
+ 228              	.LVL20:
+  82:Core/Src/Application/Src/Estimator.c **** 
+  83:Core/Src/Application/Src/Estimator.c ****     /* Cấp phát động cho biến kiểu DSP để lọc và xử lý data */
+  84:Core/Src/Application/Src/Estimator.c ****     self->dataProcessor = (struct DSP *) pvPortMalloc(sizeof(struct DSP));
+ 229              		.loc 1 84 5 view .LVU60
+ 230              		.loc 1 84 42 is_stmt 0 view .LVU61
+ 231 0020 B820     		movs	r0, #184
+ 232 0022 FFF7FEFF 		bl	pvPortMalloc
+ 233              	.LVL21:
+ 234              		.loc 1 84 25 discriminator 1 view .LVU62
+ 235 0026 C4F8CC00 		str	r0, [r4, #204]
+  85:Core/Src/Application/Src/Estimator.c ****     dsp_new(self->dataProcessor);
+ 236              		.loc 1 85 5 is_stmt 1 view .LVU63
+ 237 002a FFF7FEFF 		bl	dsp_new
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s 			page 7
+
+
+ 238              	.LVL22:
+  86:Core/Src/Application/Src/Estimator.c **** 
+  87:Core/Src/Application/Src/Estimator.c ****     AO_Estimator = &self->super;
+ 239              		.loc 1 87 5 view .LVU64
+ 240              		.loc 1 87 18 is_stmt 0 view .LVU65
+ 241 002e 0D4B     		ldr	r3, .L12+16
+ 242 0030 1C60     		str	r4, [r3]
+  88:Core/Src/Application/Src/Estimator.c ****     estimator = self;
+ 243              		.loc 1 88 5 is_stmt 1 view .LVU66
+ 244              		.loc 1 88 15 is_stmt 0 view .LVU67
+ 245 0032 0D4B     		ldr	r3, .L12+20
+ 246 0034 1C60     		str	r4, [r3]
+  89:Core/Src/Application/Src/Estimator.c **** 
+  90:Core/Src/Application/Src/Estimator.c ****     self->sensorSubsribers      = xQueueCreate(1, sizeof(Sensor));
+ 247              		.loc 1 90 5 is_stmt 1 view .LVU68
+ 248              		.loc 1 90 35 is_stmt 0 view .LVU69
+ 249 0036 0022     		movs	r2, #0
+ 250 0038 0C21     		movs	r1, #12
+ 251 003a 0120     		movs	r0, #1
+ 252 003c FFF7FEFF 		bl	xQueueGenericCreate
+ 253              	.LVL23:
+ 254              		.loc 1 90 33 discriminator 1 view .LVU70
+ 255 0040 C4F8D000 		str	r0, [r4, #208]
+  91:Core/Src/Application/Src/Estimator.c ****     self->statePublic           = xQueueCreate(1, sizeof(State));
+ 256              		.loc 1 91 5 is_stmt 1 view .LVU71
+ 257              		.loc 1 91 35 is_stmt 0 view .LVU72
+ 258 0044 0022     		movs	r2, #0
+ 259 0046 7821     		movs	r1, #120
+ 260 0048 0120     		movs	r0, #1
+ 261 004a FFF7FEFF 		bl	xQueueGenericCreate
+ 262              	.LVL24:
+ 263              		.loc 1 91 33 discriminator 1 view .LVU73
+ 264 004e C4F8D400 		str	r0, [r4, #212]
+  92:Core/Src/Application/Src/Estimator.c **** }
+ 265              		.loc 1 92 1 view .LVU74
+ 266 0052 10BD     		pop	{r4, pc}
+ 267              	.LVL25:
+ 268              	.L13:
+ 269              		.loc 1 92 1 view .LVU75
+ 270              		.align	2
+ 271              	.L12:
+ 272 0054 00000000 		.word	init
+ 273 0058 00000000 		.word	wait
+ 274 005c 00000000 		.word	public
+ 275 0060 00000000 		.word	publicFromISR
+ 276 0064 00000000 		.word	AO_Estimator
+ 277 0068 00000000 		.word	estimator
+ 278              		.cfi_endproc
+ 279              	.LFE292:
+ 281              		.section	.text.publicFromISR,"ax",%progbits
+ 282              		.align	1
+ 283              		.syntax unified
+ 284              		.thumb
+ 285              		.thumb_func
+ 287              	publicFromISR:
+ 288              	.LVL26:
+ 289              	.LFB291:
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s 			page 8
+
+
+  68:Core/Src/Application/Src/Estimator.c ****     xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken);
+ 290              		.loc 1 68 1 is_stmt 1 view -0
+ 291              		.cfi_startproc
+ 292              		@ args = 0, pretend = 0, frame = 0
+ 293              		@ frame_needed = 0, uses_anonymous_args = 0
+  68:Core/Src/Application/Src/Estimator.c ****     xQueueOverwriteFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken);
+ 294              		.loc 1 68 1 is_stmt 0 view .LVU77
+ 295 0000 08B5     		push	{r3, lr}
+ 296              	.LCFI2:
+ 297              		.cfi_def_cfa_offset 8
+ 298              		.cfi_offset 3, -8
+ 299              		.cfi_offset 14, -4
+  69:Core/Src/Application/Src/Estimator.c **** }
+ 300              		.loc 1 69 5 is_stmt 1 view .LVU78
+ 301 0002 0223     		movs	r3, #2
+ 302 0004 FFF7FEFF 		bl	xQueueGenericSendFromISR
+ 303              	.LVL27:
+  70:Core/Src/Application/Src/Estimator.c **** 
+ 304              		.loc 1 70 1 is_stmt 0 view .LVU79
+ 305 0008 08BD     		pop	{r3, pc}
+ 306              		.cfi_endproc
+ 307              	.LFE291:
+ 309              		.section	.text.public,"ax",%progbits
+ 310              		.align	1
+ 311              		.syntax unified
+ 312              		.thumb
+ 313              		.thumb_func
+ 315              	public:
+ 316              	.LVL28:
+ 317              	.LFB290:
+  62:Core/Src/Application/Src/Estimator.c ****     xQueueOverwrite(xQueue, pvItemToQueue);
+ 318              		.loc 1 62 71 is_stmt 1 view -0
+ 319              		.cfi_startproc
+ 320              		@ args = 0, pretend = 0, frame = 0
+ 321              		@ frame_needed = 0, uses_anonymous_args = 0
+  62:Core/Src/Application/Src/Estimator.c ****     xQueueOverwrite(xQueue, pvItemToQueue);
+ 322              		.loc 1 62 71 is_stmt 0 view .LVU81
+ 323 0000 08B5     		push	{r3, lr}
+ 324              	.LCFI3:
+ 325              		.cfi_def_cfa_offset 8
+ 326              		.cfi_offset 3, -8
+ 327              		.cfi_offset 14, -4
+  63:Core/Src/Application/Src/Estimator.c **** }
+ 328              		.loc 1 63 5 is_stmt 1 view .LVU82
+ 329 0002 0223     		movs	r3, #2
+ 330 0004 0022     		movs	r2, #0
+ 331 0006 FFF7FEFF 		bl	xQueueGenericSend
+ 332              	.LVL29:
+  64:Core/Src/Application/Src/Estimator.c **** 
+ 333              		.loc 1 64 1 is_stmt 0 view .LVU83
+ 334 000a 08BD     		pop	{r3, pc}
+ 335              		.cfi_endproc
+ 336              	.LFE290:
+ 338              		.section	.rodata.stateEvent.0,"a"
+ 339              		.align	2
+ 342              	stateEvent.0:
+ 343 0000 0500     		.short	5
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s 			page 9
+
+
+ 344              		.section	.bss.stateTopic.1,"aw",%nobits
+ 345              		.align	2
+ 348              	stateTopic.1:
+ 349 0000 00000000 		.space	120
+ 349      00000000 
+ 349      00000000 
+ 349      00000000 
+ 349      00000000 
+ 350              		.section	.bss.sensorTopic.2,"aw",%nobits
+ 351              		.align	2
+ 354              	sensorTopic.2:
+ 355 0000 00000000 		.space	12
+ 355      00000000 
+ 355      00000000 
+ 356              		.global	Estimator
+ 357              		.section	.rodata.Estimator,"a"
+ 358              		.align	2
+ 361              	Estimator:
+ 362 0000 00000000 		.word	new
+ 363              		.global	estimator
+ 364              		.section	.bss.estimator,"aw",%nobits
+ 365              		.align	2
+ 368              	estimator:
+ 369 0000 00000000 		.space	4
+ 370              		.global	AO_Estimator
+ 371              		.section	.bss.AO_Estimator,"aw",%nobits
+ 372              		.align	2
+ 375              	AO_Estimator:
+ 376 0000 00000000 		.space	4
+ 377              		.text
+ 378              	.Letext0:
+ 379              		.file 2 "D:/DATN/00_MainFolder/00_FirmwaveSTM32/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eab
+ 380              		.file 3 "D:/DATN/00_MainFolder/00_FirmwaveSTM32/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eab
+ 381              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
+ 382              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 383              		.file 6 "D:/DATN/00_MainFolder/00_FirmwaveSTM32/InvertedPendulum/Tool/ArmGnuToolchain/lib/gcc/arm-
+ 384              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 385              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 386              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
+ 387              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 388              		.file 11 "Middlewares/Third_Party/ARM/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h"
+ 389              		.file 12 "Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h"
+ 390              		.file 13 "Middlewares/Third_Party/ARM/FreeRTOS/include/task.h"
+ 391              		.file 14 "Middlewares/Third_Party/ARM/FreeRTOS/include/queue.h"
+ 392              		.file 15 "Middlewares/ST/ARM/DSP/Inc/arm_math.h"
+ 393              		.file 16 "Core/Src/Application/Inc/Topic.h"
+ 394              		.file 17 "Core/Src/Application/Inc/ActiveObject.h"
+ 395              		.file 18 "Core/Src/Common/Inc/dsp.h"
+ 396              		.file 19 "Core/Src/Application/Inc/computer.h"
+ 397              		.file 20 "Core/Src/Application/Inc/Estimator.h"
+ 398              		.file 21 "Middlewares/Third_Party/ARM/FreeRTOS/include/portable.h"
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s 			page 10
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 Estimator.c
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:21     .text.init:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:27     .text.init:00000000 init
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:51     .text.wait:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:57     .text.wait:00000000 wait
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:174    .text.wait:00000068 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:350    .bss.encoderTopic.2:00000000 encoderTopic.2
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:344    .bss.stateTopic.1:00000000 stateTopic.1
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:371    .bss.AO_Estimator:00000000 AO_Estimator
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:338    .rodata.stateEvent.0:00000000 stateEvent.0
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:187    .text.new:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:192    .text.new:00000000 new
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:268    .text.new:00000054 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:311    .text.public:00000000 public
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:283    .text.publicFromISR:00000000 publicFromISR
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:364    .bss.estimator:00000000 estimator
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:278    .text.publicFromISR:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:306    .text.public:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:335    .rodata.stateEvent.0:00000000 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:341    .bss.stateTopic.1:00000000 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:347    .bss.encoderTopic.2:00000000 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:357    .rodata.Estimator:00000000 Estimator
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:354    .rodata.Estimator:00000000 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:361    .bss.estimator:00000000 $d
-C:\Users\CuongLe\AppData\Local\Temp\ccoMO05Q.s:368    .bss.AO_Estimator:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:21     .text.init:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:27     .text.init:00000000 init
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:51     .text.wait:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:57     .text.wait:00000000 wait
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:177    .text.wait:0000006c $d
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:354    .bss.sensorTopic.2:00000000 sensorTopic.2
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:348    .bss.stateTopic.1:00000000 stateTopic.1
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:375    .bss.AO_Estimator:00000000 AO_Estimator
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:342    .rodata.stateEvent.0:00000000 stateEvent.0
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:191    .text.new:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:196    .text.new:00000000 new
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:272    .text.new:00000054 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:315    .text.public:00000000 public
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:287    .text.publicFromISR:00000000 publicFromISR
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:368    .bss.estimator:00000000 estimator
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:282    .text.publicFromISR:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:310    .text.public:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:339    .rodata.stateEvent.0:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:345    .bss.stateTopic.1:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:351    .bss.sensorTopic.2:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:361    .rodata.Estimator:00000000 Estimator
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:358    .rodata.Estimator:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:365    .bss.estimator:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccBu4uU9.s:372    .bss.AO_Estimator:00000000 $d
 
 UNDEFINED SYMBOLS
+HAL_ADC_Start_DMA
 HAL_TIM_Base_Start_IT
 HAL_TIM_Encoder_Start_IT
 xQueuePeek
+adcBuffer
+hadc1
 htim7
-htim3
 htim2
 computer
 Active_new

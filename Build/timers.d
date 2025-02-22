@@ -1,4 +1,4 @@
-Build/timers.o: Middlewares/Third_Party/ARM/FreeRTOS/timers.c \
+build/timers.o: Middlewares/Third_Party/ARM/FreeRTOS/timers.c \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOSConfig.h \
  Middlewares/Third_Party/ARM/FreeRTOS/include/projdefs.h \

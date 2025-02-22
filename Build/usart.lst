@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\cckQqBXy.s 			page 1
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -20,258 +20,870 @@ ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\cckQqBXy.s 			page 1
   17              	.Ltext0:
   18              		.cfi_sections	.debug_frame
   19              		.file 1 "Core/Src/Drivers/Src/usart.c"
-  20              		.section	.text.HAL_UART_TxCpltCallback,"ax",%progbits
+  20              		.section	.text.ExtractMessage,"ax",%progbits
   21              		.align	1
-  22              		.global	HAL_UART_TxCpltCallback
-  23              		.syntax unified
-  24              		.thumb
-  25              		.thumb_func
-  27              	HAL_UART_TxCpltCallback:
-  28              	.LVL0:
-  29              	.LFB288:
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	ExtractMessage:
+  27              	.LVL0:
+  28              	.LFB288:
    1:Core/Src/Drivers/Src/usart.c **** #include "usart.h"
    2:Core/Src/Drivers/Src/usart.c **** 
    3:Core/Src/Drivers/Src/usart.c **** extern struct Active * AO_Computer;
    4:Core/Src/Drivers/Src/usart.c **** extern struct Active * AO_Motor;
    5:Core/Src/Drivers/Src/usart.c **** 
-   6:Core/Src/Drivers/Src/usart.c **** /**
-   7:Core/Src/Drivers/Src/usart.c ****   * @brief  Tx Transfer completed callbacks.
-   8:Core/Src/Drivers/Src/usart.c ****   * @param  huart  Pointer to a UART_HandleTypeDef structure that contains
-   9:Core/Src/Drivers/Src/usart.c ****   *                the configuration information for the specified UART module.
-  10:Core/Src/Drivers/Src/usart.c ****   * @retval None
-  11:Core/Src/Drivers/Src/usart.c ****   */
-  12:Core/Src/Drivers/Src/usart.c **** void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
-  30              		.loc 1 12 57 view -0
-  31              		.cfi_startproc
-  32              		@ args = 0, pretend = 0, frame = 8
-  33              		@ frame_needed = 0, uses_anonymous_args = 0
-  34              		.loc 1 12 57 is_stmt 0 view .LVU1
-  35 0000 00B5     		push	{lr}
-  36              	.LCFI0:
-  37              		.cfi_def_cfa_offset 4
-  38              		.cfi_offset 14, -4
-  39 0002 83B0     		sub	sp, sp, #12
-  40              	.LCFI1:
-  41              		.cfi_def_cfa_offset 16
-  13:Core/Src/Drivers/Src/usart.c ****   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-  42              		.loc 1 13 3 is_stmt 1 view .LVU2
-  43              		.loc 1 13 14 is_stmt 0 view .LVU3
-  44 0004 0023     		movs	r3, #0
-  45 0006 0193     		str	r3, [sp, #4]
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\cckQqBXy.s 			page 2
+   6:Core/Src/Drivers/Src/usart.c **** extern struct Motor * motor;
+   7:Core/Src/Drivers/Src/usart.c **** 
+   8:Core/Src/Drivers/Src/usart.c **** extern uint8_t rxByte;
+   9:Core/Src/Drivers/Src/usart.c **** 
+  10:Core/Src/Drivers/Src/usart.c **** RecivedMessage recivedMsg = {.maxLength = 10, .index = 0, .dataComming = 0};
+  11:Core/Src/Drivers/Src/usart.c **** 
+  12:Core/Src/Drivers/Src/usart.c **** static float32_t ExtractMessage(const char *str) {
+  29              		.loc 1 12 50 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		.loc 1 12 50 is_stmt 0 view .LVU1
+  34 0000 38B5     		push	{r3, r4, r5, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 16
+  37              		.cfi_offset 3, -16
+  38              		.cfi_offset 4, -12
+  39              		.cfi_offset 5, -8
+  40              		.cfi_offset 14, -4
+  41 0002 2DED028B 		vpush.64	{d8}
+  42              	.LCFI1:
+  43              		.cfi_def_cfa_offset 24
+  44              		.cfi_offset 80, -24
+  45              		.cfi_offset 81, -20
+  46 0006 0446     		mov	r4, r0
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s 			page 2
 
 
-  14:Core/Src/Drivers/Src/usart.c ****   if(huart->Instance == USART2) {
-  46              		.loc 1 14 3 is_stmt 1 view .LVU4
-  47              		.loc 1 14 11 is_stmt 0 view .LVU5
-  48 0008 0368     		ldr	r3, [r0]
-  49              		.loc 1 14 5 view .LVU6
-  50 000a 124A     		ldr	r2, .L8
-  51 000c 9342     		cmp	r3, r2
-  52 000e 11D0     		beq	.L6
-  15:Core/Src/Drivers/Src/usart.c ****     static const Event motor_sended_event = {.signal = COMMAND_SENDED_SIG};
-  16:Core/Src/Drivers/Src/usart.c ****     AO_Motor->postFromISR(AO_Motor, &motor_sended_event, &xHigherPriorityTaskWoken);
-  17:Core/Src/Drivers/Src/usart.c ****   } else if(huart->Instance == USART3) {
-  53              		.loc 1 17 10 is_stmt 1 view .LVU7
-  54              		.loc 1 17 12 is_stmt 0 view .LVU8
-  55 0010 114A     		ldr	r2, .L8+4
-  56 0012 9342     		cmp	r3, r2
-  57 0014 16D0     		beq	.L7
-  58              	.LVL1:
-  59              	.L3:
-  18:Core/Src/Drivers/Src/usart.c ****     static const Event sensor_event = {.signal = SENSOR_SENDED_SIG};
-  19:Core/Src/Drivers/Src/usart.c ****     AO_Computer->postFromISR(AO_Computer, &sensor_event, &xHigherPriorityTaskWoken);
-  20:Core/Src/Drivers/Src/usart.c ****   }
-  21:Core/Src/Drivers/Src/usart.c ****   portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
-  60              		.loc 1 21 3 is_stmt 1 view .LVU9
-  61              		.loc 1 21 3 view .LVU10
-  62 0016 019B     		ldr	r3, [sp, #4]
-  63 0018 4BB1     		cbz	r3, .L1
-  64              		.loc 1 21 3 discriminator 1 view .LVU11
-  65 001a 4FF0E023 		mov	r3, #-536813568
-  66 001e 4FF08052 		mov	r2, #268435456
-  67 0022 C3F8042D 		str	r2, [r3, #3332]
-  68              		.loc 1 21 3 view .LVU12
-  69              		.loc 1 21 3 is_stmt 0 discriminator 1 view .LVU13
-  70              		.syntax unified
-  71              	@ 21 "Core/Src/Drivers/Src/usart.c" 1
-  72 0026 BFF34F8F 		dsb
-  73              	@ 0 "" 2
-  74              		.loc 1 21 3 is_stmt 1 view .LVU14
-  75              		.loc 1 21 3 is_stmt 0 discriminator 1 view .LVU15
-  76              	@ 21 "Core/Src/Drivers/Src/usart.c" 1
-  77 002a BFF36F8F 		isb
-  78              	@ 0 "" 2
-  79              		.loc 1 21 3 is_stmt 1 discriminator 3 view .LVU16
-  80              		.loc 1 21 3 discriminator 3 view .LVU17
-  81              		.thumb
-  82              		.syntax unified
-  83              	.L1:
-  22:Core/Src/Drivers/Src/usart.c **** }
-  84              		.loc 1 22 1 is_stmt 0 view .LVU18
-  85 002e 03B0     		add	sp, sp, #12
-  86              	.LCFI2:
-  87              		.cfi_remember_state
-  88              		.cfi_def_cfa_offset 4
-  89              		@ sp needed
-  90 0030 5DF804FB 		ldr	pc, [sp], #4
-  91              	.LVL2:
-  92              	.L6:
-  93              	.LCFI3:
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\cckQqBXy.s 			page 3
-
-
-  94              		.cfi_restore_state
-  95              	.LBB2:
-  15:Core/Src/Drivers/Src/usart.c ****     static const Event motor_sended_event = {.signal = COMMAND_SENDED_SIG};
-  96              		.loc 1 15 5 is_stmt 1 view .LVU19
-  16:Core/Src/Drivers/Src/usart.c ****   } else if(huart->Instance == USART3) {
-  97              		.loc 1 16 5 view .LVU20
-  16:Core/Src/Drivers/Src/usart.c ****   } else if(huart->Instance == USART3) {
-  98              		.loc 1 16 13 is_stmt 0 view .LVU21
-  99 0034 094B     		ldr	r3, .L8+8
- 100 0036 1868     		ldr	r0, [r3]
- 101              	.LVL3:
-  16:Core/Src/Drivers/Src/usart.c ****   } else if(huart->Instance == USART3) {
- 102              		.loc 1 16 13 view .LVU22
- 103 0038 D0F8C830 		ldr	r3, [r0, #200]
-  16:Core/Src/Drivers/Src/usart.c ****   } else if(huart->Instance == USART3) {
- 104              		.loc 1 16 5 view .LVU23
- 105 003c 01AA     		add	r2, sp, #4
- 106 003e 0849     		ldr	r1, .L8+12
- 107 0040 9847     		blx	r3
- 108              	.LVL4:
- 109              	.LBE2:
- 110 0042 E8E7     		b	.L3
- 111              	.LVL5:
- 112              	.L7:
- 113              	.LBB3:
-  18:Core/Src/Drivers/Src/usart.c ****     static const Event sensor_event = {.signal = SENSOR_SENDED_SIG};
- 114              		.loc 1 18 5 is_stmt 1 view .LVU24
+  13:Core/Src/Drivers/Src/usart.c ****   float32_t floatNumber = 0.0f, fraction = 0.1f, sign = 1.0f;
+  47              		.loc 1 13 3 is_stmt 1 view .LVU2
+  48              	.LVL1:
+  14:Core/Src/Drivers/Src/usart.c ****   int checkFraction = 0;
+  49              		.loc 1 14 3 view .LVU3
+  15:Core/Src/Drivers/Src/usart.c **** 
+  16:Core/Src/Drivers/Src/usart.c ****   if (*str == '-') { // Kiểm tra dấu âm
+  50              		.loc 1 16 3 view .LVU4
+  51              		.loc 1 16 7 is_stmt 0 view .LVU5
+  52 0008 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+  53              		.loc 1 16 6 view .LVU6
+  54 000a 2D2B     		cmp	r3, #45
+  55 000c 07D0     		beq	.L10
+  13:Core/Src/Drivers/Src/usart.c ****   int checkFraction = 0;
+  56              		.loc 1 13 50 view .LVU7
+  57 000e F7EE008A 		vmov.f32	s17, #1.0e+0
+  58              	.LVL2:
+  59              	.L2:
+  13:Core/Src/Drivers/Src/usart.c ****   int checkFraction = 0;
+  60              		.loc 1 13 50 view .LVU8
+  61 0012 0025     		movs	r5, #0
+  62 0014 9FED1E7A 		vldr.32	s14, .L12+8
+  63 0018 9FED1E8A 		vldr.32	s16, .L12+12
+  64 001c 0CE0     		b	.L5
+  65              	.LVL3:
+  66              	.L10:
+  17:Core/Src/Drivers/Src/usart.c ****     sign *= -1.0f;
+  67              		.loc 1 17 5 is_stmt 1 view .LVU9
+  18:Core/Src/Drivers/Src/usart.c ****     str++;
+  68              		.loc 1 18 5 view .LVU10
+  69              		.loc 1 18 8 is_stmt 0 view .LVU11
+  70 001e 0134     		adds	r4, r4, #1
+  71              	.LVL4:
+  17:Core/Src/Drivers/Src/usart.c ****     sign *= -1.0f;
+  72              		.loc 1 17 10 view .LVU12
+  73 0020 FFEE008A 		vmov.f32	s17, #-1.0e+0
+  74 0024 F5E7     		b	.L2
+  75              	.LVL5:
+  76              	.L4:
+  77              	.LBB2:
   19:Core/Src/Drivers/Src/usart.c ****   }
- 115              		.loc 1 19 5 view .LVU25
-  19:Core/Src/Drivers/Src/usart.c ****   }
- 116              		.loc 1 19 16 is_stmt 0 view .LVU26
- 117 0044 074B     		ldr	r3, .L8+16
- 118 0046 1868     		ldr	r0, [r3]
- 119              	.LVL6:
-  19:Core/Src/Drivers/Src/usart.c ****   }
- 120              		.loc 1 19 16 view .LVU27
- 121 0048 D0F8C830 		ldr	r3, [r0, #200]
-  19:Core/Src/Drivers/Src/usart.c ****   }
- 122              		.loc 1 19 5 view .LVU28
- 123 004c 01AA     		add	r2, sp, #4
- 124 004e 0649     		ldr	r1, .L8+20
- 125 0050 9847     		blx	r3
- 126              	.LVL7:
- 127 0052 E0E7     		b	.L3
- 128              	.L9:
- 129              		.align	2
- 130              	.L8:
- 131 0054 00440040 		.word	1073759232
- 132 0058 00480040 		.word	1073760256
- 133 005c 00000000 		.word	AO_Motor
- 134 0060 00000000 		.word	motor_sended_event.1
- 135 0064 00000000 		.word	AO_Computer
- 136 0068 00000000 		.word	sensor_event.0
- 137              	.LBE3:
- 138              		.cfi_endproc
- 139              	.LFE288:
- 141              		.section	.text.SendBuffer,"ax",%progbits
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\cckQqBXy.s 			page 4
+  20:Core/Src/Drivers/Src/usart.c **** 
+  21:Core/Src/Drivers/Src/usart.c ****   while (*str) {
+  22:Core/Src/Drivers/Src/usart.c ****     if (*str == '.') {  // Nếu gặp dấu '.'
+  23:Core/Src/Drivers/Src/usart.c ****       checkFraction = 1;
+  24:Core/Src/Drivers/Src/usart.c ****     }
+  25:Core/Src/Drivers/Src/usart.c ****     else if (*str >= '0' && *str <= '9') {  // Chỉ xử lý số
+  26:Core/Src/Drivers/Src/usart.c ****       float32_t eachNumber = (float32_t)(*str - '0');
+  27:Core/Src/Drivers/Src/usart.c ****       if (checkFraction) { // Xử lý phần thập phân
+  28:Core/Src/Drivers/Src/usart.c ****         floatNumber += eachNumber * fraction;
+  29:Core/Src/Drivers/Src/usart.c ****         fraction *= 0.1;
+  30:Core/Src/Drivers/Src/usart.c ****       } else {
+  31:Core/Src/Drivers/Src/usart.c ****         floatNumber = floatNumber * 10.0f + eachNumber;  // Xử lý phần nguyên
+  78              		.loc 1 31 9 is_stmt 1 view .LVU13
+  79              		.loc 1 31 35 is_stmt 0 view .LVU14
+  80 0026 F2EE046A 		vmov.f32	s13, #1.0e+1
+  81 002a 28EE268A 		vmul.f32	s16, s16, s13
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s 			page 3
 
 
- 142              		.align	1
- 143              		.global	SendBuffer
- 144              		.syntax unified
- 145              		.thumb
- 146              		.thumb_func
- 148              	SendBuffer:
- 149              	.LVL8:
- 150              	.LFB289:
-  23:Core/Src/Drivers/Src/usart.c **** 
-  24:Core/Src/Drivers/Src/usart.c **** void SendBuffer(UART_HandleTypeDef *huart, char* buffer) {
- 151              		.loc 1 24 58 is_stmt 1 view -0
- 152              		.cfi_startproc
- 153              		@ args = 0, pretend = 0, frame = 0
- 154              		@ frame_needed = 0, uses_anonymous_args = 0
- 155              		.loc 1 24 58 is_stmt 0 view .LVU30
- 156 0000 38B5     		push	{r3, r4, r5, lr}
- 157              	.LCFI4:
- 158              		.cfi_def_cfa_offset 16
- 159              		.cfi_offset 3, -16
- 160              		.cfi_offset 4, -12
- 161              		.cfi_offset 5, -8
- 162              		.cfi_offset 14, -4
- 163 0002 0546     		mov	r5, r0
- 164 0004 0C46     		mov	r4, r1
-  25:Core/Src/Drivers/Src/usart.c ****     uint64_t length = strlen(buffer);
- 165              		.loc 1 25 5 is_stmt 1 view .LVU31
- 166              		.loc 1 25 23 is_stmt 0 view .LVU32
- 167 0006 0846     		mov	r0, r1
- 168              	.LVL9:
- 169              		.loc 1 25 23 view .LVU33
- 170 0008 FFF7FEFF 		bl	strlen
- 171              	.LVL10:
-  26:Core/Src/Drivers/Src/usart.c ****     HAL_UART_Transmit_IT(huart, (uint8_t*) buffer, length);
- 172              		.loc 1 26 5 is_stmt 1 view .LVU34
- 173 000c 82B2     		uxth	r2, r0
- 174 000e 2146     		mov	r1, r4
- 175 0010 2846     		mov	r0, r5
- 176              	.LVL11:
- 177              		.loc 1 26 5 is_stmt 0 view .LVU35
- 178 0012 FFF7FEFF 		bl	HAL_UART_Transmit_IT
- 179              	.LVL12:
-  27:Core/Src/Drivers/Src/usart.c **** }
- 180              		.loc 1 27 1 view .LVU36
- 181 0016 38BD     		pop	{r3, r4, r5, pc}
- 182              		.loc 1 27 1 view .LVU37
- 183              		.cfi_endproc
- 184              	.LFE289:
- 186              		.section	.rodata.sensor_event.0,"a"
- 187              		.align	2
- 190              	sensor_event.0:
- 191 0000 0400     		.short	4
- 192              		.section	.rodata.motor_sended_event.1,"a"
- 193              		.align	2
- 196              	motor_sended_event.1:
- 197 0000 0400     		.short	4
- 198              		.text
- 199              	.Letext0:
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\cckQqBXy.s 			page 5
+  82              	.LVL6:
+  83              		.loc 1 31 21 view .LVU15
+  84 002e 38EE278A 		vadd.f32	s16, s16, s15
+  85              	.LVL7:
+  86              		.loc 1 31 21 view .LVU16
+  87 0032 00E0     		b	.L3
+  88              	.LVL8:
+  89              	.L8:
+  90              		.loc 1 31 21 view .LVU17
+  91              	.LBE2:
+  23:Core/Src/Drivers/Src/usart.c ****     }
+  92              		.loc 1 23 21 view .LVU18
+  93 0034 0125     		movs	r5, #1
+  94              	.LVL9:
+  95              	.L3:
+  32:Core/Src/Drivers/Src/usart.c ****       }
+  33:Core/Src/Drivers/Src/usart.c ****     }
+  34:Core/Src/Drivers/Src/usart.c ****     str++;
+  96              		.loc 1 34 5 is_stmt 1 view .LVU19
+  97              		.loc 1 34 8 is_stmt 0 view .LVU20
+  98 0036 0134     		adds	r4, r4, #1
+  99              	.LVL10:
+ 100              	.L5:
+  21:Core/Src/Drivers/Src/usart.c ****     if (*str == '.') {  // Nếu gặp dấu '.'
+ 101              		.loc 1 21 10 is_stmt 1 view .LVU21
+ 102 0038 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 103 003a FBB1     		cbz	r3, .L11
+  22:Core/Src/Drivers/Src/usart.c ****       checkFraction = 1;
+ 104              		.loc 1 22 5 view .LVU22
+  22:Core/Src/Drivers/Src/usart.c ****       checkFraction = 1;
+ 105              		.loc 1 22 8 is_stmt 0 view .LVU23
+ 106 003c 2E2B     		cmp	r3, #46
+ 107 003e F9D0     		beq	.L8
+  25:Core/Src/Drivers/Src/usart.c ****       float32_t eachNumber = (float32_t)(*str - '0');
+ 108              		.loc 1 25 10 is_stmt 1 view .LVU24
+  25:Core/Src/Drivers/Src/usart.c ****       float32_t eachNumber = (float32_t)(*str - '0');
+ 109              		.loc 1 25 26 is_stmt 0 view .LVU25
+ 110 0040 A3F13002 		sub	r2, r3, #48
+ 111 0044 D2B2     		uxtb	r2, r2
+  25:Core/Src/Drivers/Src/usart.c ****       float32_t eachNumber = (float32_t)(*str - '0');
+ 112              		.loc 1 25 13 view .LVU26
+ 113 0046 092A     		cmp	r2, #9
+ 114 0048 F5D8     		bhi	.L3
+ 115              	.LBB3:
+  26:Core/Src/Drivers/Src/usart.c ****       if (checkFraction) { // Xử lý phần thập phân
+ 116              		.loc 1 26 7 is_stmt 1 view .LVU27
+  26:Core/Src/Drivers/Src/usart.c ****       if (checkFraction) { // Xử lý phần thập phân
+ 117              		.loc 1 26 47 is_stmt 0 view .LVU28
+ 118 004a 303B     		subs	r3, r3, #48
+  26:Core/Src/Drivers/Src/usart.c ****       if (checkFraction) { // Xử lý phần thập phân
+ 119              		.loc 1 26 17 view .LVU29
+ 120 004c 07EE903A 		vmov	s15, r3	@ int
+ 121 0050 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 122              	.LVL11:
+  27:Core/Src/Drivers/Src/usart.c ****         floatNumber += eachNumber * fraction;
+ 123              		.loc 1 27 7 is_stmt 1 view .LVU30
+  27:Core/Src/Drivers/Src/usart.c ****         floatNumber += eachNumber * fraction;
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s 			page 4
 
 
- 200              		.file 2 "D:/DATN/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/machine/_default_type
- 201              		.file 3 "D:/DATN/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/sys/_stdint.h"
- 202              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
- 203              		.file 5 "D:/DATN/InvertedPendulum/Tool/ArmGnuToolchain/lib/gcc/arm-none-eabi/14.2.1/include/stddef
- 204              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
- 205              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 206              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
- 207              		.file 9 "Middlewares/Third_Party/ARM/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h"
- 208              		.file 10 "Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h"
- 209              		.file 11 "Middlewares/Third_Party/ARM/FreeRTOS/include/task.h"
- 210              		.file 12 "Middlewares/Third_Party/ARM/FreeRTOS/include/queue.h"
- 211              		.file 13 "Core/Src/Application/Inc/ActiveObject.h"
- 212              		.file 14 "Core/Src/Application/Inc/Motor.h"
- 213              		.file 15 "D:/DATN/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eabi/include/string.h"
- 214              		.file 16 "Core/Src/Application/Inc/Computer.h"
-ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\cckQqBXy.s 			page 6
+ 124              		.loc 1 27 10 is_stmt 0 view .LVU31
+ 125 0054 002D     		cmp	r5, #0
+ 126 0056 E6D0     		beq	.L4
+  28:Core/Src/Drivers/Src/usart.c ****         fraction *= 0.1;
+ 127              		.loc 1 28 9 is_stmt 1 view .LVU32
+  28:Core/Src/Drivers/Src/usart.c ****         fraction *= 0.1;
+ 128              		.loc 1 28 35 is_stmt 0 view .LVU33
+ 129 0058 67EE277A 		vmul.f32	s15, s14, s15
+ 130              	.LVL12:
+  28:Core/Src/Drivers/Src/usart.c ****         fraction *= 0.1;
+ 131              		.loc 1 28 21 view .LVU34
+ 132 005c 38EE278A 		vadd.f32	s16, s16, s15
+ 133              	.LVL13:
+  29:Core/Src/Drivers/Src/usart.c ****       } else {
+ 134              		.loc 1 29 9 is_stmt 1 view .LVU35
+  29:Core/Src/Drivers/Src/usart.c ****       } else {
+ 135              		.loc 1 29 18 is_stmt 0 view .LVU36
+ 136 0060 17EE100A 		vmov	r0, s14
+ 137 0064 FFF7FEFF 		bl	__aeabi_f2d
+ 138              	.LVL14:
+  29:Core/Src/Drivers/Src/usart.c ****       } else {
+ 139              		.loc 1 29 18 view .LVU37
+ 140 0068 07A3     		adr	r3, .L12
+ 141 006a D3E90023 		ldrd	r2, [r3]
+ 142 006e FFF7FEFF 		bl	__aeabi_dmul
+ 143              	.LVL15:
+ 144 0072 FFF7FEFF 		bl	__aeabi_d2f
+ 145              	.LVL16:
+ 146 0076 07EE100A 		vmov	s14, r0
+ 147              	.LVL17:
+  29:Core/Src/Drivers/Src/usart.c ****       } else {
+ 148              		.loc 1 29 18 view .LVU38
+ 149 007a DCE7     		b	.L3
+ 150              	.LVL18:
+ 151              	.L11:
+  29:Core/Src/Drivers/Src/usart.c ****       } else {
+ 152              		.loc 1 29 18 view .LVU39
+ 153              	.LBE3:
+  35:Core/Src/Drivers/Src/usart.c ****   }
+  36:Core/Src/Drivers/Src/usart.c **** 
+  37:Core/Src/Drivers/Src/usart.c ****   return sign*floatNumber;
+ 154              		.loc 1 37 3 is_stmt 1 view .LVU40
+  38:Core/Src/Drivers/Src/usart.c **** }
+ 155              		.loc 1 38 1 is_stmt 0 view .LVU41
+ 156 007c 28EE280A 		vmul.f32	s0, s16, s17
+ 157 0080 BDEC028B 		vldm	sp!, {d8}
+ 158              	.LCFI2:
+ 159              		.cfi_restore 80
+ 160              		.cfi_restore 81
+ 161              		.cfi_def_cfa_offset 16
+ 162              	.LVL19:
+ 163              		.loc 1 38 1 view .LVU42
+ 164 0084 38BD     		pop	{r3, r4, r5, pc}
+ 165              	.LVL20:
+ 166              	.L13:
+ 167              		.loc 1 38 1 view .LVU43
+ 168 0086 00BF     		.align	3
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s 			page 5
+
+
+ 169              	.L12:
+ 170 0088 9A999999 		.word	-1717986918
+ 171 008c 9999B93F 		.word	1069128089
+ 172 0090 CDCCCC3D 		.word	1036831949
+ 173 0094 00000000 		.word	0
+ 174              		.cfi_endproc
+ 175              	.LFE288:
+ 177              		.section	.text.HAL_UART_RxCpltCallback,"ax",%progbits
+ 178              		.align	1
+ 179              		.global	HAL_UART_RxCpltCallback
+ 180              		.syntax unified
+ 181              		.thumb
+ 182              		.thumb_func
+ 184              	HAL_UART_RxCpltCallback:
+ 185              	.LVL21:
+ 186              	.LFB289:
+  39:Core/Src/Drivers/Src/usart.c **** 
+  40:Core/Src/Drivers/Src/usart.c **** /**
+  41:Core/Src/Drivers/Src/usart.c ****   * @brief  Rx Transfer completed callbacks.
+  42:Core/Src/Drivers/Src/usart.c ****   * @param  huart  Pointer to a UART_HandleTypeDef structure that contains
+  43:Core/Src/Drivers/Src/usart.c ****   *                the configuration information for the specified UART module.
+  44:Core/Src/Drivers/Src/usart.c ****   * @retval None
+  45:Core/Src/Drivers/Src/usart.c ****   */
+  46:Core/Src/Drivers/Src/usart.c **** void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+ 187              		.loc 1 46 57 is_stmt 1 view -0
+ 188              		.cfi_startproc
+ 189              		@ args = 0, pretend = 0, frame = 8
+ 190              		@ frame_needed = 0, uses_anonymous_args = 0
+ 191              		.loc 1 46 57 is_stmt 0 view .LVU45
+ 192 0000 70B5     		push	{r4, r5, r6, lr}
+ 193              	.LCFI3:
+ 194              		.cfi_def_cfa_offset 16
+ 195              		.cfi_offset 4, -16
+ 196              		.cfi_offset 5, -12
+ 197              		.cfi_offset 6, -8
+ 198              		.cfi_offset 14, -4
+ 199 0002 82B0     		sub	sp, sp, #8
+ 200              	.LCFI4:
+ 201              		.cfi_def_cfa_offset 24
+  47:Core/Src/Drivers/Src/usart.c ****   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+ 202              		.loc 1 47 3 is_stmt 1 view .LVU46
+ 203              		.loc 1 47 14 is_stmt 0 view .LVU47
+ 204 0004 0023     		movs	r3, #0
+ 205 0006 0193     		str	r3, [sp, #4]
+  48:Core/Src/Drivers/Src/usart.c ****   if(huart->Instance == USART3) {
+ 206              		.loc 1 48 3 is_stmt 1 view .LVU48
+ 207              		.loc 1 48 11 is_stmt 0 view .LVU49
+ 208 0008 0268     		ldr	r2, [r0]
+ 209              		.loc 1 48 5 view .LVU50
+ 210 000a 304B     		ldr	r3, .L25
+ 211 000c 9A42     		cmp	r2, r3
+ 212 000e 0DD0     		beq	.L22
+ 213              	.LVL22:
+ 214              	.L15:
+  49:Core/Src/Drivers/Src/usart.c ****     
+  50:Core/Src/Drivers/Src/usart.c **** 
+  51:Core/Src/Drivers/Src/usart.c ****     // static RecivedMessage recivedMsg = {.maxLength = 10, .index = 0, .dataComming = 0}; 
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s 			page 6
+
+
+  52:Core/Src/Drivers/Src/usart.c ****   
+  53:Core/Src/Drivers/Src/usart.c ****     if(recivedMsg.dataComming == 1) { /* Have recived 'V' */
+  54:Core/Src/Drivers/Src/usart.c ****       HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
+  55:Core/Src/Drivers/Src/usart.c **** 
+  56:Core/Src/Drivers/Src/usart.c ****       if(rxByte != 'V' && rxByte != 10) { /* Not 'V' and '\n' */
+  57:Core/Src/Drivers/Src/usart.c ****         recivedMsg.message[recivedMsg.index] = rxByte;
+  58:Core/Src/Drivers/Src/usart.c ****         recivedMsg.index++;
+  59:Core/Src/Drivers/Src/usart.c **** 
+  60:Core/Src/Drivers/Src/usart.c ****         if(recivedMsg.index > recivedMsg.maxLength) {
+  61:Core/Src/Drivers/Src/usart.c ****           recivedMsg.index = 0;
+  62:Core/Src/Drivers/Src/usart.c ****           recivedMsg.dataComming = 0;
+  63:Core/Src/Drivers/Src/usart.c ****         }
+  64:Core/Src/Drivers/Src/usart.c ****       }
+  65:Core/Src/Drivers/Src/usart.c **** 
+  66:Core/Src/Drivers/Src/usart.c ****       else if(rxByte == 10)  { /* End of Line '\n' */
+  67:Core/Src/Drivers/Src/usart.c ****         // static SignalControl signalTopic = {.voltage = 0};
+  68:Core/Src/Drivers/Src/usart.c ****         static State stateTopic = {{0.0f}};
+  69:Core/Src/Drivers/Src/usart.c ****         // static const Event pwc_evt = {VOLTAGE_TRIGGER_SIG};
+  70:Core/Src/Drivers/Src/usart.c ****         recivedMsg.message[recivedMsg.index] = '\0';
+  71:Core/Src/Drivers/Src/usart.c **** 
+  72:Core/Src/Drivers/Src/usart.c ****         // signalTopic.voltage = ExtractMessage(recivedMsg.message);
+  73:Core/Src/Drivers/Src/usart.c ****         stateTopic.Motor.posShaft = ExtractMessage(recivedMsg.message);
+  74:Core/Src/Drivers/Src/usart.c ****         stateTopic.Motor.velShaft = 0;
+  75:Core/Src/Drivers/Src/usart.c ****         xQueueOverwriteFromISR(motor->setPointSubsribers, &stateTopic, &xHigherPriorityTaskWoken);
+  76:Core/Src/Drivers/Src/usart.c ****         // xQueueOverwriteFromISR(motor->signalSubsribers, &signalTopic, &xHigherPriorityTaskWoken)
+  77:Core/Src/Drivers/Src/usart.c ****         // AO_Motor->postFromISR(AO_Motor, &pwc_evt, &xHigherPriorityTaskWoken);
+  78:Core/Src/Drivers/Src/usart.c **** 
+  79:Core/Src/Drivers/Src/usart.c ****         memset(recivedMsg.message, 0, recivedMsg.index);
+  80:Core/Src/Drivers/Src/usart.c ****         recivedMsg.index = 0;
+  81:Core/Src/Drivers/Src/usart.c ****         recivedMsg.dataComming = 0;
+  82:Core/Src/Drivers/Src/usart.c ****       }
+  83:Core/Src/Drivers/Src/usart.c ****     }
+  84:Core/Src/Drivers/Src/usart.c ****     else {
+  85:Core/Src/Drivers/Src/usart.c ****       if(rxByte == 'V') { /* Witnessed double 'V' */
+  86:Core/Src/Drivers/Src/usart.c ****         if(recivedMsg.index != 0) recivedMsg.index = 0;
+  87:Core/Src/Drivers/Src/usart.c ****         recivedMsg.dataComming = 1;
+  88:Core/Src/Drivers/Src/usart.c ****       }          
+  89:Core/Src/Drivers/Src/usart.c ****     }
+  90:Core/Src/Drivers/Src/usart.c **** 
+  91:Core/Src/Drivers/Src/usart.c ****     /*Enable Rx Interrupt, waiting for new byte data*/
+  92:Core/Src/Drivers/Src/usart.c ****     HAL_UART_Receive_IT(huart, &rxByte, 1);
+  93:Core/Src/Drivers/Src/usart.c ****   }
+  94:Core/Src/Drivers/Src/usart.c **** 
+  95:Core/Src/Drivers/Src/usart.c ****   portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
+ 215              		.loc 1 95 3 is_stmt 1 view .LVU51
+ 216              		.loc 1 95 3 view .LVU52
+ 217 0010 019B     		ldr	r3, [sp, #4]
+ 218 0012 4BB1     		cbz	r3, .L14
+ 219              		.loc 1 95 3 discriminator 1 view .LVU53
+ 220 0014 4FF0E023 		mov	r3, #-536813568
+ 221 0018 4FF08052 		mov	r2, #268435456
+ 222 001c C3F8042D 		str	r2, [r3, #3332]
+ 223              		.loc 1 95 3 view .LVU54
+ 224              		.loc 1 95 3 is_stmt 0 discriminator 1 view .LVU55
+ 225              		.syntax unified
+ 226              	@ 95 "Core/Src/Drivers/Src/usart.c" 1
+ 227 0020 BFF34F8F 		dsb
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s 			page 7
+
+
+ 228              	@ 0 "" 2
+ 229              		.loc 1 95 3 is_stmt 1 view .LVU56
+ 230              		.loc 1 95 3 is_stmt 0 discriminator 1 view .LVU57
+ 231              	@ 95 "Core/Src/Drivers/Src/usart.c" 1
+ 232 0024 BFF36F8F 		isb
+ 233              	@ 0 "" 2
+ 234              		.loc 1 95 3 is_stmt 1 discriminator 3 view .LVU58
+ 235              		.loc 1 95 3 discriminator 3 view .LVU59
+ 236              		.thumb
+ 237              		.syntax unified
+ 238              	.L14:
+  96:Core/Src/Drivers/Src/usart.c **** }
+ 239              		.loc 1 96 1 is_stmt 0 view .LVU60
+ 240 0028 02B0     		add	sp, sp, #8
+ 241              	.LCFI5:
+ 242              		.cfi_remember_state
+ 243              		.cfi_def_cfa_offset 16
+ 244              		@ sp needed
+ 245 002a 70BD     		pop	{r4, r5, r6, pc}
+ 246              	.LVL23:
+ 247              	.L22:
+ 248              	.LCFI6:
+ 249              		.cfi_restore_state
+ 250              		.loc 1 96 1 view .LVU61
+ 251 002c 0446     		mov	r4, r0
+  53:Core/Src/Drivers/Src/usart.c ****       HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
+ 252              		.loc 1 53 5 is_stmt 1 view .LVU62
+  53:Core/Src/Drivers/Src/usart.c ****       HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
+ 253              		.loc 1 53 18 is_stmt 0 view .LVU63
+ 254 002e 284B     		ldr	r3, .L25+4
+ 255 0030 1B7B     		ldrb	r3, [r3, #12]	@ zero_extendqisi2
+  53:Core/Src/Drivers/Src/usart.c ****       HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
+ 256              		.loc 1 53 7 view .LVU64
+ 257 0032 012B     		cmp	r3, #1
+ 258 0034 09D0     		beq	.L23
+  85:Core/Src/Drivers/Src/usart.c ****         if(recivedMsg.index != 0) recivedMsg.index = 0;
+ 259              		.loc 1 85 7 is_stmt 1 view .LVU65
+  85:Core/Src/Drivers/Src/usart.c ****         if(recivedMsg.index != 0) recivedMsg.index = 0;
+ 260              		.loc 1 85 17 is_stmt 0 view .LVU66
+ 261 0036 274B     		ldr	r3, .L25+8
+ 262 0038 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  85:Core/Src/Drivers/Src/usart.c ****         if(recivedMsg.index != 0) recivedMsg.index = 0;
+ 263              		.loc 1 85 9 view .LVU67
+ 264 003a 562B     		cmp	r3, #86
+ 265 003c 3CD0     		beq	.L24
+ 266              	.LVL24:
+ 267              	.L18:
+  92:Core/Src/Drivers/Src/usart.c ****   }
+ 268              		.loc 1 92 5 is_stmt 1 view .LVU68
+ 269 003e 0122     		movs	r2, #1
+ 270 0040 2449     		ldr	r1, .L25+8
+ 271 0042 2046     		mov	r0, r4
+ 272 0044 FFF7FEFF 		bl	HAL_UART_Receive_IT
+ 273              	.LVL25:
+ 274 0048 E2E7     		b	.L15
+ 275              	.LVL26:
+ 276              	.L23:
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s 			page 8
+
+
+  54:Core/Src/Drivers/Src/usart.c **** 
+ 277              		.loc 1 54 7 view .LVU69
+ 278 004a 4FF48051 		mov	r1, #4096
+ 279 004e 2248     		ldr	r0, .L25+12
+ 280              	.LVL27:
+  54:Core/Src/Drivers/Src/usart.c **** 
+ 281              		.loc 1 54 7 is_stmt 0 view .LVU70
+ 282 0050 FFF7FEFF 		bl	HAL_GPIO_TogglePin
+ 283              	.LVL28:
+  56:Core/Src/Drivers/Src/usart.c ****         recivedMsg.message[recivedMsg.index] = rxByte;
+ 284              		.loc 1 56 7 is_stmt 1 view .LVU71
+  56:Core/Src/Drivers/Src/usart.c ****         recivedMsg.message[recivedMsg.index] = rxByte;
+ 285              		.loc 1 56 17 is_stmt 0 view .LVU72
+ 286 0054 1F4B     		ldr	r3, .L25+8
+ 287 0056 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  56:Core/Src/Drivers/Src/usart.c ****         recivedMsg.message[recivedMsg.index] = rxByte;
+ 288              		.loc 1 56 9 view .LVU73
+ 289 0058 562B     		cmp	r3, #86
+ 290 005a 0FD0     		beq	.L17
+  56:Core/Src/Drivers/Src/usart.c ****         recivedMsg.message[recivedMsg.index] = rxByte;
+ 291              		.loc 1 56 24 discriminator 1 view .LVU74
+ 292 005c 0A2B     		cmp	r3, #10
+ 293 005e 0DD0     		beq	.L17
+  57:Core/Src/Drivers/Src/usart.c ****         recivedMsg.index++;
+ 294              		.loc 1 57 9 is_stmt 1 view .LVU75
+  57:Core/Src/Drivers/Src/usart.c ****         recivedMsg.index++;
+ 295              		.loc 1 57 38 is_stmt 0 view .LVU76
+ 296 0060 1B49     		ldr	r1, .L25+4
+ 297 0062 CA7A     		ldrb	r2, [r1, #11]	@ zero_extendqisi2
+  57:Core/Src/Drivers/Src/usart.c ****         recivedMsg.index++;
+ 298              		.loc 1 57 46 view .LVU77
+ 299 0064 8B54     		strb	r3, [r1, r2]
+  58:Core/Src/Drivers/Src/usart.c **** 
+ 300              		.loc 1 58 9 is_stmt 1 view .LVU78
+  58:Core/Src/Drivers/Src/usart.c **** 
+ 301              		.loc 1 58 25 is_stmt 0 view .LVU79
+ 302 0066 531C     		adds	r3, r2, #1
+ 303 0068 DBB2     		uxtb	r3, r3
+ 304 006a CB72     		strb	r3, [r1, #11]
+  60:Core/Src/Drivers/Src/usart.c ****           recivedMsg.index = 0;
+ 305              		.loc 1 60 9 is_stmt 1 view .LVU80
+  60:Core/Src/Drivers/Src/usart.c ****           recivedMsg.index = 0;
+ 306              		.loc 1 60 41 is_stmt 0 view .LVU81
+ 307 006c 91F90A20 		ldrsb	r2, [r1, #10]
+  60:Core/Src/Drivers/Src/usart.c ****           recivedMsg.index = 0;
+ 308              		.loc 1 60 11 view .LVU82
+ 309 0070 9342     		cmp	r3, r2
+ 310 0072 E4DD     		ble	.L18
+  61:Core/Src/Drivers/Src/usart.c ****           recivedMsg.dataComming = 0;
+ 311              		.loc 1 61 11 is_stmt 1 view .LVU83
+  61:Core/Src/Drivers/Src/usart.c ****           recivedMsg.dataComming = 0;
+ 312              		.loc 1 61 28 is_stmt 0 view .LVU84
+ 313 0074 0022     		movs	r2, #0
+ 314 0076 CA72     		strb	r2, [r1, #11]
+  62:Core/Src/Drivers/Src/usart.c ****         }
+ 315              		.loc 1 62 11 is_stmt 1 view .LVU85
+  62:Core/Src/Drivers/Src/usart.c ****         }
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s 			page 9
+
+
+ 316              		.loc 1 62 34 is_stmt 0 view .LVU86
+ 317 0078 0A73     		strb	r2, [r1, #12]
+ 318 007a E0E7     		b	.L18
+ 319              	.L17:
+  66:Core/Src/Drivers/Src/usart.c ****         // static SignalControl signalTopic = {.voltage = 0};
+ 320              		.loc 1 66 12 is_stmt 1 view .LVU87
+  66:Core/Src/Drivers/Src/usart.c ****         // static SignalControl signalTopic = {.voltage = 0};
+ 321              		.loc 1 66 14 is_stmt 0 view .LVU88
+ 322 007c 0A2B     		cmp	r3, #10
+ 323 007e DED1     		bne	.L18
+ 324              	.LBB4:
+  68:Core/Src/Drivers/Src/usart.c ****         // static const Event pwc_evt = {VOLTAGE_TRIGGER_SIG};
+ 325              		.loc 1 68 9 is_stmt 1 view .LVU89
+  70:Core/Src/Drivers/Src/usart.c **** 
+ 326              		.loc 1 70 9 view .LVU90
+  70:Core/Src/Drivers/Src/usart.c **** 
+ 327              		.loc 1 70 38 is_stmt 0 view .LVU91
+ 328 0080 134D     		ldr	r5, .L25+4
+ 329 0082 EB7A     		ldrb	r3, [r5, #11]	@ zero_extendqisi2
+  70:Core/Src/Drivers/Src/usart.c **** 
+ 330              		.loc 1 70 46 view .LVU92
+ 331 0084 0026     		movs	r6, #0
+ 332 0086 EE54     		strb	r6, [r5, r3]
+  73:Core/Src/Drivers/Src/usart.c ****         stateTopic.Motor.velShaft = 0;
+ 333              		.loc 1 73 9 is_stmt 1 view .LVU93
+  73:Core/Src/Drivers/Src/usart.c ****         stateTopic.Motor.velShaft = 0;
+ 334              		.loc 1 73 37 is_stmt 0 view .LVU94
+ 335 0088 2846     		mov	r0, r5
+ 336 008a FFF7FEFF 		bl	ExtractMessage
+ 337              	.LVL29:
+  73:Core/Src/Drivers/Src/usart.c ****         stateTopic.Motor.velShaft = 0;
+ 338              		.loc 1 73 35 discriminator 1 view .LVU95
+ 339 008e 1349     		ldr	r1, .L25+16
+ 340 0090 81ED050A 		vstr.32	s0, [r1, #20]
+  74:Core/Src/Drivers/Src/usart.c ****         xQueueOverwriteFromISR(motor->setPointSubsribers, &stateTopic, &xHigherPriorityTaskWoken);
+ 341              		.loc 1 74 9 is_stmt 1 view .LVU96
+  74:Core/Src/Drivers/Src/usart.c ****         xQueueOverwriteFromISR(motor->setPointSubsribers, &stateTopic, &xHigherPriorityTaskWoken);
+ 342              		.loc 1 74 35 is_stmt 0 view .LVU97
+ 343 0094 0023     		movs	r3, #0
+ 344 0096 8B61     		str	r3, [r1, #24]	@ float
+  75:Core/Src/Drivers/Src/usart.c ****         // xQueueOverwriteFromISR(motor->signalSubsribers, &signalTopic, &xHigherPriorityTaskWoken)
+ 345              		.loc 1 75 9 is_stmt 1 view .LVU98
+ 346 0098 114B     		ldr	r3, .L25+20
+ 347 009a 1868     		ldr	r0, [r3]
+ 348 009c 0223     		movs	r3, #2
+ 349 009e 01AA     		add	r2, sp, #4
+ 350 00a0 D0F8D000 		ldr	r0, [r0, #208]
+ 351 00a4 FFF7FEFF 		bl	xQueueGenericSendFromISR
+ 352              	.LVL30:
+  79:Core/Src/Drivers/Src/usart.c ****         recivedMsg.index = 0;
+ 353              		.loc 1 79 9 view .LVU99
+ 354 00a8 EA7A     		ldrb	r2, [r5, #11]	@ zero_extendqisi2
+ 355 00aa 3146     		mov	r1, r6
+ 356 00ac 2846     		mov	r0, r5
+ 357 00ae FFF7FEFF 		bl	memset
+ 358              	.LVL31:
+  80:Core/Src/Drivers/Src/usart.c ****         recivedMsg.dataComming = 0;
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s 			page 10
+
+
+ 359              		.loc 1 80 9 view .LVU100
+  80:Core/Src/Drivers/Src/usart.c ****         recivedMsg.dataComming = 0;
+ 360              		.loc 1 80 26 is_stmt 0 view .LVU101
+ 361 00b2 EE72     		strb	r6, [r5, #11]
+  81:Core/Src/Drivers/Src/usart.c ****       }
+ 362              		.loc 1 81 9 is_stmt 1 view .LVU102
+  81:Core/Src/Drivers/Src/usart.c ****       }
+ 363              		.loc 1 81 32 is_stmt 0 view .LVU103
+ 364 00b4 2E73     		strb	r6, [r5, #12]
+ 365 00b6 C2E7     		b	.L18
+ 366              	.LVL32:
+ 367              	.L24:
+  81:Core/Src/Drivers/Src/usart.c ****       }
+ 368              		.loc 1 81 32 view .LVU104
+ 369              	.LBE4:
+  86:Core/Src/Drivers/Src/usart.c ****         recivedMsg.dataComming = 1;
+ 370              		.loc 1 86 9 is_stmt 1 view .LVU105
+  86:Core/Src/Drivers/Src/usart.c ****         recivedMsg.dataComming = 1;
+ 371              		.loc 1 86 22 is_stmt 0 view .LVU106
+ 372 00b8 054B     		ldr	r3, .L25+4
+ 373 00ba DB7A     		ldrb	r3, [r3, #11]	@ zero_extendqisi2
+  86:Core/Src/Drivers/Src/usart.c ****         recivedMsg.dataComming = 1;
+ 374              		.loc 1 86 11 view .LVU107
+ 375 00bc 13B1     		cbz	r3, .L19
+  86:Core/Src/Drivers/Src/usart.c ****         recivedMsg.dataComming = 1;
+ 376              		.loc 1 86 35 is_stmt 1 discriminator 1 view .LVU108
+  86:Core/Src/Drivers/Src/usart.c ****         recivedMsg.dataComming = 1;
+ 377              		.loc 1 86 52 is_stmt 0 discriminator 1 view .LVU109
+ 378 00be 044B     		ldr	r3, .L25+4
+ 379 00c0 0022     		movs	r2, #0
+ 380 00c2 DA72     		strb	r2, [r3, #11]
+ 381              	.L19:
+  87:Core/Src/Drivers/Src/usart.c ****       }          
+ 382              		.loc 1 87 9 is_stmt 1 view .LVU110
+  87:Core/Src/Drivers/Src/usart.c ****       }          
+ 383              		.loc 1 87 32 is_stmt 0 view .LVU111
+ 384 00c4 024B     		ldr	r3, .L25+4
+ 385 00c6 0122     		movs	r2, #1
+ 386 00c8 1A73     		strb	r2, [r3, #12]
+ 387 00ca B8E7     		b	.L18
+ 388              	.L26:
+ 389              		.align	2
+ 390              	.L25:
+ 391 00cc 00480040 		.word	1073760256
+ 392 00d0 00000000 		.word	recivedMsg
+ 393 00d4 00000000 		.word	rxByte
+ 394 00d8 000C0240 		.word	1073875968
+ 395 00dc 00000000 		.word	stateTopic.2
+ 396 00e0 00000000 		.word	motor
+ 397              		.cfi_endproc
+ 398              	.LFE289:
+ 400              		.section	.text.HAL_UART_TxCpltCallback,"ax",%progbits
+ 401              		.align	1
+ 402              		.global	HAL_UART_TxCpltCallback
+ 403              		.syntax unified
+ 404              		.thumb
+ 405              		.thumb_func
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s 			page 11
+
+
+ 407              	HAL_UART_TxCpltCallback:
+ 408              	.LVL33:
+ 409              	.LFB290:
+  97:Core/Src/Drivers/Src/usart.c **** 
+  98:Core/Src/Drivers/Src/usart.c **** /**
+  99:Core/Src/Drivers/Src/usart.c ****   * @brief  Tx Transfer completed callbacks.
+ 100:Core/Src/Drivers/Src/usart.c ****   * @param  huart  Pointer to a UART_HandleTypeDef structure that contains
+ 101:Core/Src/Drivers/Src/usart.c ****   *                the configuration information for the specified UART module.
+ 102:Core/Src/Drivers/Src/usart.c ****   * @retval None
+ 103:Core/Src/Drivers/Src/usart.c ****   */
+ 104:Core/Src/Drivers/Src/usart.c **** void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
+ 410              		.loc 1 104 57 is_stmt 1 view -0
+ 411              		.cfi_startproc
+ 412              		@ args = 0, pretend = 0, frame = 8
+ 413              		@ frame_needed = 0, uses_anonymous_args = 0
+ 414              		.loc 1 104 57 is_stmt 0 view .LVU113
+ 415 0000 00B5     		push	{lr}
+ 416              	.LCFI7:
+ 417              		.cfi_def_cfa_offset 4
+ 418              		.cfi_offset 14, -4
+ 419 0002 83B0     		sub	sp, sp, #12
+ 420              	.LCFI8:
+ 421              		.cfi_def_cfa_offset 16
+ 105:Core/Src/Drivers/Src/usart.c ****   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+ 422              		.loc 1 105 3 is_stmt 1 view .LVU114
+ 423              		.loc 1 105 14 is_stmt 0 view .LVU115
+ 424 0004 0023     		movs	r3, #0
+ 425 0006 0193     		str	r3, [sp, #4]
+ 106:Core/Src/Drivers/Src/usart.c ****   if(huart->Instance == USART2) {
+ 426              		.loc 1 106 3 is_stmt 1 view .LVU116
+ 427              		.loc 1 106 11 is_stmt 0 view .LVU117
+ 428 0008 0368     		ldr	r3, [r0]
+ 429              		.loc 1 106 5 view .LVU118
+ 430 000a 124A     		ldr	r2, .L34
+ 431 000c 9342     		cmp	r3, r2
+ 432 000e 11D0     		beq	.L32
+ 107:Core/Src/Drivers/Src/usart.c ****     static const Event motor_sended_event = {.signal = COMMAND_SENDED_SIG};
+ 108:Core/Src/Drivers/Src/usart.c ****     AO_Motor->postFromISR(AO_Motor, &motor_sended_event, &xHigherPriorityTaskWoken);
+ 109:Core/Src/Drivers/Src/usart.c ****   } else if(huart->Instance == USART3) {
+ 433              		.loc 1 109 10 is_stmt 1 view .LVU119
+ 434              		.loc 1 109 12 is_stmt 0 view .LVU120
+ 435 0010 114A     		ldr	r2, .L34+4
+ 436 0012 9342     		cmp	r3, r2
+ 437 0014 16D0     		beq	.L33
+ 438              	.LVL34:
+ 439              	.L29:
+ 110:Core/Src/Drivers/Src/usart.c ****     static const Event sensor_event = {.signal = SENSOR_SENDED_SIG};
+ 111:Core/Src/Drivers/Src/usart.c ****     AO_Computer->postFromISR(AO_Computer, &sensor_event, &xHigherPriorityTaskWoken);
+ 112:Core/Src/Drivers/Src/usart.c ****   }
+ 113:Core/Src/Drivers/Src/usart.c ****   portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
+ 440              		.loc 1 113 3 is_stmt 1 view .LVU121
+ 441              		.loc 1 113 3 view .LVU122
+ 442 0016 019B     		ldr	r3, [sp, #4]
+ 443 0018 4BB1     		cbz	r3, .L27
+ 444              		.loc 1 113 3 discriminator 1 view .LVU123
+ 445 001a 4FF0E023 		mov	r3, #-536813568
+ 446 001e 4FF08052 		mov	r2, #268435456
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s 			page 12
+
+
+ 447 0022 C3F8042D 		str	r2, [r3, #3332]
+ 448              		.loc 1 113 3 view .LVU124
+ 449              		.loc 1 113 3 is_stmt 0 discriminator 1 view .LVU125
+ 450              		.syntax unified
+ 451              	@ 113 "Core/Src/Drivers/Src/usart.c" 1
+ 452 0026 BFF34F8F 		dsb
+ 453              	@ 0 "" 2
+ 454              		.loc 1 113 3 is_stmt 1 view .LVU126
+ 455              		.loc 1 113 3 is_stmt 0 discriminator 1 view .LVU127
+ 456              	@ 113 "Core/Src/Drivers/Src/usart.c" 1
+ 457 002a BFF36F8F 		isb
+ 458              	@ 0 "" 2
+ 459              		.loc 1 113 3 is_stmt 1 discriminator 3 view .LVU128
+ 460              		.loc 1 113 3 discriminator 3 view .LVU129
+ 461              		.thumb
+ 462              		.syntax unified
+ 463              	.L27:
+ 114:Core/Src/Drivers/Src/usart.c **** }
+ 464              		.loc 1 114 1 is_stmt 0 view .LVU130
+ 465 002e 03B0     		add	sp, sp, #12
+ 466              	.LCFI9:
+ 467              		.cfi_remember_state
+ 468              		.cfi_def_cfa_offset 4
+ 469              		@ sp needed
+ 470 0030 5DF804FB 		ldr	pc, [sp], #4
+ 471              	.LVL35:
+ 472              	.L32:
+ 473              	.LCFI10:
+ 474              		.cfi_restore_state
+ 475              	.LBB5:
+ 107:Core/Src/Drivers/Src/usart.c ****     static const Event motor_sended_event = {.signal = COMMAND_SENDED_SIG};
+ 476              		.loc 1 107 5 is_stmt 1 view .LVU131
+ 108:Core/Src/Drivers/Src/usart.c ****   } else if(huart->Instance == USART3) {
+ 477              		.loc 1 108 5 view .LVU132
+ 108:Core/Src/Drivers/Src/usart.c ****   } else if(huart->Instance == USART3) {
+ 478              		.loc 1 108 13 is_stmt 0 view .LVU133
+ 479 0034 094B     		ldr	r3, .L34+8
+ 480 0036 1868     		ldr	r0, [r3]
+ 481              	.LVL36:
+ 108:Core/Src/Drivers/Src/usart.c ****   } else if(huart->Instance == USART3) {
+ 482              		.loc 1 108 13 view .LVU134
+ 483 0038 D0F8C830 		ldr	r3, [r0, #200]
+ 108:Core/Src/Drivers/Src/usart.c ****   } else if(huart->Instance == USART3) {
+ 484              		.loc 1 108 5 view .LVU135
+ 485 003c 01AA     		add	r2, sp, #4
+ 486 003e 0849     		ldr	r1, .L34+12
+ 487 0040 9847     		blx	r3
+ 488              	.LVL37:
+ 489              	.LBE5:
+ 490 0042 E8E7     		b	.L29
+ 491              	.LVL38:
+ 492              	.L33:
+ 493              	.LBB6:
+ 110:Core/Src/Drivers/Src/usart.c ****     static const Event sensor_event = {.signal = SENSOR_SENDED_SIG};
+ 494              		.loc 1 110 5 is_stmt 1 view .LVU136
+ 111:Core/Src/Drivers/Src/usart.c ****   }
+ 495              		.loc 1 111 5 view .LVU137
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s 			page 13
+
+
+ 111:Core/Src/Drivers/Src/usart.c ****   }
+ 496              		.loc 1 111 16 is_stmt 0 view .LVU138
+ 497 0044 074B     		ldr	r3, .L34+16
+ 498 0046 1868     		ldr	r0, [r3]
+ 499              	.LVL39:
+ 111:Core/Src/Drivers/Src/usart.c ****   }
+ 500              		.loc 1 111 16 view .LVU139
+ 501 0048 D0F8C830 		ldr	r3, [r0, #200]
+ 111:Core/Src/Drivers/Src/usart.c ****   }
+ 502              		.loc 1 111 5 view .LVU140
+ 503 004c 01AA     		add	r2, sp, #4
+ 504 004e 0649     		ldr	r1, .L34+20
+ 505 0050 9847     		blx	r3
+ 506              	.LVL40:
+ 507 0052 E0E7     		b	.L29
+ 508              	.L35:
+ 509              		.align	2
+ 510              	.L34:
+ 511 0054 00440040 		.word	1073759232
+ 512 0058 00480040 		.word	1073760256
+ 513 005c 00000000 		.word	AO_Motor
+ 514 0060 00000000 		.word	motor_sended_event.1
+ 515 0064 00000000 		.word	AO_Computer
+ 516 0068 00000000 		.word	sensor_event.0
+ 517              	.LBE6:
+ 518              		.cfi_endproc
+ 519              	.LFE290:
+ 521              		.section	.text.SendBuffer,"ax",%progbits
+ 522              		.align	1
+ 523              		.global	SendBuffer
+ 524              		.syntax unified
+ 525              		.thumb
+ 526              		.thumb_func
+ 528              	SendBuffer:
+ 529              	.LVL41:
+ 530              	.LFB291:
+ 115:Core/Src/Drivers/Src/usart.c **** 
+ 116:Core/Src/Drivers/Src/usart.c **** void SendBuffer(UART_HandleTypeDef *huart, char* buffer) {
+ 531              		.loc 1 116 58 is_stmt 1 view -0
+ 532              		.cfi_startproc
+ 533              		@ args = 0, pretend = 0, frame = 0
+ 534              		@ frame_needed = 0, uses_anonymous_args = 0
+ 535              		.loc 1 116 58 is_stmt 0 view .LVU142
+ 536 0000 38B5     		push	{r3, r4, r5, lr}
+ 537              	.LCFI11:
+ 538              		.cfi_def_cfa_offset 16
+ 539              		.cfi_offset 3, -16
+ 540              		.cfi_offset 4, -12
+ 541              		.cfi_offset 5, -8
+ 542              		.cfi_offset 14, -4
+ 543 0002 0546     		mov	r5, r0
+ 544 0004 0C46     		mov	r4, r1
+ 117:Core/Src/Drivers/Src/usart.c ****   uint64_t length = strlen(buffer);
+ 545              		.loc 1 117 3 is_stmt 1 view .LVU143
+ 546              		.loc 1 117 21 is_stmt 0 view .LVU144
+ 547 0006 0846     		mov	r0, r1
+ 548              	.LVL42:
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s 			page 14
+
+
+ 549              		.loc 1 117 21 view .LVU145
+ 550 0008 FFF7FEFF 		bl	strlen
+ 551              	.LVL43:
+ 118:Core/Src/Drivers/Src/usart.c ****   HAL_UART_Transmit_IT(huart, (uint8_t*) buffer, length);
+ 552              		.loc 1 118 3 is_stmt 1 view .LVU146
+ 553 000c 82B2     		uxth	r2, r0
+ 554 000e 2146     		mov	r1, r4
+ 555 0010 2846     		mov	r0, r5
+ 556              	.LVL44:
+ 557              		.loc 1 118 3 is_stmt 0 view .LVU147
+ 558 0012 FFF7FEFF 		bl	HAL_UART_Transmit_IT
+ 559              	.LVL45:
+ 119:Core/Src/Drivers/Src/usart.c **** }
+ 560              		.loc 1 119 1 view .LVU148
+ 561 0016 38BD     		pop	{r3, r4, r5, pc}
+ 562              		.loc 1 119 1 view .LVU149
+ 563              		.cfi_endproc
+ 564              	.LFE291:
+ 566              		.section	.rodata.sensor_event.0,"a"
+ 567              		.align	2
+ 570              	sensor_event.0:
+ 571 0000 0400     		.short	4
+ 572              		.section	.rodata.motor_sended_event.1,"a"
+ 573              		.align	2
+ 576              	motor_sended_event.1:
+ 577 0000 0500     		.short	5
+ 578              		.section	.bss.stateTopic.2,"aw",%nobits
+ 579              		.align	2
+ 582              	stateTopic.2:
+ 583 0000 00000000 		.space	120
+ 583      00000000 
+ 583      00000000 
+ 583      00000000 
+ 583      00000000 
+ 584              		.global	recivedMsg
+ 585              		.section	.data.recivedMsg,"aw"
+ 586              		.align	2
+ 589              	recivedMsg:
+ 590 0000 00000000 		.space	10
+ 590      00000000 
+ 590      0000
+ 591 000a 0A       		.byte	10
+ 592 000b 00       		.byte	0
+ 593 000c 00       		.byte	0
+ 594              		.text
+ 595              	.Letext0:
+ 596              		.file 2 "D:/DATN/00_MainFolder/00_FirmwaveSTM32/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eab
+ 597              		.file 3 "D:/DATN/00_MainFolder/00_FirmwaveSTM32/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-eab
+ 598              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h"
+ 599              		.file 5 "D:/DATN/00_MainFolder/00_FirmwaveSTM32/InvertedPendulum/Tool/ArmGnuToolchain/lib/gcc/arm-
+ 600              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 601              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 602              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
+ 603              		.file 9 "Middlewares/Third_Party/ARM/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h"
+ 604              		.file 10 "Middlewares/Third_Party/ARM/FreeRTOS/include/FreeRTOS.h"
+ 605              		.file 11 "Middlewares/Third_Party/ARM/FreeRTOS/include/task.h"
+ 606              		.file 12 "Middlewares/Third_Party/ARM/FreeRTOS/include/queue.h"
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s 			page 15
+
+
+ 607              		.file 13 "Middlewares/ST/ARM/DSP/Inc/arm_math.h"
+ 608              		.file 14 "Core/Src/Application/Inc/Topic.h"
+ 609              		.file 15 "Core/Src/Application/Inc/ActiveObject.h"
+ 610              		.file 16 "Core/Src/Application/Inc/Motor.h"
+ 611              		.file 17 "D:/DATN/00_MainFolder/00_FirmwaveSTM32/InvertedPendulum/Tool/ArmGnuToolchain/arm-none-ea
+ 612              		.file 18 "Core/Src/Application/Inc/Computer.h"
+ 613              		.file 19 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 614              		.file 20 "<built-in>"
+ARM GAS  C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s 			page 16
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 usart.c
-C:\Users\CuongLe\AppData\Local\Temp\cckQqBXy.s:21     .text.HAL_UART_TxCpltCallback:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\cckQqBXy.s:27     .text.HAL_UART_TxCpltCallback:00000000 HAL_UART_TxCpltCallback
-C:\Users\CuongLe\AppData\Local\Temp\cckQqBXy.s:131    .text.HAL_UART_TxCpltCallback:00000054 $d
-C:\Users\CuongLe\AppData\Local\Temp\cckQqBXy.s:196    .rodata.motor_sended_event.1:00000000 motor_sended_event.1
-C:\Users\CuongLe\AppData\Local\Temp\cckQqBXy.s:190    .rodata.sensor_event.0:00000000 sensor_event.0
-C:\Users\CuongLe\AppData\Local\Temp\cckQqBXy.s:142    .text.SendBuffer:00000000 $t
-C:\Users\CuongLe\AppData\Local\Temp\cckQqBXy.s:148    .text.SendBuffer:00000000 SendBuffer
-C:\Users\CuongLe\AppData\Local\Temp\cckQqBXy.s:187    .rodata.sensor_event.0:00000000 $d
-C:\Users\CuongLe\AppData\Local\Temp\cckQqBXy.s:193    .rodata.motor_sended_event.1:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:21     .text.ExtractMessage:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:26     .text.ExtractMessage:00000000 ExtractMessage
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:170    .text.ExtractMessage:00000088 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:178    .text.HAL_UART_RxCpltCallback:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:184    .text.HAL_UART_RxCpltCallback:00000000 HAL_UART_RxCpltCallback
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:391    .text.HAL_UART_RxCpltCallback:000000cc $d
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:589    .data.recivedMsg:00000000 recivedMsg
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:582    .bss.stateTopic.2:00000000 stateTopic.2
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:401    .text.HAL_UART_TxCpltCallback:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:407    .text.HAL_UART_TxCpltCallback:00000000 HAL_UART_TxCpltCallback
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:511    .text.HAL_UART_TxCpltCallback:00000054 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:576    .rodata.motor_sended_event.1:00000000 motor_sended_event.1
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:570    .rodata.sensor_event.0:00000000 sensor_event.0
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:522    .text.SendBuffer:00000000 $t
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:528    .text.SendBuffer:00000000 SendBuffer
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:567    .rodata.sensor_event.0:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:573    .rodata.motor_sended_event.1:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:579    .bss.stateTopic.2:00000000 $d
+C:\Users\CuongLe\AppData\Local\Temp\ccJg8FBQ.s:586    .data.recivedMsg:00000000 $d
 
 UNDEFINED SYMBOLS
+__aeabi_f2d
+__aeabi_dmul
+__aeabi_d2f
+HAL_UART_Receive_IT
+HAL_GPIO_TogglePin
+xQueueGenericSendFromISR
+memset
+rxByte
+motor
 AO_Motor
 AO_Computer
 strlen

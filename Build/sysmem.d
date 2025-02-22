@@ -1,1 +1,1 @@
-Build/sysmem.o: Core/Src/sysmem.c
+build/sysmem.o: Core/Src/sysmem.c

@@ -6,6 +6,8 @@ extern struct Estimator * estimator;
 extern struct Active * AO_Motor;
 extern struct Motor * motor;
 
+Sensor sensorTopic;
+
 /**
   * @brief  Input Capture callback in non-blocking mode
   * @param  htim TIM IC handle
@@ -15,15 +17,13 @@ extern struct Motor * motor;
   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 
   if(htim->Instance == TIM2) {
-    Encoder encoderTopic;
-
-    encoderTopic.motorCnt = (int32_t)((uint32_t)__HAL_TIM_GET_COUNTER(htim));
-    estimator->publicFromISR(estimator->encoderSubsriber, &encoderTopic, &xHigherPriorityTaskWoken);
+    sensorTopic.motorCnt = (int32_t)((uint32_t)__HAL_TIM_GET_COUNTER(htim));
+    estimator->publicFromISR(estimator->sensorSubsribers, &sensorTopic, &xHigherPriorityTaskWoken);
   }
-
-  // else if(htim->Instance == TIM3) {
-    
-  // }
+  else if(htim->Instance == TIM3) { // Đọc encoder của pendulum
+    sensorTopic.motorCnt = (int16_t)((uint32_t)__HAL_TIM_GET_COUNTER(htim));
+    estimator->publicFromISR(estimator->sensorSubsribers, &sensorTopic, &xHigherPriorityTaskWoken);
+  }
 
   portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
 }

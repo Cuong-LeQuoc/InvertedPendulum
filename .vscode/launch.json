@@ -6,7 +6,7 @@
     "configurations": [
         {
             "cwd": "${workspaceRoot}",
-            "executable": "./Build/InvertedPendulum.elf",
+            "executable": "./build/InvertedPendulum.elf",
             "gdbPath": "./Tool/ArmGnuToolchain/bin/arm-none-eabi-gdb",
             "name": "Debug with OpenOCD",
             "request": "launch",
